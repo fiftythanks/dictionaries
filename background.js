@@ -46,49 +46,6 @@ let settings = {
   },
 };
 
-// Sync settings
-(async () => {
-  try {
-    // If the promise is rejected, the program will jump to the catch block and the default settings won't change
-    const retrieved = await browser.storage.sync.get({
-      'cambridge-dictionary': {
-        contextMenu: true,
-      },
-      vocabulary: {
-        contextMenu: true,
-      },
-      'merriam-webster': {
-        contextMenu: false,
-      },
-      collins: {
-        contextMenu: false,
-      },
-      wiktionary: {
-        contextMenu: true,
-      },
-      dictionary: {
-        contextMenu: false,
-      },
-      thesaurus: {
-        contextMenu: false,
-      },
-      thefreedictionary: {
-        contextMenu: false,
-      },
-      cube: {
-        contextMenu: false,
-      },
-    });
-    const resIDs = Object.keys(settings.resources);
-    const resources = settings.resources;
-    for (let resID of resIDs) {
-      resources[resID].contextMenu = retrieved[resID].contextMenu;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-})();
-
 function createItem(resID) {
   const res = settings.resources[resID];
 
@@ -126,23 +83,63 @@ function toggleItem(resID) {
   }
 }
 
-// REMOVE ON RELEASE
-// -------------------------------------------------
-window.createItem = createItem;
-window.removeItem = removeItem;
-window.toggleItem = toggleItem;
-
-// -------------------------------------------------
-
+// Sync settings
 (async () => {
+  const resIDs = Object.keys(settings.resources);
   const resources = settings.resources;
-  const resIDs = Object.keys(resources);
+
+  // If the promise is rejected, the program will jump to the catch block and the default settings won't change
+  try {
+    const retrieved = await browser.storage.sync.get({
+      'cambridge-dictionary': {
+        contextMenu: true,
+      },
+      vocabulary: {
+        contextMenu: true,
+      },
+      'merriam-webster': {
+        contextMenu: false,
+      },
+      collins: {
+        contextMenu: false,
+      },
+      wiktionary: {
+        contextMenu: true,
+      },
+      dictionary: {
+        contextMenu: false,
+      },
+      thesaurus: {
+        contextMenu: false,
+      },
+      thefreedictionary: {
+        contextMenu: false,
+      },
+      cube: {
+        contextMenu: false,
+      },
+    });
+    for (let resID of resIDs) {
+      resources[resID].contextMenu = retrieved[resID].contextMenu;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  // Create context menu items
   for await (let resID of resIDs) {
     if (resources[resID].contextMenu === true) {
       createItem(resID);
     }
   }
 })();
+
+// REMOVE ON RELEASE
+// -------------------------------------------------
+window.createItem = createItem;
+window.removeItem = removeItem;
+window.toggleItem = toggleItem;
+// -------------------------------------------------
 
 /*
 The click event listener, where we perform the appropriate action given the
