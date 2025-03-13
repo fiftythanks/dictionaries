@@ -370,6 +370,9 @@ function chooseResource(info, tab) {
           url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
       }
       break;
+    case 'vocabulary':
+      url = `https://www.vocabulary.com/dictionary/${word}`;
+      break;
     default:
     // do nothing
   }
