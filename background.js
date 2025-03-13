@@ -67,12 +67,15 @@ let settings = {
             'en-ur',
           ],
         },
+        other: ['grammar', 'thesaurus', 'pronunciation'],
       },
       type: 'english',
       setType(type) {
+        const dictionaries = this.types.dictionaries;
         if (
-          this.types.dictionaries.definitions.includes(type) ||
-          this.types.dictionaries.translation.includes(type)
+          dictionaries.definitions.includes(type) ||
+          dictionaries.translation.includes(type) ||
+          this.types.other.includes(type)
         ) {
           this.type = type;
           browser.storage.sync
@@ -353,6 +356,15 @@ function chooseResource(info, tab) {
           break;
         case 'en-ur':
           url = `https://dictionary.cambridge.org/search/english-urdu/direct/?q=${word}`;
+          break;
+        case 'grammar':
+          url = `https://dictionary.cambridge.org/search/british-grammar/direct/?q=${word}`;
+          break;
+        case 'thesaurus':
+          url = `https://dictionary.cambridge.org/search/thesaurus/direct/?q=${word}`;
+          break;
+        case 'pronunciation':
+          url = `https://dictionary.cambridge.org/search/pronunciation/direct/?q=${word}`;
           break;
         default:
           url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
