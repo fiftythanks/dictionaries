@@ -11,101 +11,78 @@ let settings = {
       contextMenu: true,
       name: 'Cambridge Dictionary',
       // For reference
-      types: {
-        dictionaries: {
-          definitions: [
-            'english',
-            'learner',
-            'essential-american',
-            'essential-british',
-          ],
-          // ISO-639 language codes
-          translation: [
-            'en-zh-simp',
-            'zh-simp-en',
-            'en-zh-trad',
-            'zh-trad-en',
-            'en-nl',
-            'nl-en',
-            'en-fr',
-            'fr-en',
-            'en-de',
-            'de-en',
-            'en-id',
-            'id-en',
-            'en-it',
-            'it-en',
-            'en-no',
-            'no-en',
-            'en-pt',
-            'pt-en',
-            'en-sv',
-            'sv-en',
-            'en-bn',
-            'en-cz',
-            'en-gu',
-            'en-ko',
-            'en-mr',
-            'en-ta',
-            'en-th',
-            'en-uk',
-            'en-vi',
-            'en-ja',
-            'ja-en',
-            'en-pl',
-            'pl-en',
-            'en-es',
-            'es-en',
-            'en-ar',
-            'en-ca',
-            'en-da',
-            'en-hi',
-            'en-ms',
-            'en-ru',
-            'en-te',
-            'en-tr',
-            'en-ur',
-          ],
-        },
-        other: ['grammar', 'thesaurus', 'pronunciation'],
-      },
+      types: [
+        // Definitions
+        'english',
+        'learner',
+        'essential-american',
+        'essential-british',
+
+        // Translation (ISO-639 language codes)
+        'en-zh-simp',
+        'zh-simp-en',
+        'en-zh-trad',
+        'zh-trad-en',
+        'en-nl',
+        'nl-en',
+        'en-fr',
+        'fr-en',
+        'en-de',
+        'de-en',
+        'en-id',
+        'id-en',
+        'en-it',
+        'it-en',
+        'en-no',
+        'no-en',
+        'en-pt',
+        'pt-en',
+        'en-sv',
+        'sv-en',
+        'en-bn',
+        'en-cz',
+        'en-gu',
+        'en-ko',
+        'en-mr',
+        'en-ta',
+        'en-th',
+        'en-uk',
+        'en-vi',
+        'en-ja',
+        'ja-en',
+        'en-pl',
+        'pl-en',
+        'en-es',
+        'es-en',
+        'en-ar',
+        'en-ca',
+        'en-da',
+        'en-hi',
+        'en-ms',
+        'en-ru',
+        'en-te',
+        'en-tr',
+        'en-ur',
+
+        // Other
+        'grammar',
+        'thesaurus',
+        'pronunciation',
+      ],
       type: 'english',
       setType(type) {
-        const dictionaries = this.types.dictionaries;
-        if (
-          dictionaries.definitions.includes(type) ||
-          dictionaries.translation.includes(type) ||
-          this.types.other.includes(type)
-        ) {
+        if (this.types.includes(type)) {
           this.type = type;
           browser.storage.sync
             .set({ 'cambridge-dictionaryType': type })
             .then(console.log('Type set successfuly.'), console.log);
         } else {
-          console.error(
-            'Unrecognized type. The default type has been set instead.'
-          );
-          this.type = 'english';
-          browser.storage.sync
-            .set({ 'cambridge-dictionaryType': 'english' })
-            .catch(console.log);
+          console.error('Unrecognized type.');
         }
       },
       reset() {
-        this.type = 'english';
-        browser.storage.sync
-          .set({ 'cambridge-dictionaryType': 'english' })
-          .then(console.log("cambridge-dictionary's type is successfuly reset"))
-          .catch(console.log);
-        this.contextMenu = true;
-        browser.storage.sync
-          .set({ 'cambridge-dictionaryContextMenu': true })
-          .then(
-            console.log(
-              "cambridge-dictionary's contextMenu is successfuly reset"
-            )
-          )
-          .catch(console.log);
+        createItem('cambridge-dictionary');
+        this.setType('english');
       },
     },
     vocabulary: {
@@ -122,23 +99,115 @@ let settings = {
     'merriam-webster': {
       contextMenu: false,
       name: 'Merriam-Webster',
+      types: ['dictionary', 'thesaurus'],
+      type: 'dictionary',
+      setType(type) {
+        if (this.types.includes(type)) {
+          this.type = type;
+          browser.storage.sync
+            .set({ 'merriam-websterType': type })
+            .then(console.log('Type set successfuly.'), console.log);
+        } else {
+          console.error('Unrecognized type.');
+        }
+      },
       reset() {
-        this.contextMenu = false;
-        browser.storage.sync
-          .set({ 'merriam-websterContextMenu': false })
-          .then(console.log('merriam-webster is successfuly reset'))
-          .catch(console.log);
+        removeItem('merriam-webster');
+        this.setType('dictionary');
       },
     },
     collins: {
       contextMenu: false,
       name: 'Collins',
+      types: [
+        // English
+        'en-definitions',
+        'en-summary',
+        'en-synonyms',
+        'en-sentences',
+        'en-pronunciation',
+        'en-collocations',
+        'en-conjugations',
+        'en-grammar',
+
+        // American
+        'en-us-definitions',
+        'en-us-summary',
+        'en-us-synonyms',
+        'en-us-sentences',
+        'en-us-pronunciation',
+        'en-us-collocations',
+        'en-us-conjugations',
+        'en-us-grammar',
+
+        // French
+        'en-fr',
+        'fr-en',
+        'fr-grammar',
+        'fr-pronunciation',
+        'fr-conjugations',
+        'fr-sentences',
+
+        // German
+        'en-de',
+        'de-en',
+        'de-grammar',
+        'de-conjugations',
+        'de-sentences',
+
+        // Italian
+        'en-it',
+        'it-en',
+        'it-grammar',
+        'it-conjugations',
+        'it-sentences',
+
+        // Spanish
+        'en-es',
+        'es-en',
+        'es-grammar',
+        'es-pronunciation',
+        'es-conjugations',
+        'es-sentences',
+
+        // Portuguese
+        'en-pt',
+        'pt-en',
+        'pt-grammar',
+        'pt-conjugations',
+
+        // Hindi
+        'en-hi',
+        'hi-en',
+
+        // Chinese
+        'en-zh',
+        'zh-en',
+        'en-zh-trad',
+        'zh-trad-en',
+
+        // Korean
+        'en-ko',
+        'ko-en',
+
+        // Japanese
+        'en-ja',
+        'ja-en',
+      ],
+      type: 'en-definitions ',
+      setType(type) {
+        if (this.types.includes(type)) {
+          this.type = type;
+          browser.storage.sync
+            .set({ collinsType: type })
+            .then(console.log('Type set successfuly.'), console.log);
+        } else {
+          console.error('Unrecognized type.');
+        }
+      },
       reset() {
-        this.contextMenu = false;
-        browser.storage.sync
-          .set({ collinsContextMenu: false })
-          .then(console.log('collins is successfuly reset'))
-          .catch(console.log);
+        removeItem('collins');
+        this.setType('en-definitions');
       },
     },
     wiktionary: {
@@ -208,11 +277,12 @@ let settings = {
 };
 
 function chooseResource(info, tab) {
+  const resources = settings.resources;
   const word = encodeURI(info.selectionText);
   let url;
   switch (info.menuItemId) {
     case 'cambridge-dictionary':
-      switch (settings.resources['cambridge-dictionary'].type) {
+      switch (resources['cambridge-dictionary'].type) {
         case 'english':
           url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
           break;
@@ -373,8 +443,182 @@ function chooseResource(info, tab) {
     case 'vocabulary':
       url = `https://www.vocabulary.com/dictionary/${word}`;
       break;
+    case 'merriam-webster':
+      switch (resources['merriam-webster'].type) {
+        case 'dictionary':
+          url = `https://www.merriam-webster.com/dictionary/${word}`;
+          break;
+        case 'thesaurus':
+          url = `https://www.merriam-webster.com/thesaurus/${word}`;
+          break;
+        default:
+          url = `https://www.merriam-webster.com/dictionary/${word}`;
+      }
+      break;
+    case 'collins':
+      switch (resources.collins.type) {
+        case 'en-definitions':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english&q=${word}`;
+          break;
+        case 'en-summary':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-word&q=${word}`;
+          break;
+        case 'en-synonyms':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-thesaurus&q=${word}`;
+          break;
+        case 'en-sentences':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-sentences&q=${word}`;
+          break;
+        case 'en-pronunciation':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-pronunciations&q=${word}`;
+          break;
+        case 'en-collocations':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-collocations&q=${word}`;
+          break;
+        case 'en-conjugations':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-conjugation&q=${word}`;
+          break;
+        case 'en-grammar':
+          url = `https://www.collinsdictionary.com/search/?dictCode=elt-grammar&q=${word}`;
+          break;
+        case 'en-us-definitions':
+          url = `https://www.collinsdictionary.com/us/search/?dictCode=english&q=${word}`;
+          break;
+        case 'en-us-summary':
+          url = `https://www.collinsdictionary.com/us/search/?dictCode=english-word&q=${word}`;
+          break;
+        case 'en-us-synonyms':
+          url = `https://www.collinsdictionary.com/us/search/?dictCode=english-thesaurus&q=${word}`;
+          break;
+        case 'en-us-sentences':
+          url = `https://www.collinsdictionary.com/us/search/?dictCode=english-sentences&q=${word}`;
+          break;
+        case 'en-us-pronunciation':
+          url = `https://www.collinsdictionary.com/us/search/?dictCode=english-pronunciations&q=${word}`;
+          break;
+        case 'en-us-collocations':
+          url = `https://www.collinsdictionary.com/us/search/?dictCode=english-collocations&q=${word}`;
+          break;
+        case 'en-us-conjugations':
+          url = `https://www.collinsdictionary.com/us/search/?dictCode=english-conjugation&q=${word}`;
+          break;
+        case 'en-us-grammar':
+          url = `https://www.collinsdictionary.com/us/search/?dictCode=elt-grammar&q=${word}`;
+          break;
+        case 'en-fr':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-french&q=${word}`;
+          break;
+        case 'fr-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=french-english&q=${word}`;
+          break;
+        case 'fr-grammar':
+          url = `https://www.collinsdictionary.com/search/?dictCode=grammar-elf&q=${word}`;
+          break;
+        case 'fr-pronunciation':
+          url = `https://www.collinsdictionary.com/search/?dictCode=grammar-pron-guide-fr&q=${word}`;
+          break;
+        case 'fr-conjugations':
+          url = `https://www.collinsdictionary.com/search/?dictCode=french-conjugation&q=${word}`;
+          break;
+        case 'fr-sentences':
+          url = `https://www.collinsdictionary.com/search/?dictCode=french-sentences&q=${word}`;
+          break;
+        case 'en-de':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-german&q=${word}`;
+          break;
+        case 'de-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=german-english&q=${word}`;
+          break;
+        case 'de-grammar':
+          url = `https://www.collinsdictionary.com/search/?dictCode=grammar-elg&q=${word}`;
+          break;
+        case 'de-conjugations':
+          url = `https://www.collinsdictionary.com/search/?dictCode=german-conjugation&q=${word}`;
+          break;
+        case 'de-sentences':
+          url = `https://www.collinsdictionary.com/search/?dictCode=german-sentences&q=${word}`;
+          break;
+        case 'en-it':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-italian&q=${word}`;
+          break;
+        case 'it-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=italian-english&q=${word}`;
+          break;
+        case 'it-grammar':
+          url = `https://www.collinsdictionary.com/search/?dictCode=grammar-eli&q=${word}`;
+          break;
+        case 'it-conjugations':
+          url = `https://www.collinsdictionary.com/search/?dictCode=italian-conjugation&q=${word}`;
+          break;
+        case 'it-sentences':
+          url = `https://www.collinsdictionary.com/search/?dictCode=italian-sentences&q=${word}`;
+          break;
+        case 'en-es':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-spanish&q=${word}`;
+          break;
+        case 'es-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=spanish-english&q=${word}`;
+          break;
+        case 'es-grammar':
+          url = `https://www.collinsdictionary.com/search/?dictCode=grammar-els&q=${word}`;
+          break;
+        case 'es-pronunciation':
+          url = `https://www.collinsdictionary.com/search/?dictCode=grammar-pron-guide&q=${word}`;
+          break;
+        case 'es-conjugations':
+          url = `https://www.collinsdictionary.com/search/?dictCode=spanish-conjugation&q=${word}`;
+          break;
+        case 'es-sentences':
+          url = `https://www.collinsdictionary.com/search/?dictCode=spanish-sentences&q=${word}`;
+          break;
+        case 'en-pt':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-portuguese&q=${word}`;
+          break;
+        case 'pt-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=portuguese-english&q=${word}`;
+          break;
+        case 'pt-grammar':
+          url = `https://www.collinsdictionary.com/search/?dictCode=grammar-elp&q=${word}`;
+          break;
+        case 'pt-conjugations':
+          url = `https://www.collinsdictionary.com/search/?dictCode=portuguese-conjugation&q=${word}`;
+          break;
+        case 'en-hi':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-hindi&q=${word}`;
+          break;
+        case 'hi-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=hindi-english&q=${word}`;
+          break;
+        case 'en-zh':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-chinese&q=${word}`;
+          break;
+        case 'zh-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=chinese-english&q=${word}`;
+          break;
+        case 'en-zh-trad':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-chinese_traditional&q=${word}`;
+          break;
+        case 'zh-trad-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=chinese_traditional-english&q=${word}`;
+          break;
+        case 'en-ko':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-korean&q=${word}`;
+          break;
+        case 'ko-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=korean-english&q=${word}`;
+          break;
+        case 'en-ja':
+          url = `https://www.collinsdictionary.com/search/?dictCode=english-japanese&q=${word}`;
+          break;
+        case 'ja-en':
+          url = `https://www.collinsdictionary.com/search/?dictCode=japanese-english&q=${word}`;
+          break;
+        default:
+          url = `https://www.collinsdictionary.com/search/?dictCode=english&q=${word}`;
+      }
+      break;
     default:
-    // do nothing
+      url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
   }
   const width = 750;
   const height = 650;
