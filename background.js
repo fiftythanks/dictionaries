@@ -674,6 +674,7 @@ function toggleItem(resID) {
 }
 
 // Sync settings
+// Make sync an option, not a default <------------------------------------
 (async () => {
   const resIDs = Object.keys(settings.resources);
   const resources = settings.resources;
@@ -690,9 +691,11 @@ function toggleItem(resID) {
 
       // Merriam-Webster
       'merriam-websterContextMenu': null,
+      'merriam-websterType': null,
 
       // Collins
       collinsContextMenu: null,
+      collinsType: null,
 
       // Wiktionary
       wiktionaryContextMenu: null,
@@ -708,12 +711,21 @@ function toggleItem(resID) {
 
       // CUBE
       cubeContextMenu: null,
+
+      // YouGlish
     });
     for (let resID of resIDs) {
       const res = resources[resID];
       const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
-      if (retrievedContextMenu) res.contextMenu = retrievedContextMenu;
-      if (resID === 'cambridge-dictionary') {
+      if (retrievedContextMenu != null) res.contextMenu = retrievedContextMenu;
+      if (
+        [
+          'cambridge-dictionary',
+          'vocabulary',
+          'merriam-webster',
+          'collins',
+        ].includes(resID)
+      ) {
         const retrievedType = retrieved[`${resID}Type`];
         if (retrievedType) res.type = retrievedType;
       }
