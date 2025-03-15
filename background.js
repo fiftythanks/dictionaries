@@ -213,58 +213,105 @@ let settings = {
     wiktionary: {
       contextMenu: true,
       name: 'Wiktionary',
+      // ISO-639 language codes
+      types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
+      type: 'en',
+      setType(type) {
+        if (this.types.includes(type)) {
+          this.type = type;
+          browser.storage.sync
+            .set({ wiktionaryType: type })
+            .then(console.log('Type set successfuly.'), console.log);
+        } else {
+          console.error('Unrecognized type.');
+        }
+      },
       reset() {
-        this.contextMenu = true;
-        browser.storage.sync
-          .set({ wiktionaryContextMenu: true })
-          .then(console.log('wiktionary is successfuly reset'))
-          .catch(console.log);
+        createItem('wiktionary');
+        this.setType('en');
       },
     },
     dictionary: {
       contextMenu: false,
       name: 'Dictionary.com',
       reset() {
-        this.contextMenu = false;
-        browser.storage.sync
-          .set({ dictionaryContextMenu: false })
-          .then(console.log('dictionary is successfuly reset'))
-          .catch(console.log);
+        removeItem('dictionary');
       },
     },
     thesaurus: {
       contextMenu: false,
       name: 'Thesaurus.com',
       reset() {
-        this.contextMenu = false;
-        browser.storage.sync
-          .set({ thesaurusContextMenu: false })
-          .then(console.log('thesaurus is successfuly reset.'))
-          .catch(console.log);
+        removeItem('thesaurus');
       },
     },
     thefreedictionary: {
       contextMenu: false,
       name: 'The Free Dictionary',
+      types: [
+        'dictionary',
+        'thesaurus',
+        'medical',
+        'legal',
+        'financial',
+        'acronyms',
+        'idioms',
+        'encyclopedia',
+        'wikipedia',
+      ],
+      type: 'dictionary',
+      setType(type) {
+        if (this.types.includes(type)) {
+          this.type = type;
+          browser.storage.sync
+            .set({ thefreedictionaryType: type })
+            .then(console.log('Type set successfuly.'), console.log);
+        } else {
+          console.error('Unrecognized type.');
+        }
+      },
+      options: ['word', 'startsWith', 'endsWith', 'text'],
+      option: 'word',
+      setOption(option) {
+        if (this.options.includes(option)) {
+          this.option = option;
+          browser.storage.sync
+            .set({ thefreedictionaryOption: option })
+            .then(console.log('Option set successfuly.'), console.log);
+        } else {
+          console.error('Unrecognized option.');
+        }
+      },
       reset() {
-        this.contextMenu = false;
-        browser.storage.sync
-          .set({ thefreedictionaryContextMenu: false })
-          .then(console.log('thefreedictionary is successfuly reset.'))
-          .catch(console.log);
+        removeItem('thefreedictionary');
+        this.setType('dictionary');
+        this.setOption('word');
       },
     },
-    cube: {
-      contextMenu: false,
-      name: 'CUBE',
-      reset() {
-        this.contextMenu = false;
-        browser.storage.sync
-          .set({ cube: false })
-          .then(console.log('cube is successfuly reset.'))
-          .catch(console.log);
-      },
-    },
+    // Add CUBE, YouGlish and Wikipedia later
+    // cube: {
+    //   contextMenu: false,
+    //   name: 'CUBE',
+    //   types: ['spell', 'sound'],
+    //   type: 'spell',
+    //   setType(type) {
+    //     if (this.types.includes(type)) {
+    //       this.type = type;
+    //       browser.storage.sync
+    //         .set({ cubeType: type })
+    //         .then(console.log('Type set successfuly.'), console.log);
+    //     } else {
+    //       console.error('Unrecognized type.');
+    //     }
+    //   },
+    //   options: {},
+    //   reset() {
+    //     removeItem('cube');
+    //     this.setType('spell');
+    //   },
+    // },
+    // youglish: {},
+    // wikipedia: {},
     async reset() {
       for (let res in this) {
         if (res !== 'reset') this[res].reset();
@@ -617,6 +664,101 @@ function chooseResource(info, tab) {
           url = `https://www.collinsdictionary.com/search/?dictCode=english&q=${word}`;
       }
       break;
+    case 'wiktionary':
+      switch (resources.wiktionary.type) {
+        case 'en':
+          url = `https://en.wiktionary.org/w/index.php?search=${word}&title=Special:Search&wprov=acrw1_-1`;
+          break;
+        case 'fr':
+          url = `https://fr.wiktionary.org/w/index.php?search=${word}&title=Spécial:Recherche&wprov=acrw1_-1`;
+          break;
+        case 'de':
+          url = `https://de.wiktionary.org/w/index.php?search=${word}&title=Spezial:Suche&wprov=acrw1_-1`;
+          break;
+        case 'pl':
+          url = `https://pl.wiktionary.org/w/index.php?search=${word}&title=Specjalna:Szukaj&wprov=acrw1_-1`;
+          break;
+        case 'ja':
+          url = `https://ja.wiktionary.org/w/index.php?search=${word}&title=特別:検索&wprov=acrw1_-1`;
+          break;
+        case 'sv':
+          url = `https://sv.wiktionary.org/w/index.php?search=${word}&title=Special:Sök&wprov=acrw1_-1`;
+          break;
+        case 'es':
+          url = `https://es.wiktionary.org/w/index.php?search=${word}&title=Especial:Buscar&wprov=acrw1_-1`;
+          break;
+        case 'zh':
+          url = `https://zh.wiktionary.org/w/index.php?search=${word}&title=Special:搜索&wprov=acrw1_-1`;
+          break;
+        case 'el':
+          url = `https://el.wiktionary.org/w/index.php?search=${word}&title=Ειδικό:Αναζήτηση&wprov=acrw1_-1`;
+          break;
+        case 'ru':
+          url = `https://ru.wiktionary.org/w/index.php?search=${word}&title=Служебная:Поиск&wprov=acrw1_-1`;
+          break;
+        default:
+          url = `https://en.wiktionary.org/w/index.php?search=${word}&title=Special:Search&wprov=acrw1_-1`;
+      }
+      break;
+    case 'dictionary':
+      url = `https://www.dictionary.com/browse/${word}`;
+      break;
+    case 'thesaurus':
+      url = `https://www.thesaurus.com/browse/${word}`;
+      break;
+    case 'thefreedictionary':
+      const thefreedictionary = resources.thefreedictionary;
+      let option;
+      switch (thefreedictionary.option) {
+        case 'word':
+          option = 0;
+          break;
+        case 'startsWith':
+          option = 1;
+          break;
+        case 'endsWith':
+          option = 2;
+          break;
+        case 'text':
+          option = 3;
+          break;
+        default:
+          option = 0;
+      }
+      switch (thefreedictionary.type) {
+        case 'dictionary':
+          url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        case 'thesaurus':
+          url = `https://www.freethesaurus.com/_/search.aspx?tab=2048&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        case 'medical':
+          url = `https://medical-dictionary.thefreedictionary.com/_/search.aspx?tab=4&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        case 'legal':
+          url = `https://legal-dictionary.thefreedictionary.com/_/search.aspx?tab=2&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        case 'financial':
+          url = `https://financial-dictionary.thefreedictionary.com/_/search.aspx?tab=256&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        case 'acronyms':
+          url = `https://acronyms.thefreedictionary.com/_/search.aspx?tab=32&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        case 'idioms':
+          url = `https://idioms.thefreedictionary.com/_/search.aspx?tab=1024&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        case 'encyclopedia':
+          url = `https://encyclopedia2.thefreedictionary.com/_/search.aspx?tab=8&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        case 'wikipedia':
+          url = `https://encyclopedia.thefreedictionary.com/_/search.aspx?tab=16&SearchBy=0&Word=${word}&TFDBy=${option}`;
+          break;
+        default:
+          url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
+      }
+      break;
+    // case 'cube':
+    // case 'youglish':
     default:
       url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
   }
@@ -699,6 +841,7 @@ function toggleItem(resID) {
 
       // Wiktionary
       wiktionaryContextMenu: null,
+      wiktionaryType: null,
 
       // Dictionary.com
       dictionaryContextMenu: null,
@@ -708,9 +851,11 @@ function toggleItem(resID) {
 
       // The Free Dictionary
       thefreedictionaryContextMenu: null,
+      thefreedictionaryType: null,
+      thefreedictionaryOption: null,
 
       // CUBE
-      cubeContextMenu: null,
+      // cubeContextMenu: null,
 
       // YouGlish
     });
@@ -724,10 +869,16 @@ function toggleItem(resID) {
           'vocabulary',
           'merriam-webster',
           'collins',
+          'wiktionary',
+          'thefreedictionary',
         ].includes(resID)
       ) {
         const retrievedType = retrieved[`${resID}Type`];
         if (retrievedType) res.type = retrievedType;
+      }
+      if (resID === 'thefreedictionary') {
+        const retrievedOption = retrieved[`${resID}Option`];
+        if (retrievedOption) res.option = retrievedOption;
       }
     }
   } catch (error) {
