@@ -21,7 +21,7 @@
 browser.menus.create({
   id: 'dictionaries',
   title: 'Look up: %s',
-  contexts: ['selection'],
+  contexts: ['selection']
 });
 
 // Default settings
@@ -32,70 +32,19 @@ let settings = {
       name: 'Cambridge Dictionary',
       // For reference
       types: [
-        // Definitions
-        'english',
-        'learner',
-        'essential-american',
-        'essential-british',
-
-        // Translation (ISO-639 language codes)
-        'en-zh-simp',
-        'zh-simp-en',
-        'en-zh-trad',
-        'zh-trad-en',
-        'en-nl',
-        'nl-en',
-        'en-fr',
-        'fr-en',
-        'en-de',
-        'de-en',
-        'en-id',
-        'id-en',
-        'en-it',
-        'it-en',
-        'en-no',
-        'no-en',
-        'en-pt',
-        'pt-en',
-        'en-sv',
-        'sv-en',
-        'en-bn',
-        'en-cz',
-        'en-gu',
-        'en-ko',
-        'en-mr',
-        'en-ta',
-        'en-th',
-        'en-uk',
-        'en-vi',
-        'en-ja',
-        'ja-en',
-        'en-pl',
-        'pl-en',
-        'en-es',
-        'es-en',
-        'en-ar',
-        'en-ca',
-        'en-da',
-        'en-hi',
-        'en-ms',
-        'en-ru',
-        'en-te',
-        'en-tr',
-        'en-ur',
-
-        // Other
-        'grammar',
-        'thesaurus',
-        'pronunciation',
-      ],
+      // Definitions
+      'english', 'learner', 'essential-american', 'essential-british',
+      // Translation (ISO-639 language codes)
+      'en-zh-simp', 'zh-simp-en', 'en-zh-trad', 'zh-trad-en', 'en-nl', 'nl-en', 'en-fr', 'fr-en', 'en-de', 'de-en', 'en-id', 'id-en', 'en-it', 'it-en', 'en-no', 'no-en', 'en-pt', 'pt-en', 'en-sv', 'sv-en', 'en-bn', 'en-cz', 'en-gu', 'en-ko', 'en-mr', 'en-ta', 'en-th', 'en-uk', 'en-vi', 'en-ja', 'ja-en', 'en-pl', 'pl-en', 'en-es', 'es-en', 'en-ar', 'en-ca', 'en-da', 'en-hi', 'en-ms', 'en-ru', 'en-te', 'en-tr', 'en-ur',
+      // Other
+      'grammar', 'thesaurus', 'pronunciation'],
       type: 'english',
       setType(type) {
         if (this.types.includes(type)) {
           this.type = type;
-          browser.storage.sync
-            .set({ 'cambridge-dictionaryType': type })
-            .then(console.log('Type set successfuly.'), console.log);
+          browser.storage.sync.set({
+            'cambridge-dictionaryType': type
+          }).then(console.log('Type set successfuly.'), console.log);
         } else {
           console.error('Unrecognized type.');
         }
@@ -103,18 +52,17 @@ let settings = {
       reset() {
         createItem('cambridge-dictionary');
         this.setType('english');
-      },
+      }
     },
     vocabulary: {
       contextMenu: true,
       name: 'Vocabulary',
       reset() {
         this.contextMenu = true;
-        browser.storage.sync
-          .set({ vocabularyContextMenu: true })
-          .then(console.log('vocabulary is successfuly reset'))
-          .catch(console.log);
-      },
+        browser.storage.sync.set({
+          vocabularyContextMenu: true
+        }).then(console.log('vocabulary is successfuly reset')).catch(console.log);
+      }
     },
     'merriam-webster': {
       contextMenu: false,
@@ -124,9 +72,9 @@ let settings = {
       setType(type) {
         if (this.types.includes(type)) {
           this.type = type;
-          browser.storage.sync
-            .set({ 'merriam-websterType': type })
-            .then(console.log('Type set successfuly.'), console.log);
+          browser.storage.sync.set({
+            'merriam-websterType': type
+          }).then(console.log('Type set successfuly.'), console.log);
         } else {
           console.error('Unrecognized type.');
         }
@@ -134,93 +82,41 @@ let settings = {
       reset() {
         removeItem('merriam-webster');
         this.setType('dictionary');
-      },
+      }
     },
     collins: {
       contextMenu: false,
       name: 'Collins',
       types: [
-        // English
-        'en-definitions',
-        'en-summary',
-        'en-synonyms',
-        'en-sentences',
-        'en-pronunciation',
-        'en-collocations',
-        'en-conjugations',
-        'en-grammar',
-
-        // American
-        'en-us-definitions',
-        'en-us-summary',
-        'en-us-synonyms',
-        'en-us-sentences',
-        'en-us-pronunciation',
-        'en-us-collocations',
-        'en-us-conjugations',
-        'en-us-grammar',
-
-        // French
-        'en-fr',
-        'fr-en',
-        'fr-grammar',
-        'fr-pronunciation',
-        'fr-conjugations',
-        'fr-sentences',
-
-        // German
-        'en-de',
-        'de-en',
-        'de-grammar',
-        'de-conjugations',
-        'de-sentences',
-
-        // Italian
-        'en-it',
-        'it-en',
-        'it-grammar',
-        'it-conjugations',
-        'it-sentences',
-
-        // Spanish
-        'en-es',
-        'es-en',
-        'es-grammar',
-        'es-pronunciation',
-        'es-conjugations',
-        'es-sentences',
-
-        // Portuguese
-        'en-pt',
-        'pt-en',
-        'pt-grammar',
-        'pt-conjugations',
-
-        // Hindi
-        'en-hi',
-        'hi-en',
-
-        // Chinese
-        'en-zh',
-        'zh-en',
-        'en-zh-trad',
-        'zh-trad-en',
-
-        // Korean
-        'en-ko',
-        'ko-en',
-
-        // Japanese
-        'en-ja',
-        'ja-en',
-      ],
+      // English
+      'en-definitions', 'en-summary', 'en-synonyms', 'en-sentences', 'en-pronunciation', 'en-collocations', 'en-conjugations', 'en-grammar',
+      // American
+      'en-us-definitions', 'en-us-summary', 'en-us-synonyms', 'en-us-sentences', 'en-us-pronunciation', 'en-us-collocations', 'en-us-conjugations', 'en-us-grammar',
+      // French
+      'en-fr', 'fr-en', 'fr-grammar', 'fr-pronunciation', 'fr-conjugations', 'fr-sentences',
+      // German
+      'en-de', 'de-en', 'de-grammar', 'de-conjugations', 'de-sentences',
+      // Italian
+      'en-it', 'it-en', 'it-grammar', 'it-conjugations', 'it-sentences',
+      // Spanish
+      'en-es', 'es-en', 'es-grammar', 'es-pronunciation', 'es-conjugations', 'es-sentences',
+      // Portuguese
+      'en-pt', 'pt-en', 'pt-grammar', 'pt-conjugations',
+      // Hindi
+      'en-hi', 'hi-en',
+      // Chinese
+      'en-zh', 'zh-en', 'en-zh-trad', 'zh-trad-en',
+      // Korean
+      'en-ko', 'ko-en',
+      // Japanese
+      'en-ja', 'ja-en'],
       type: 'en-definitions ',
       setType(type) {
         if (this.types.includes(type)) {
           this.type = type;
-          browser.storage.sync
-            .set({ collinsType: type })
-            .then(console.log('Type set successfuly.'), console.log);
+          browser.storage.sync.set({
+            collinsType: type
+          }).then(console.log('Type set successfuly.'), console.log);
         } else {
           console.error('Unrecognized type.');
         }
@@ -228,7 +124,7 @@ let settings = {
       reset() {
         removeItem('collins');
         this.setType('en-definitions');
-      },
+      }
     },
     wiktionary: {
       contextMenu: true,
@@ -239,9 +135,9 @@ let settings = {
       setType(type) {
         if (this.types.includes(type)) {
           this.type = type;
-          browser.storage.sync
-            .set({ wiktionaryType: type })
-            .then(console.log('Type set successfuly.'), console.log);
+          browser.storage.sync.set({
+            wiktionaryType: type
+          }).then(console.log('Type set successfuly.'), console.log);
         } else {
           console.error('Unrecognized type.');
         }
@@ -249,43 +145,33 @@ let settings = {
       reset() {
         createItem('wiktionary');
         this.setType('en');
-      },
+      }
     },
     dictionary: {
       contextMenu: false,
       name: 'Dictionary.com',
       reset() {
         removeItem('dictionary');
-      },
+      }
     },
     thesaurus: {
       contextMenu: false,
       name: 'Thesaurus.com',
       reset() {
         removeItem('thesaurus');
-      },
+      }
     },
     thefreedictionary: {
       contextMenu: false,
       name: 'The Free Dictionary',
-      types: [
-        'dictionary',
-        'thesaurus',
-        'medical',
-        'legal',
-        'financial',
-        'acronyms',
-        'idioms',
-        'encyclopedia',
-        'wikipedia',
-      ],
+      types: ['dictionary', 'thesaurus', 'medical', 'legal', 'financial', 'acronyms', 'idioms', 'encyclopedia', 'wikipedia'],
       type: 'dictionary',
       setType(type) {
         if (this.types.includes(type)) {
           this.type = type;
-          browser.storage.sync
-            .set({ thefreedictionaryType: type })
-            .then(console.log('Type set successfuly.'), console.log);
+          browser.storage.sync.set({
+            thefreedictionaryType: type
+          }).then(console.log('Type set successfuly.'), console.log);
         } else {
           console.error('Unrecognized type.');
         }
@@ -295,9 +181,9 @@ let settings = {
       setOption(option) {
         if (this.options.includes(option)) {
           this.option = option;
-          browser.storage.sync
-            .set({ thefreedictionaryOption: option })
-            .then(console.log('Option set successfuly.'), console.log);
+          browser.storage.sync.set({
+            thefreedictionaryOption: option
+          }).then(console.log('Option set successfuly.'), console.log);
         } else {
           console.error('Unrecognized option.');
         }
@@ -306,7 +192,7 @@ let settings = {
         removeItem('thefreedictionary');
         this.setType('dictionary');
         this.setOption('word');
-      },
+      }
     },
     // Add CUBE, YouGlish and Wikipedia later
     // cube: {
@@ -339,10 +225,9 @@ let settings = {
       const results = await browser.storage.sync.get(null);
       console.log('Resources are reset.');
       console.log(results);
-    },
-  },
+    }
+  }
 };
-
 function chooseResource(info, tab) {
   const resources = settings.resources;
   const word = encodeURI(info.selectionText);
@@ -793,39 +678,33 @@ function chooseResource(info, tab) {
     left,
     top,
     type: 'popup',
-    focused: false,
+    focused: false
   });
 }
-
 function createItem(resID) {
   const res = settings.resources[resID];
-
   browser.menus.create({
     parentId: 'dictionaries',
     id: resID,
     title: res.name,
     contexts: ['all'],
-    onclick: chooseResource,
+    onclick: chooseResource
   });
   res.contextMenu = true;
-  browser.storage.sync
-    .set({ [`${resID}ContextMenu`]: true })
-    .then(console.log(`Item ${resID} successfuly created`), console.log);
+  browser.storage.sync.set({
+    [`${resID}ContextMenu`]: true
+  }).then(console.log(`Item ${resID} successfuly created`), console.log);
 }
-
 function removeItem(resID) {
   const res = settings.resources[resID];
-
   browser.menus.remove(resID);
   res.contextMenu = false;
-  browser.storage.sync
-    .set({ [`${resID}ContextMenu`]: false })
-    .then(console.log(`Item ${resID} successfuly removed`), console.log);
+  browser.storage.sync.set({
+    [`${resID}ContextMenu`]: false
+  }).then(console.log(`Item ${resID} successfuly removed`), console.log);
 }
-
 function toggleItem(resID) {
   const res = settings.resources[resID];
-
   if (res.contextMenu === true) {
     removeItem(resID);
   } else if (res.contextMenu === false) {
@@ -847,32 +726,25 @@ function toggleItem(resID) {
       // Cambridge Dictionary
       'cambridge-dictionaryContextMenu': null,
       'cambridge-dictionaryType': null,
-
       // Vocabulary.com
       vocabularyContextMenu: null,
-
       // Merriam-Webster
       'merriam-websterContextMenu': null,
       'merriam-websterType': null,
-
       // Collins
       collinsContextMenu: null,
       collinsType: null,
-
       // Wiktionary
       wiktionaryContextMenu: null,
       wiktionaryType: null,
-
       // Dictionary.com
       dictionaryContextMenu: null,
-
       // Thesaurus.com
       thesaurusContextMenu: null,
-
       // The Free Dictionary
       thefreedictionaryContextMenu: null,
       thefreedictionaryType: null,
-      thefreedictionaryOption: null,
+      thefreedictionaryOption: null
 
       // CUBE
       // cubeContextMenu: null,
@@ -883,16 +755,7 @@ function toggleItem(resID) {
       const res = resources[resID];
       const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
       if (retrievedContextMenu != null) res.contextMenu = retrievedContextMenu;
-      if (
-        [
-          'cambridge-dictionary',
-          'vocabulary',
-          'merriam-webster',
-          'collins',
-          'wiktionary',
-          'thefreedictionary',
-        ].includes(resID)
-      ) {
+      if (['cambridge-dictionary', 'vocabulary', 'merriam-webster', 'collins', 'wiktionary', 'thefreedictionary'].includes(resID)) {
         const retrievedType = retrieved[`${resID}Type`];
         if (retrievedType) res.type = retrievedType;
       }
@@ -919,7 +782,6 @@ window.createItem = createItem;
 window.removeItem = removeItem;
 window.toggleItem = toggleItem;
 // -------------------------------------------------
-
 /******/ })()
 ;
 //# sourceMappingURL=background.bundle.js.map

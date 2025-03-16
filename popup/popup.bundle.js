@@ -499,7 +499,6 @@ var update = injectStylesIntoStyleTag_default()(style/* default */.A, options);
 
 ;// ./src/popup/popup.js
 
-
 /******/ })()
 ;
 //# sourceMappingURL=popup.bundle.js.map
