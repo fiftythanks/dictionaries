@@ -1,4 +1,5 @@
 /******/ (() => { // webpackBootstrap
+/* eslint-disable no-console */
 /*
   Copyright (C) 2025 Mikhail Sholokhov
 
@@ -25,7 +26,7 @@ browser.menus.create({
 });
 
 // Default settings
-let settings = {
+const settings = {
   resources: {
     'cambridge-dictionary': {
       contextMenu: true,
@@ -219,17 +220,19 @@ let settings = {
     // youglish: {},
     // wikipedia: {},
     async reset() {
-      for (let res in this) {
+      Object.keys(this).forEach(res => {
         if (res !== 'reset') this[res].reset();
-      }
+      });
       const results = await browser.storage.sync.get(null);
       console.log('Resources are reset.');
       console.log(results);
     }
   }
 };
-function chooseResource(info, tab) {
-  const resources = settings.resources;
+function chooseResource(info) {
+  const {
+    resources
+  } = settings;
   const word = encodeURI(info.selectionText);
   let url;
   switch (info.menuItemId) {
@@ -612,56 +615,60 @@ function chooseResource(info, tab) {
       url = `https://www.thesaurus.com/browse/${word}`;
       break;
     case 'thefreedictionary':
-      const thefreedictionary = resources.thefreedictionary;
-      let option;
-      switch (thefreedictionary.option) {
-        case 'word':
-          option = 0;
-          break;
-        case 'startsWith':
-          option = 1;
-          break;
-        case 'endsWith':
-          option = 2;
-          break;
-        case 'text':
-          option = 3;
-          break;
-        default:
-          option = 0;
+      {
+        const {
+          thefreedictionary
+        } = resources;
+        let option;
+        switch (thefreedictionary.option) {
+          case 'word':
+            option = 0;
+            break;
+          case 'startsWith':
+            option = 1;
+            break;
+          case 'endsWith':
+            option = 2;
+            break;
+          case 'text':
+            option = 3;
+            break;
+          default:
+            option = 0;
+        }
+        switch (thefreedictionary.type) {
+          case 'dictionary':
+            url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'thesaurus':
+            url = `https://www.freethesaurus.com/_/search.aspx?tab=2048&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'medical':
+            url = `https://medical-dictionary.thefreedictionary.com/_/search.aspx?tab=4&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'legal':
+            url = `https://legal-dictionary.thefreedictionary.com/_/search.aspx?tab=2&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'financial':
+            url = `https://financial-dictionary.thefreedictionary.com/_/search.aspx?tab=256&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'acronyms':
+            url = `https://acronyms.thefreedictionary.com/_/search.aspx?tab=32&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'idioms':
+            url = `https://idioms.thefreedictionary.com/_/search.aspx?tab=1024&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'encyclopedia':
+            url = `https://encyclopedia2.thefreedictionary.com/_/search.aspx?tab=8&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'wikipedia':
+            url = `https://encyclopedia.thefreedictionary.com/_/search.aspx?tab=16&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          default:
+            url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
+        }
+        break;
       }
-      switch (thefreedictionary.type) {
-        case 'dictionary':
-          url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'thesaurus':
-          url = `https://www.freethesaurus.com/_/search.aspx?tab=2048&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'medical':
-          url = `https://medical-dictionary.thefreedictionary.com/_/search.aspx?tab=4&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'legal':
-          url = `https://legal-dictionary.thefreedictionary.com/_/search.aspx?tab=2&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'financial':
-          url = `https://financial-dictionary.thefreedictionary.com/_/search.aspx?tab=256&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'acronyms':
-          url = `https://acronyms.thefreedictionary.com/_/search.aspx?tab=32&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'idioms':
-          url = `https://idioms.thefreedictionary.com/_/search.aspx?tab=1024&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'encyclopedia':
-          url = `https://encyclopedia2.thefreedictionary.com/_/search.aspx?tab=8&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'wikipedia':
-          url = `https://encyclopedia.thefreedictionary.com/_/search.aspx?tab=16&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        default:
-          url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
-      }
-      break;
     // case 'cube':
     // case 'youglish':
     default:
@@ -669,8 +676,8 @@ function chooseResource(info, tab) {
   }
   const width = 750;
   const height = 650;
-  const left = screen.width / 2 - width / 2;
-  const top = screen.height / 2 - height / 2;
+  const left = window.screen.width / 2 - width / 2;
+  const top = window.screen.height / 2 - height / 2;
   browser.windows.create({
     url,
     width,
@@ -718,7 +725,9 @@ function toggleItem(resID) {
 // Make sync an option, not a default <------------------------------------
 (async () => {
   const resIDs = Object.keys(settings.resources);
-  const resources = settings.resources;
+  const {
+    resources
+  } = settings;
 
   // If the promise is rejected, the program will jump to the catch block and the default settings won't change
   try {
@@ -751,7 +760,7 @@ function toggleItem(resID) {
 
       // YouGlish
     });
-    for (let resID of resIDs) {
+    resIDs.forEach(resID => {
       const res = resources[resID];
       const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
       if (retrievedContextMenu != null) res.contextMenu = retrievedContextMenu;
@@ -763,17 +772,17 @@ function toggleItem(resID) {
         const retrievedOption = retrieved[`${resID}Option`];
         if (retrievedOption) res.option = retrievedOption;
       }
-    }
+    });
   } catch (error) {
     console.log(error);
   }
 
   // Create context menu items
-  for (let resID of resIDs) {
+  resIDs.forEach(resID => {
     if (resources[resID].contextMenu === true) {
       createItem(resID);
     }
-  }
+  });
 })();
 
 // REMOVE ON RELEASE
