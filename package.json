@@ -8,7 +8,7 @@
     "build": "webpack --config webpack.prod.js",
     "d": "git checkout production 2>/dev/null || git checkout -b production && git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin production && git checkout main",
     "p": "git add . && git commit && git push origin main",
-    "pd": "npm run p && npm run deploy"
+    "pd": "npm run p && npm run d"
   },
   "keywords": [],
   "author": "Mikhail Sholokhov",
