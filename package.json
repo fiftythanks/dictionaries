@@ -4,7 +4,7 @@
   "description": "All the best English dictionaries and you are just one click away with this browser extension.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky",
+    "prepare": "husky && husky install",
     "build": "webpack",
     "d": "git checkout production 2>/dev/null || git checkout -b production && git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Production commit' && git subtree push --prefix dist origin production && git checkout main",
     "p": "git add . && git commit && git push origin main",
@@ -27,7 +27,7 @@
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
     "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "^15.5.0",
     "prettier": "3.5.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.98.0",

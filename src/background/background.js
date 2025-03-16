@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 /*
   Copyright (C) 2025 Mikhail Sholokhov
