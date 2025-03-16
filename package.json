@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky",
-    "build": "webpack --config webpack.prod.js",
+    "build": "webpack",
     "d": "git checkout production 2>/dev/null || git checkout -b production && git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin production && git checkout main",
     "p": "git add . && git commit && git push origin main",
     "pd": "npm run p && npm run d"
@@ -31,8 +31,7 @@
     "prettier": "3.5.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.98.0",
-    "webpack-cli": "^6.0.1",
-    "webpack-merge": "^6.0.1"
+    "webpack-cli": "^6.0.1"
   },
   "lint-staged": {
     "src/**/*.js": [
