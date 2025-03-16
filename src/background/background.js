@@ -261,6 +261,14 @@ const settings = {
     async reset(resID) {
       const resIDs = Object.keys(this);
       resIDs.pop(); // Remove 'reset' from the array
+      // ------------- ATTENTION --------------
+      // For some reason, if you type settings.resources.reset(), the command
+      // works, as I understand, but promises throw exceptions. Probably, I
+      // don't use asynchronous methods correctly. Fix this.
+      //
+      // And by the way, is it necessary that the reset() method is not a
+      // direct method of settings? It's uncomfortable
+      // ------------- ATTENTION --------------
       if (resID === undefined) {
         resIDs.forEach((id) => this.reset(id));
         const results = await browser.storage.sync.get(null);
@@ -862,4 +870,5 @@ function toggleItem(resID) {
 window.createItem = createItem;
 window.removeItem = removeItem;
 window.toggleItem = toggleItem;
+window.settings = settings;
 // -------------------------------------------------
