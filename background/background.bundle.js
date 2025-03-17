@@ -1,36 +1,5 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  wE: () => (/* binding */ createItem),
-  Ai: () => (/* binding */ removeItem)
-});
-
-// UNUSED EXPORTS: toggleItem
 
 ;// ./src/background/resources/cambridge.js
 /* eslint-disable no-console */
@@ -306,120 +275,6 @@ If you have any questions or feedback, feel free to contact me via email at mikh
     }
   }
 });
-;// ./src/background/settings.js
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-
-
-
-
-
-
-
-
-// eslint-disable-next-line import/no-cycle
-
-const settings = {
-  resources: {
-    cambridgeDictionary: cambridge,
-    vocabulary: vocabulary,
-    wiktionary: wiktionary,
-    merriamWebster: merriam,
-    collins: collins,
-    dictionary: dictionary,
-    thesaurus: thesaurus,
-    thefreedictionary: thefreedictionary // change setOption
-    // Add CUBE, YouGlish and Wikipedia later
-    // cube: {
-    //   contextMenu: false,
-    //   name: 'CUBE',
-    //   types: ['spell', 'sound'],
-    //   type: 'spell',
-    //   setType(type) {
-    //     if (this.types.includes(type)) {
-    //       this.type = type;
-    //       browser.storage.sync
-    //         .set({ cubeType: type })
-    //         .then(console.log('Type set successfuly.'), console.log);
-    //     } else {
-    //       console.error('Unrecognized type.');
-    //     }
-    //   },
-    //   options: {},
-    //   reset() {
-    //     removeItem('cube');
-    //     this.setType('spell');
-    //   },
-    // },
-    // youglish: {},
-    // wikipedia: {},
-  },
-  setType(resID, type) {
-    const {
-      resources
-    } = this;
-    const resIDs = Object.keys(resources);
-    if (resIDs.includes(resID)) {
-      const res = resources[resID];
-      if (res.types !== undefined && res.types.includes(type)) {
-        res.type = type;
-        browser.storage.sync.set({
-          [`${res.id}Type`]: type
-        }).then(console.log(`${res.name}'s type is successfuly set to ${type}.`), console.log);
-      } else {
-        console.error(`${res.name} doesn't have the type ${type}`);
-      }
-    } else {
-      console.error(`There's no resource with the ${resID} ID.`);
-    }
-  },
-  async reset(resID) {
-    const {
-      resources
-    } = this;
-    const resIDs = Object.keys(resources);
-    if (resID === undefined) {
-      resIDs.forEach(id => this.reset(id));
-      const results = await browser.storage.sync.get(null);
-      console.log('Resources are reset.');
-      console.log(results);
-    } else if (resIDs.includes(resID)) {
-      const res = resources[resID];
-      if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
-      if (res.defaultContextMenu === true) {
-        createItem(resID);
-      } else {
-        removeItem(resID);
-      }
-      // THERE NEEDS TO BE A BETTER WAY
-      if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
-      console.log(`${res.name} is successfuly reset to defaults.`);
-    } else {
-      console.error('Unrecognized resource id.');
-    }
-  }
-};
-const {
-  resources
-} = settings;
 ;// ./src/background/lookUp.js
 /* eslint-disable no-console */
 /*
@@ -896,8 +751,7 @@ function lookUp(info) {
     focused: false
   });
 }
-;// ./src/background/background.js
-/* eslint-disable no-use-before-define */
+;// ./src/background/contextMenu.js
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -917,14 +771,17 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
+
 // eslint-disable-next-line import/no-cycle
 
 
-browser.menus.create({
-  id: 'dictionaries',
-  title: 'Look up: %s',
-  contexts: ['selection']
-});
+function createMenu() {
+  browser.menus.create({
+    id: 'dictionaries',
+    title: 'Look up: %s',
+    contexts: ['selection']
+  });
+}
 function createItem(resID) {
   // add a check for the existance of such a resource
   const res = resources[resID];
@@ -972,6 +829,145 @@ function toggleItem(resID) {
     console.error('Unpredicted behaviour in toggleResource().');
   }
 }
+;// ./src/background/settings.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+
+
+
+
+
+
+
+
+// eslint-disable-next-line import/no-cycle
+
+const settings = {
+  resources: {
+    cambridgeDictionary: cambridge,
+    vocabulary: vocabulary,
+    wiktionary: wiktionary,
+    merriamWebster: merriam,
+    collins: collins,
+    dictionary: dictionary,
+    thesaurus: thesaurus,
+    thefreedictionary: thefreedictionary // change setOption
+    // Add CUBE, YouGlish and Wikipedia later
+    // cube: {
+    //   contextMenu: false,
+    //   name: 'CUBE',
+    //   types: ['spell', 'sound'],
+    //   type: 'spell',
+    //   setType(type) {
+    //     if (this.types.includes(type)) {
+    //       this.type = type;
+    //       browser.storage.sync
+    //         .set({ cubeType: type })
+    //         .then(console.log('Type set successfuly.'), console.log);
+    //     } else {
+    //       console.error('Unrecognized type.');
+    //     }
+    //   },
+    //   options: {},
+    //   reset() {
+    //     removeItem('cube');
+    //     this.setType('spell');
+    //   },
+    // },
+    // youglish: {},
+    // wikipedia: {},
+  },
+  setType(resID, type) {
+    const {
+      resources
+    } = this;
+    const resIDs = Object.keys(resources);
+    if (resIDs.includes(resID)) {
+      const res = resources[resID];
+      if (res.types !== undefined && res.types.includes(type)) {
+        res.type = type;
+        browser.storage.sync.set({
+          [`${res.id}Type`]: type
+        }).then(console.log(`${res.name}'s type is successfuly set to ${type}.`), console.log);
+      } else {
+        console.error(`${res.name} doesn't have the type ${type}`);
+      }
+    } else {
+      console.error(`There's no resource with the ${resID} ID.`);
+    }
+  },
+  async reset(resID) {
+    const {
+      resources
+    } = this;
+    const resIDs = Object.keys(resources);
+    if (resID === undefined) {
+      resIDs.forEach(id => this.reset(id));
+      const results = await browser.storage.sync.get(null);
+      console.log('Resources are reset.');
+      console.log(results);
+    } else if (resIDs.includes(resID)) {
+      const res = resources[resID];
+      if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
+      if (res.defaultContextMenu === true) {
+        createItem(resID);
+      } else {
+        removeItem(resID);
+      }
+      // THERE NEEDS TO BE A BETTER WAY
+      if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
+      console.log(`${res.name} is successfuly reset to defaults.`);
+    } else {
+      console.error('Unrecognized resource id.');
+    }
+  }
+};
+const {
+  resources
+} = settings;
+;// ./src/background/background.js
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+// eslint-disable-next-line import/no-cycle
+
+
+createMenu();
 
 // Sync settings
 // Make sync an option, not a default <------------------------------------
