@@ -21,6 +21,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
+
 /* harmony default export */ const cambridge = ({
   defaultContextMenu: true,
   contextMenu: true,
@@ -40,11 +41,38 @@ If you have any questions or feedback, feel free to contact me via email at mikh
       this.type = type;
       browser.storage.sync.set({
         [`${this.id}Type`]: type
-      }).then(console.log('Type set successfuly.'), console.log);
+      }).then(console.log(`Cambridge Dictionary's type is successfuly set to ${type}.`), console.log);
     } else {
       console.error('Unrecognized type.');
     }
   }
+});
+;// ./src/background/resources/vocabulary.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const vocabulary = ({
+  defaultContextMenu: true,
+  contextMenu: true,
+  name: 'Vocabulary',
+  id: 'vocabulary'
 });
 ;// ./src/background/background.js
 /* eslint-disable no-use-before-define */
@@ -69,6 +97,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 
 
+
 browser.menus.create({
   id: 'dictionaries',
   title: 'Look up: %s',
@@ -78,17 +107,8 @@ browser.menus.create({
 // Default settings
 const settings = {
   resources: {
+    vocabulary: vocabulary,
     'cambridge-dictionary': cambridge,
-    vocabulary: {
-      contextMenu: true,
-      name: 'Vocabulary',
-      reset() {
-        this.contextMenu = true;
-        browser.storage.sync.set({
-          vocabularyContextMenu: true
-        }).then(console.log('vocabulary is successfuly reset')).catch(console.log);
-      }
-    },
     'merriam-webster': {
       contextMenu: false,
       name: 'Merriam-Webster',
@@ -261,14 +281,14 @@ const settings = {
         console.log(results);
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
-        if (resID === 'cambridge-dictionary') {
+        if (['cambridge-dictionary', 'vocabulary'].includes(resID)) {
           if (res.defaultType !== undefined) res.setType(res.defaultType);
           if (res.defaultContextMenu === true) {
             createItem(resID);
           } else {
             removeItem(resID);
           }
-          console.log('cambridge-dictionary is successfuly reset to defaults.');
+          console.log(`${res.name} is successfuly reset to defaults.`);
         } else {
           res.reset();
         }
