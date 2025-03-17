@@ -400,7 +400,6 @@ const settings = {
     }
   }
 };
-//
 function chooseResource(info) {
   const {
     resources
