@@ -176,6 +176,101 @@ If you have any questions or feedback, feel free to contact me via email at mikh
     }
   }
 });
+;// ./src/background/resources/wiktionary.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const wiktionary = ({
+  defaultContextMenu: true,
+  contextMenu: true,
+  name: 'Wiktionary',
+  id: 'wiktionary',
+  // ISO-639 language codes
+  types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
+  defaultType: 'en',
+  type: 'en',
+  setType(type) {
+    if (this.types.includes(type)) {
+      this.type = type;
+      browser.storage.sync.set({
+        [`${this.id}Type`]: type
+      }).then(console.log(`${this.name}'s type is successfuly set to ${type}.`), console.log);
+    } else {
+      console.error('Unrecognized type.');
+    }
+  }
+});
+;// ./src/background/resources/dictionary.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const dictionary = ({
+  defaultContextMenu: false,
+  contextMenu: false,
+  name: 'Dictionary.com',
+  id: 'dictionary'
+});
+;// ./src/background/resources/thesaurus.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const thesaurus = ({
+  defaultContextMenu: false,
+  contextMenu: false,
+  name: 'Thesaurus.com',
+  id: 'thesaurus'
+});
 ;// ./src/background/background.js
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
@@ -202,6 +297,9 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
+
+
+
 browser.menus.create({
   id: 'dictionaries',
   title: 'Look up: %s',
@@ -213,43 +311,11 @@ const settings = {
   resources: {
     vocabulary: vocabulary,
     collins: collins,
+    wiktionary: wiktionary,
+    dictionary: dictionary,
+    thesaurus: thesaurus,
     'cambridge-dictionary': cambridge,
     'merriam-webster': merriam,
-    wiktionary: {
-      contextMenu: true,
-      name: 'Wiktionary',
-      // ISO-639 language codes
-      types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
-      type: 'en',
-      setType(type) {
-        if (this.types.includes(type)) {
-          this.type = type;
-          browser.storage.sync.set({
-            wiktionaryType: type
-          }).then(console.log('Type set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized type.');
-        }
-      },
-      reset() {
-        createItem('wiktionary');
-        this.setType('en');
-      }
-    },
-    dictionary: {
-      contextMenu: false,
-      name: 'Dictionary.com',
-      reset() {
-        removeItem('dictionary');
-      }
-    },
-    thesaurus: {
-      contextMenu: false,
-      name: 'Thesaurus.com',
-      reset() {
-        removeItem('thesaurus');
-      }
-    },
     thefreedictionary: {
       contextMenu: false,
       name: 'The Free Dictionary',
@@ -317,7 +383,7 @@ const settings = {
         console.log(results);
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
-        if (['cambridge-dictionary', 'vocabulary', 'merriam-webster', 'collins'].includes(resID)) {
+        if (['cambridge-dictionary', 'vocabulary', 'merriam-webster', 'collins', 'wiktionary', 'dictionary', 'thesaurus'].includes(resID)) {
           if (res.defaultType !== undefined) res.setType(res.defaultType);
           if (res.defaultContextMenu === true) {
             createItem(resID);

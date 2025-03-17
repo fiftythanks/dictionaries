@@ -23,6 +23,9 @@ import cambridgeDictionary from './resources/cambridge';
 import vocabulary from './resources/vocabulary';
 import merriamWebster from './resources/merriam';
 import collins from './resources/collins';
+import wiktionary from './resources/wiktionary';
+import dictionary from './resources/dictionary';
+import thesaurus from './resources/thesaurus';
 
 browser.menus.create({
   id: 'dictionaries',
@@ -35,43 +38,11 @@ const settings = {
   resources: {
     vocabulary,
     collins,
+    wiktionary,
+    dictionary,
+    thesaurus,
     'cambridge-dictionary': cambridgeDictionary,
     'merriam-webster': merriamWebster,
-    wiktionary: {
-      contextMenu: true,
-      name: 'Wiktionary',
-      // ISO-639 language codes
-      types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
-      type: 'en',
-      setType(type) {
-        if (this.types.includes(type)) {
-          this.type = type;
-          browser.storage.sync
-            .set({ wiktionaryType: type })
-            .then(console.log('Type set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized type.');
-        }
-      },
-      reset() {
-        createItem('wiktionary');
-        this.setType('en');
-      },
-    },
-    dictionary: {
-      contextMenu: false,
-      name: 'Dictionary.com',
-      reset() {
-        removeItem('dictionary');
-      },
-    },
-    thesaurus: {
-      contextMenu: false,
-      name: 'Thesaurus.com',
-      reset() {
-        removeItem('thesaurus');
-      },
-    },
     thefreedictionary: {
       contextMenu: false,
       name: 'The Free Dictionary',
@@ -155,6 +126,9 @@ const settings = {
             'vocabulary',
             'merriam-webster',
             'collins',
+            'wiktionary',
+            'dictionary',
+            'thesaurus',
           ].includes(resID)
         ) {
           if (res.defaultType !== undefined) res.setType(res.defaultType);
