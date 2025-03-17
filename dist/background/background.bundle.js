@@ -1,3 +1,120 @@
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+
+;// ./src/background/resources/cambridge.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const cambridge = ({
+  defaultContextMenu: true,
+  contextMenu: true,
+  name: 'Cambridge Dictionary',
+  id: 'cambridge-dictionary',
+  types: [
+  // Definitions
+  'english', 'learner', 'essential-american', 'essential-british',
+  // Translation (ISO-639 language codes)
+  'en-zh-simp', 'zh-simp-en', 'en-zh-trad', 'zh-trad-en', 'en-nl', 'nl-en', 'en-fr', 'fr-en', 'en-de', 'de-en', 'en-id', 'id-en', 'en-it', 'it-en', 'en-no', 'no-en', 'en-pt', 'pt-en', 'en-sv', 'sv-en', 'en-bn', 'en-cz', 'en-gu', 'en-ko', 'en-mr', 'en-ta', 'en-th', 'en-uk', 'en-vi', 'en-ja', 'ja-en', 'en-pl', 'pl-en', 'en-es', 'es-en', 'en-ar', 'en-ca', 'en-da', 'en-hi', 'en-ms', 'en-ru', 'en-te', 'en-tr', 'en-ur',
+  // Other
+  'grammar', 'thesaurus', 'pronunciation'],
+  defaultType: 'english',
+  type: 'english',
+  setType(type) {
+    if (this.types.includes(type)) {
+      this.type = type;
+      browser.storage.sync.set({
+        [`${this.id}Type`]: type
+      }).then(console.log(`${this.name} type is successfuly set to ${type}.`), console.log);
+    } else {
+      console.error('Unrecognized type.');
+    }
+  }
+});
+;// ./src/background/resources/vocabulary.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const vocabulary = ({
+  defaultContextMenu: true,
+  contextMenu: true,
+  name: 'Vocabulary',
+  id: 'vocabulary'
+});
+;// ./src/background/resources/merriam.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const merriam = ({
+  defaultContextMenu: false,
+  contextMenu: false,
+  name: 'Merriam-Webster',
+  id: 'merriam-webster',
+  types: ['dictionary', 'thesaurus'],
+  defaultType: 'dictionary',
+  type: 'dictionary',
+  setType(type) {
+    if (this.types.includes(type)) {
+      this.type = type;
+      browser.storage.sync.set({
+        [`${this.id}Type`]: type
+      }).then(console.log(`${this.name} type is successfuly set to ${type}.`), console.log);
+    } else {
+      console.error('Unrecognized type.');
+    }
+  }
+});
+;// ./src/background/background.js
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 /*
@@ -19,107 +136,54 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-import cambridgeDictionary from './resources/cambridge';
-import vocabulary from './resources/vocabulary';
-import merriamWebster from './resources/merriam';
+
+
 
 browser.menus.create({
   id: 'dictionaries',
   title: 'Look up: %s',
-  contexts: ['selection'],
+  contexts: ['selection']
 });
 
 // Default settings
 const settings = {
   resources: {
-    vocabulary,
-    'cambridge-dictionary': cambridgeDictionary,
-    'merriam-webster': merriamWebster,
+    vocabulary: vocabulary,
+    'cambridge-dictionary': cambridge,
+    'merriam-webster': merriam,
     collins: {
       contextMenu: false,
       name: 'Collins',
       types: [
-        // English
-        'en-definitions',
-        'en-summary',
-        'en-synonyms',
-        'en-sentences',
-        'en-pronunciation',
-        'en-collocations',
-        'en-conjugations',
-        'en-grammar',
-
-        // American
-        'en-us-definitions',
-        'en-us-summary',
-        'en-us-synonyms',
-        'en-us-sentences',
-        'en-us-pronunciation',
-        'en-us-collocations',
-        'en-us-conjugations',
-        'en-us-grammar',
-
-        // French
-        'en-fr',
-        'fr-en',
-        'fr-grammar',
-        'fr-pronunciation',
-        'fr-conjugations',
-        'fr-sentences',
-
-        // German
-        'en-de',
-        'de-en',
-        'de-grammar',
-        'de-conjugations',
-        'de-sentences',
-
-        // Italian
-        'en-it',
-        'it-en',
-        'it-grammar',
-        'it-conjugations',
-        'it-sentences',
-
-        // Spanish
-        'en-es',
-        'es-en',
-        'es-grammar',
-        'es-pronunciation',
-        'es-conjugations',
-        'es-sentences',
-
-        // Portuguese
-        'en-pt',
-        'pt-en',
-        'pt-grammar',
-        'pt-conjugations',
-
-        // Hindi
-        'en-hi',
-        'hi-en',
-
-        // Chinese
-        'en-zh',
-        'zh-en',
-        'en-zh-trad',
-        'zh-trad-en',
-
-        // Korean
-        'en-ko',
-        'ko-en',
-
-        // Japanese
-        'en-ja',
-        'ja-en',
-      ],
+      // English
+      'en-definitions', 'en-summary', 'en-synonyms', 'en-sentences', 'en-pronunciation', 'en-collocations', 'en-conjugations', 'en-grammar',
+      // American
+      'en-us-definitions', 'en-us-summary', 'en-us-synonyms', 'en-us-sentences', 'en-us-pronunciation', 'en-us-collocations', 'en-us-conjugations', 'en-us-grammar',
+      // French
+      'en-fr', 'fr-en', 'fr-grammar', 'fr-pronunciation', 'fr-conjugations', 'fr-sentences',
+      // German
+      'en-de', 'de-en', 'de-grammar', 'de-conjugations', 'de-sentences',
+      // Italian
+      'en-it', 'it-en', 'it-grammar', 'it-conjugations', 'it-sentences',
+      // Spanish
+      'en-es', 'es-en', 'es-grammar', 'es-pronunciation', 'es-conjugations', 'es-sentences',
+      // Portuguese
+      'en-pt', 'pt-en', 'pt-grammar', 'pt-conjugations',
+      // Hindi
+      'en-hi', 'hi-en',
+      // Chinese
+      'en-zh', 'zh-en', 'en-zh-trad', 'zh-trad-en',
+      // Korean
+      'en-ko', 'ko-en',
+      // Japanese
+      'en-ja', 'ja-en'],
       type: 'en-definitions ',
       setType(type) {
         if (this.types.includes(type)) {
           this.type = type;
-          browser.storage.sync
-            .set({ collinsType: type })
-            .then(console.log('Type set successfuly.'), console.log);
+          browser.storage.sync.set({
+            collinsType: type
+          }).then(console.log('Type set successfuly.'), console.log);
         } else {
           console.error('Unrecognized type.');
         }
@@ -127,7 +191,7 @@ const settings = {
       reset() {
         removeItem('collins');
         this.setType('en-definitions');
-      },
+      }
     },
     wiktionary: {
       contextMenu: true,
@@ -138,9 +202,9 @@ const settings = {
       setType(type) {
         if (this.types.includes(type)) {
           this.type = type;
-          browser.storage.sync
-            .set({ wiktionaryType: type })
-            .then(console.log('Type set successfuly.'), console.log);
+          browser.storage.sync.set({
+            wiktionaryType: type
+          }).then(console.log('Type set successfuly.'), console.log);
         } else {
           console.error('Unrecognized type.');
         }
@@ -148,43 +212,33 @@ const settings = {
       reset() {
         createItem('wiktionary');
         this.setType('en');
-      },
+      }
     },
     dictionary: {
       contextMenu: false,
       name: 'Dictionary.com',
       reset() {
         removeItem('dictionary');
-      },
+      }
     },
     thesaurus: {
       contextMenu: false,
       name: 'Thesaurus.com',
       reset() {
         removeItem('thesaurus');
-      },
+      }
     },
     thefreedictionary: {
       contextMenu: false,
       name: 'The Free Dictionary',
-      types: [
-        'dictionary',
-        'thesaurus',
-        'medical',
-        'legal',
-        'financial',
-        'acronyms',
-        'idioms',
-        'encyclopedia',
-        'wikipedia',
-      ],
+      types: ['dictionary', 'thesaurus', 'medical', 'legal', 'financial', 'acronyms', 'idioms', 'encyclopedia', 'wikipedia'],
       type: 'dictionary',
       setType(type) {
         if (this.types.includes(type)) {
           this.type = type;
-          browser.storage.sync
-            .set({ thefreedictionaryType: type })
-            .then(console.log('Type set successfuly.'), console.log);
+          browser.storage.sync.set({
+            thefreedictionaryType: type
+          }).then(console.log('Type set successfuly.'), console.log);
         } else {
           console.error('Unrecognized type.');
         }
@@ -194,9 +248,9 @@ const settings = {
       setOption(option) {
         if (this.options.includes(option)) {
           this.option = option;
-          browser.storage.sync
-            .set({ thefreedictionaryOption: option })
-            .then(console.log('Option set successfuly.'), console.log);
+          browser.storage.sync.set({
+            thefreedictionaryOption: option
+          }).then(console.log('Option set successfuly.'), console.log);
         } else {
           console.error('Unrecognized option.');
         }
@@ -205,7 +259,7 @@ const settings = {
         removeItem('thefreedictionary');
         this.setType('dictionary');
         this.setOption('word');
-      },
+      }
     },
     // Add CUBE, YouGlish and Wikipedia later
     // cube: {
@@ -235,17 +289,13 @@ const settings = {
       const resIDs = Object.keys(this);
       resIDs.pop(); // Remove 'reset' from the array
       if (resID === undefined) {
-        resIDs.forEach((id) => this.reset(id));
+        resIDs.forEach(id => this.reset(id));
         const results = await browser.storage.sync.get(null);
         console.log('Resources are reset.');
         console.log(results);
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
-        if (
-          ['cambridge-dictionary', 'vocabulary', 'merriam-webster'].includes(
-            resID,
-          )
-        ) {
+        if (['cambridge-dictionary', 'vocabulary', 'merriam-webster'].includes(resID)) {
           if (res.defaultType !== undefined) res.setType(res.defaultType);
           if (res.defaultContextMenu === true) {
             createItem(resID);
@@ -259,12 +309,13 @@ const settings = {
       } else {
         console.error('Unrecognized resource id.');
       }
-    },
-  },
+    }
+  }
 };
-
 function chooseResource(info) {
-  const { resources } = settings;
+  const {
+    resources
+  } = settings;
   const word = encodeURI(info.selectionText);
   let url;
   switch (info.menuItemId) {
@@ -646,58 +697,61 @@ function chooseResource(info) {
     case 'thesaurus':
       url = `https://www.thesaurus.com/browse/${word}`;
       break;
-    case 'thefreedictionary': {
-      const { thefreedictionary } = resources;
-      let option;
-      switch (thefreedictionary.option) {
-        case 'word':
-          option = 0;
-          break;
-        case 'startsWith':
-          option = 1;
-          break;
-        case 'endsWith':
-          option = 2;
-          break;
-        case 'text':
-          option = 3;
-          break;
-        default:
-          option = 0;
+    case 'thefreedictionary':
+      {
+        const {
+          thefreedictionary
+        } = resources;
+        let option;
+        switch (thefreedictionary.option) {
+          case 'word':
+            option = 0;
+            break;
+          case 'startsWith':
+            option = 1;
+            break;
+          case 'endsWith':
+            option = 2;
+            break;
+          case 'text':
+            option = 3;
+            break;
+          default:
+            option = 0;
+        }
+        switch (thefreedictionary.type) {
+          case 'dictionary':
+            url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'thesaurus':
+            url = `https://www.freethesaurus.com/_/search.aspx?tab=2048&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'medical':
+            url = `https://medical-dictionary.thefreedictionary.com/_/search.aspx?tab=4&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'legal':
+            url = `https://legal-dictionary.thefreedictionary.com/_/search.aspx?tab=2&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'financial':
+            url = `https://financial-dictionary.thefreedictionary.com/_/search.aspx?tab=256&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'acronyms':
+            url = `https://acronyms.thefreedictionary.com/_/search.aspx?tab=32&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'idioms':
+            url = `https://idioms.thefreedictionary.com/_/search.aspx?tab=1024&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'encyclopedia':
+            url = `https://encyclopedia2.thefreedictionary.com/_/search.aspx?tab=8&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          case 'wikipedia':
+            url = `https://encyclopedia.thefreedictionary.com/_/search.aspx?tab=16&SearchBy=0&Word=${word}&TFDBy=${option}`;
+            break;
+          default:
+            url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
+        }
+        break;
       }
-      switch (thefreedictionary.type) {
-        case 'dictionary':
-          url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'thesaurus':
-          url = `https://www.freethesaurus.com/_/search.aspx?tab=2048&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'medical':
-          url = `https://medical-dictionary.thefreedictionary.com/_/search.aspx?tab=4&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'legal':
-          url = `https://legal-dictionary.thefreedictionary.com/_/search.aspx?tab=2&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'financial':
-          url = `https://financial-dictionary.thefreedictionary.com/_/search.aspx?tab=256&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'acronyms':
-          url = `https://acronyms.thefreedictionary.com/_/search.aspx?tab=32&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'idioms':
-          url = `https://idioms.thefreedictionary.com/_/search.aspx?tab=1024&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'encyclopedia':
-          url = `https://encyclopedia2.thefreedictionary.com/_/search.aspx?tab=8&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        case 'wikipedia':
-          url = `https://encyclopedia.thefreedictionary.com/_/search.aspx?tab=16&SearchBy=0&Word=${word}&TFDBy=${option}`;
-          break;
-        default:
-          url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
-      }
-      break;
-    }
     // case 'cube':
     // case 'youglish':
     default:
@@ -714,61 +768,45 @@ function chooseResource(info) {
     left,
     top,
     type: 'popup',
-    focused: false,
+    focused: false
   });
 }
-
 function createItem(resID) {
   const res = settings.resources[resID];
-
-  browser.menus.create(
-    {
-      parentId: 'dictionaries',
-      id: resID,
-      title: res.name,
-      contexts: ['all'],
-      onclick: chooseResource,
-    },
-    () => {
-      if (browser.runtime.lastError !== null) {
-        const error = browser.runtime.lastError;
-        if (error.message !== `ID already exists: ${resID}`)
-          console.error(error);
-      } else {
-        res.contextMenu = true;
-        browser.storage.sync
-          .set({ [`${resID}ContextMenu`]: true })
-          .then(
-            console.log(`Item ${resID} successfuly created`),
-            console.error,
-          );
-      }
-    },
-  );
+  browser.menus.create({
+    parentId: 'dictionaries',
+    id: resID,
+    title: res.name,
+    contexts: ['all'],
+    onclick: chooseResource
+  }, () => {
+    if (browser.runtime.lastError !== null) {
+      const error = browser.runtime.lastError;
+      if (error.message !== `ID already exists: ${resID}`) console.error(error);
+    } else {
+      res.contextMenu = true;
+      browser.storage.sync.set({
+        [`${resID}ContextMenu`]: true
+      }).then(console.log(`Item ${resID} successfuly created`), console.error);
+    }
+  });
 }
-
 function removeItem(resID) {
   const res = settings.resources[resID];
-
-  browser.menus
-    .remove(resID)
-    .then(() => {
-      res.contextMenu = false;
-      browser.storage.sync
-        .set({ [`${resID}ContextMenu`]: false })
-        .then(console.log(`Item ${resID} successfuly removed`), console.error);
-    })
-    .catch((error) => {
-      if (error.message !== `Cannot find menu item with id ${resID}`) {
-        console.log(error.message);
-        console.error(error);
-      }
-    });
+  browser.menus.remove(resID).then(() => {
+    res.contextMenu = false;
+    browser.storage.sync.set({
+      [`${resID}ContextMenu`]: false
+    }).then(console.log(`Item ${resID} successfuly removed`), console.error);
+  }).catch(error => {
+    if (error.message !== `Cannot find menu item with id ${resID}`) {
+      console.log(error.message);
+      console.error(error);
+    }
+  });
 }
-
 function toggleItem(resID) {
   const res = settings.resources[resID];
-
   if (res.contextMenu === true) {
     removeItem(resID);
   } else if (res.contextMenu === false) {
@@ -782,7 +820,9 @@ function toggleItem(resID) {
 // Make sync an option, not a default <------------------------------------
 (async () => {
   const resIDs = Object.keys(settings.resources);
-  const { resources } = settings;
+  const {
+    resources
+  } = settings;
 
   // If the promise is rejected, the program will jump to the catch block and the default settings won't change
   try {
@@ -790,52 +830,36 @@ function toggleItem(resID) {
       // Cambridge Dictionary
       'cambridge-dictionaryContextMenu': null,
       'cambridge-dictionaryType': null,
-
       // Vocabulary.com
       vocabularyContextMenu: null,
-
       // Merriam-Webster
       'merriam-websterContextMenu': null,
       'merriam-websterType': null,
-
       // Collins
       collinsContextMenu: null,
       collinsType: null,
-
       // Wiktionary
       wiktionaryContextMenu: null,
       wiktionaryType: null,
-
       // Dictionary.com
       dictionaryContextMenu: null,
-
       // Thesaurus.com
       thesaurusContextMenu: null,
-
       // The Free Dictionary
       thefreedictionaryContextMenu: null,
       thefreedictionaryType: null,
-      thefreedictionaryOption: null,
+      thefreedictionaryOption: null
 
       // CUBE
       // cubeContextMenu: null,
 
       // YouGlish
     });
-    resIDs.forEach((resID) => {
+    resIDs.forEach(resID => {
       const res = resources[resID];
       const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
       if (retrievedContextMenu != null) res.contextMenu = retrievedContextMenu;
-      if (
-        [
-          'cambridge-dictionary',
-          'vocabulary',
-          'merriam-webster',
-          'collins',
-          'wiktionary',
-          'thefreedictionary',
-        ].includes(resID)
-      ) {
+      if (['cambridge-dictionary', 'vocabulary', 'merriam-webster', 'collins', 'wiktionary', 'thefreedictionary'].includes(resID)) {
         const retrievedType = retrieved[`${resID}Type`];
         if (retrievedType) res.type = retrievedType;
       }
@@ -849,7 +873,7 @@ function toggleItem(resID) {
   }
 
   // Create context menu items
-  resIDs.forEach((resID) => {
+  resIDs.forEach(resID => {
     if (resources[resID].contextMenu === true) {
       createItem(resID);
     }
@@ -863,3 +887,6 @@ window.removeItem = removeItem;
 window.toggleItem = toggleItem;
 window.settings = settings;
 // -------------------------------------------------
+/******/ })()
+;
+//# sourceMappingURL=background.bundle.js.map
