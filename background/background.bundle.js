@@ -231,6 +231,49 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   name: 'Thesaurus.com',
   id: 'thesaurus'
 });
+;// ./src/background/resources/thefreedictionary.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const thefreedictionary = ({
+  defaultContextMenu: false,
+  contextMenu: false,
+  name: 'The Free Dictionary',
+  id: 'thefreedictionary',
+  types: ['dictionary', 'thesaurus', 'medical', 'legal', 'financial', 'acronyms', 'idioms', 'encyclopedia', 'wikipedia'],
+  defaultType: 'dictionary',
+  type: 'dictionary',
+  options: ['word', 'startsWith', 'endsWith', 'text'],
+  defaultOption: 'word',
+  option: 'word',
+  setOption(option) {
+    if (this.options.includes(option)) {
+      this.option = option;
+      browser.storage.sync.set({
+        thefreedictionaryOption: option
+      }).then(console.log('Option set successfuly.'), console.log);
+    } else {
+      console.error('Unrecognized option.');
+    }
+  }
+});
 ;// ./src/background/background.js
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
@@ -260,6 +303,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
+
 browser.menus.create({
   id: 'dictionaries',
   title: 'Look up: %s',
@@ -274,41 +318,9 @@ const settings = {
     wiktionary: wiktionary,
     dictionary: dictionary,
     thesaurus: thesaurus,
+    thefreedictionary: thefreedictionary,
     'cambridge-dictionary': cambridge,
     'merriam-webster': merriam,
-    thefreedictionary: {
-      contextMenu: false,
-      name: 'The Free Dictionary',
-      types: ['dictionary', 'thesaurus', 'medical', 'legal', 'financial', 'acronyms', 'idioms', 'encyclopedia', 'wikipedia'],
-      type: 'dictionary',
-      setType(type) {
-        if (this.types.includes(type)) {
-          this.type = type;
-          browser.storage.sync.set({
-            thefreedictionaryType: type
-          }).then(console.log('Type set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized type.');
-        }
-      },
-      options: ['word', 'startsWith', 'endsWith', 'text'],
-      option: 'word',
-      setOption(option) {
-        if (this.options.includes(option)) {
-          this.option = option;
-          browser.storage.sync.set({
-            thefreedictionaryOption: option
-          }).then(console.log('Option set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized option.');
-        }
-      },
-      reset() {
-        removeItem('thefreedictionary');
-        this.setType('dictionary');
-        this.setOption('word');
-      }
-    },
     // Add CUBE, YouGlish and Wikipedia later
     // cube: {
     //   contextMenu: false,
@@ -339,14 +351,10 @@ const settings = {
       if (resIDs.includes(resID)) {
         const res = this[resID];
         if (res.types !== undefined && res.types.includes(type)) {
-          if (resID === 'thefreedictionary') {
-            this.thefreedictionary.setType(type);
-          } else {
-            res.type = type;
-            browser.storage.sync.set({
-              [`${res.id}Type`]: type
-            }).then(console.log(`${res.name}'s type is successfuly set to ${type}.`), console.log);
-          }
+          res.type = type;
+          browser.storage.sync.set({
+            [`${res.id}Type`]: type
+          }).then(console.log(`${res.name}'s type is successfuly set to ${type}.`), console.log);
         } else {
           console.error(`${res.name} doesn't have the type ${type}`);
         }
@@ -364,17 +372,14 @@ const settings = {
         console.log(results);
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
-        if (['cambridge-dictionary', 'vocabulary', 'merriam-webster', 'collins', 'wiktionary', 'dictionary', 'thesaurus'].includes(resID)) {
-          if (res.defaultType !== undefined) res.setType(res.defaultType);
-          if (res.defaultContextMenu === true) {
-            createItem(resID);
-          } else {
-            removeItem(resID);
-          }
-          console.log(`${res.name} is successfuly reset to defaults.`);
+        if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
+        if (res.defaultContextMenu === true) {
+          createItem(resID);
         } else {
-          res.reset();
+          removeItem(resID);
         }
+        if (resID === 'thefreedictionary') res.setOption('word');
+        console.log(`${res.name} is successfuly reset to defaults.`);
       } else {
         console.error('Unrecognized resource id.');
       }
@@ -768,9 +773,6 @@ function chooseResource(info) {
       break;
     case 'thefreedictionary':
       {
-        const {
-          thefreedictionary
-        } = resources;
         let option;
         switch (thefreedictionary.option) {
           case 'word':
