@@ -26,7 +26,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   defaultContextMenu: true,
   contextMenu: true,
   name: 'Cambridge Dictionary',
-  id: 'cambridge-dictionary',
+  id: 'cambridgeDictionary',
   types: [
   // Definitions
   'english', 'learner', 'essential-american', 'essential-british',
@@ -263,6 +263,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   options: ['word', 'startsWith', 'endsWith', 'text'],
   defaultOption: 'word',
   option: 'word',
+  // THERE NEEDS TO BE A BETTER WAY
   setOption(option) {
     if (this.options.includes(option)) {
       this.option = option;
@@ -313,13 +314,13 @@ browser.menus.create({
 // Default settings
 const settings = {
   resources: {
+    cambridgeDictionary: cambridge,
     vocabulary: vocabulary,
     collins: collins,
     wiktionary: wiktionary,
     dictionary: dictionary,
     thesaurus: thesaurus,
     thefreedictionary: thefreedictionary,
-    'cambridge-dictionary': cambridge,
     'merriam-webster': merriam,
     // Add CUBE, YouGlish and Wikipedia later
     // cube: {
@@ -378,7 +379,8 @@ const settings = {
         } else {
           removeItem(resID);
         }
-        if (resID === 'thefreedictionary') res.setOption('word');
+        // THERE NEEDS TO BE A BETTER WAY
+        if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
         console.log(`${res.name} is successfuly reset to defaults.`);
       } else {
         console.error('Unrecognized resource id.');
@@ -393,8 +395,8 @@ function chooseResource(info) {
   const word = encodeURI(info.selectionText);
   let url;
   switch (info.menuItemId) {
-    case 'cambridge-dictionary':
-      switch (resources['cambridge-dictionary'].type) {
+    case 'cambridgeDictionary':
+      switch (cambridge.type) {
         case 'english':
           url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
           break;
@@ -899,8 +901,8 @@ function toggleItem(resID) {
   try {
     const retrieved = await browser.storage.sync.get({
       // Cambridge Dictionary
-      'cambridge-dictionaryContextMenu': null,
-      'cambridge-dictionaryType': null,
+      [`${cambridge.id}ContextMenu`]: null,
+      [`${cambridge.id}Type`]: null,
       // Vocabulary.com
       vocabularyContextMenu: null,
       // Merriam-Webster
@@ -930,7 +932,7 @@ function toggleItem(resID) {
       const res = resources[resID];
       const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
       if (retrievedContextMenu != null) res.contextMenu = retrievedContextMenu;
-      if (['cambridge-dictionary', 'vocabulary', 'merriam-webster', 'collins', 'wiktionary', 'thefreedictionary'].includes(resID)) {
+      if (['cambridgeDictionary', 'vocabulary', 'merriam-webster', 'collins', 'wiktionary', 'thefreedictionary'].includes(resID)) {
         const retrievedType = retrieved[`${resID}Type`];
         if (retrievedType) res.type = retrievedType;
       }
