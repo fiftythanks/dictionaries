@@ -26,8 +26,11 @@ var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ background)
+  wE: () => (/* binding */ createItem),
+  Ai: () => (/* binding */ removeItem)
 });
+
+// UNUSED EXPORTS: toggleItem
 
 ;// ./src/background/resources/cambridge.js
 /* eslint-disable no-console */
@@ -303,6 +306,120 @@ If you have any questions or feedback, feel free to contact me via email at mikh
     }
   }
 });
+;// ./src/background/settings.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+
+
+
+
+
+
+
+
+// eslint-disable-next-line import/no-cycle
+
+const settings = {
+  resources: {
+    cambridgeDictionary: cambridge,
+    vocabulary: vocabulary,
+    wiktionary: wiktionary,
+    merriamWebster: merriam,
+    collins: collins,
+    dictionary: dictionary,
+    thesaurus: thesaurus,
+    thefreedictionary: thefreedictionary // change setOption
+    // Add CUBE, YouGlish and Wikipedia later
+    // cube: {
+    //   contextMenu: false,
+    //   name: 'CUBE',
+    //   types: ['spell', 'sound'],
+    //   type: 'spell',
+    //   setType(type) {
+    //     if (this.types.includes(type)) {
+    //       this.type = type;
+    //       browser.storage.sync
+    //         .set({ cubeType: type })
+    //         .then(console.log('Type set successfuly.'), console.log);
+    //     } else {
+    //       console.error('Unrecognized type.');
+    //     }
+    //   },
+    //   options: {},
+    //   reset() {
+    //     removeItem('cube');
+    //     this.setType('spell');
+    //   },
+    // },
+    // youglish: {},
+    // wikipedia: {},
+  },
+  setType(resID, type) {
+    const {
+      resources
+    } = this;
+    const resIDs = Object.keys(resources);
+    if (resIDs.includes(resID)) {
+      const res = resources[resID];
+      if (res.types !== undefined && res.types.includes(type)) {
+        res.type = type;
+        browser.storage.sync.set({
+          [`${res.id}Type`]: type
+        }).then(console.log(`${res.name}'s type is successfuly set to ${type}.`), console.log);
+      } else {
+        console.error(`${res.name} doesn't have the type ${type}`);
+      }
+    } else {
+      console.error(`There's no resource with the ${resID} ID.`);
+    }
+  },
+  async reset(resID) {
+    const {
+      resources
+    } = this;
+    const resIDs = Object.keys(resources);
+    if (resID === undefined) {
+      resIDs.forEach(id => this.reset(id));
+      const results = await browser.storage.sync.get(null);
+      console.log('Resources are reset.');
+      console.log(results);
+    } else if (resIDs.includes(resID)) {
+      const res = resources[resID];
+      if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
+      if (res.defaultContextMenu === true) {
+        createItem(resID);
+      } else {
+        removeItem(resID);
+      }
+      // THERE NEEDS TO BE A BETTER WAY
+      if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
+      console.log(`${res.name} is successfuly reset to defaults.`);
+    } else {
+      console.error('Unrecognized resource id.');
+    }
+  }
+};
+const {
+  resources
+} = settings;
 ;// ./src/background/lookUp.js
 /* eslint-disable no-console */
 /*
@@ -331,7 +448,7 @@ function lookUp(info) {
   let url;
   switch (info.menuItemId) {
     case 'cambridgeDictionary':
-      switch (background.cambridgeDictionary.type) {
+      switch (resources.cambridgeDictionary.type) {
         case 'english':
           url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
           break;
@@ -493,7 +610,7 @@ function lookUp(info) {
       url = `https://www.vocabulary.com/dictionary/${word}`;
       break;
     case 'merriamWebster':
-      switch (background.merriamWebster.type) {
+      switch (resources.merriamWebster.type) {
         case 'dictionary':
           url = `https://www.merriamWebster.com/dictionary/${word}`;
           break;
@@ -505,7 +622,7 @@ function lookUp(info) {
       }
       break;
     case 'collins':
-      switch (background.collins.type) {
+      switch (resources.collins.type) {
         case 'en-definitions':
           url = `https://www.collinsdictionary.com/search/?dictCode=english&q=${word}`;
           break;
@@ -667,7 +784,7 @@ function lookUp(info) {
       }
       break;
     case 'wiktionary':
-      switch (background.wiktionary.type) {
+      switch (resources.wiktionary.type) {
         case 'en':
           url = `https://en.wiktionary.org/w/index.php?search=${word}&title=Special:Search&wprov=acrw1_-1`;
           break;
@@ -711,7 +828,7 @@ function lookUp(info) {
     case 'thefreedictionary':
       {
         let option;
-        switch (background.thefreedictionary.option) {
+        switch (resources.thefreedictionary.option) {
           case 'word':
             option = 0;
             break;
@@ -727,7 +844,7 @@ function lookUp(info) {
           default:
             option = 0;
         }
-        switch (background.thefreedictionary.type) {
+        switch (resources.thefreedictionary.type) {
           case 'dictionary':
             url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
             break;
@@ -800,108 +917,17 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
-
-
-
-
-
-
-
-
-
 // eslint-disable-next-line import/no-cycle
+
 
 browser.menus.create({
   id: 'dictionaries',
   title: 'Look up: %s',
   contexts: ['selection']
 });
-
-// Default settings
-const settings = {
-  resources: {
-    cambridgeDictionary: cambridge,
-    vocabulary: vocabulary,
-    wiktionary: wiktionary,
-    merriamWebster: merriam,
-    collins: collins,
-    dictionary: dictionary,
-    thesaurus: thesaurus,
-    thefreedictionary: thefreedictionary // change setOption
-    // Add CUBE, YouGlish and Wikipedia later
-    // cube: {
-    //   contextMenu: false,
-    //   name: 'CUBE',
-    //   types: ['spell', 'sound'],
-    //   type: 'spell',
-    //   setType(type) {
-    //     if (this.types.includes(type)) {
-    //       this.type = type;
-    //       browser.storage.sync
-    //         .set({ cubeType: type })
-    //         .then(console.log('Type set successfuly.'), console.log);
-    //     } else {
-    //       console.error('Unrecognized type.');
-    //     }
-    //   },
-    //   options: {},
-    //   reset() {
-    //     removeItem('cube');
-    //     this.setType('spell');
-    //   },
-    // },
-    // youglish: {},
-    // wikipedia: {},
-  },
-  setType(resID, type) {
-    const {
-      resources
-    } = this;
-    const resIDs = Object.keys(resources);
-    if (resIDs.includes(resID)) {
-      const res = resources[resID];
-      if (res.types !== undefined && res.types.includes(type)) {
-        res.type = type;
-        browser.storage.sync.set({
-          [`${res.id}Type`]: type
-        }).then(console.log(`${res.name}'s type is successfuly set to ${type}.`), console.log);
-      } else {
-        console.error(`${res.name} doesn't have the type ${type}`);
-      }
-    } else {
-      console.error(`There's no resource with the ${resID} ID.`);
-    }
-  },
-  async reset(resID) {
-    const {
-      resources
-    } = this;
-    const resIDs = Object.keys(resources);
-    if (resID === undefined) {
-      resIDs.forEach(id => this.reset(id));
-      const results = await browser.storage.sync.get(null);
-      console.log('Resources are reset.');
-      console.log(results);
-    } else if (resIDs.includes(resID)) {
-      const res = resources[resID];
-      if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
-      if (res.defaultContextMenu === true) {
-        createItem(resID);
-      } else {
-        removeItem(resID);
-      }
-      // THERE NEEDS TO BE A BETTER WAY
-      if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
-      console.log(`${res.name} is successfuly reset to defaults.`);
-    } else {
-      console.error('Unrecognized resource id.');
-    }
-  }
-};
-/* harmony default export */ const background = (settings.resources);
 function createItem(resID) {
   // add a check for the existance of such a resource
-  const res = settings.resources[resID];
+  const res = resources[resID];
   browser.menus.create({
     parentId: 'dictionaries',
     id: resID,
@@ -922,7 +948,7 @@ function createItem(resID) {
 }
 function removeItem(resID) {
   // add a check for the existance of such a resource
-  const res = settings.resources[resID];
+  const res = resources[resID];
   browser.menus.remove(resID).then(() => {
     res.contextMenu = false;
     browser.storage.sync.set({
@@ -937,7 +963,7 @@ function removeItem(resID) {
 }
 function toggleItem(resID) {
   // add a check for the existance of such a resource
-  const res = settings.resources[resID];
+  const res = resources[resID];
   if (res.contextMenu === true) {
     removeItem(resID);
   } else if (res.contextMenu === false) {
@@ -950,9 +976,6 @@ function toggleItem(resID) {
 // Sync settings
 // Make sync an option, not a default <------------------------------------
 (async () => {
-  const {
-    resources
-  } = settings;
   const resIDs = Object.keys(resources);
 
   // If the promise is rejected, the program will jump to the catch block and the default settings won't change
