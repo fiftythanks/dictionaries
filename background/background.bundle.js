@@ -89,7 +89,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   defaultContextMenu: false,
   contextMenu: false,
   name: 'Merriam-Webster',
-  id: 'merriam-webster',
+  id: 'merriamWebster',
   types: ['dictionary', 'thesaurus'],
   defaultType: 'dictionary',
   type: 'dictionary'
