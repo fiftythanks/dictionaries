@@ -35,17 +35,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   // Other
   'grammar', 'thesaurus', 'pronunciation'],
   defaultType: 'english',
-  type: 'english',
-  setType(type) {
-    if (this.types.includes(type)) {
-      this.type = type;
-      browser.storage.sync.set({
-        [`${this.id}Type`]: type
-      }).then(console.log(`${this.name}'s type is successfuly set to ${type}.`), console.log);
-    } else {
-      console.error('Unrecognized type.');
-    }
-  }
+  type: 'english'
 });
 ;// ./src/background/resources/vocabulary.js
 /* eslint-disable no-console */
@@ -102,17 +92,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   id: 'merriam-webster',
   types: ['dictionary', 'thesaurus'],
   defaultType: 'dictionary',
-  type: 'dictionary',
-  setType(type) {
-    if (this.types.includes(type)) {
-      this.type = type;
-      browser.storage.sync.set({
-        [`${this.id}Type`]: type
-      }).then(console.log(`${this.name}'s type is successfuly set to ${type}.`), console.log);
-    } else {
-      console.error('Unrecognized type.');
-    }
-  }
+  type: 'dictionary'
 });
 ;// ./src/background/resources/collins.js
 /* eslint-disable no-console */
@@ -164,17 +144,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   // Japanese
   'en-ja', 'ja-en'],
   defaultType: 'en-definitions',
-  type: 'en-definitions ',
-  setType(type) {
-    if (this.types.includes(type)) {
-      this.type = type;
-      browser.storage.sync.set({
-        [`${this.id}Type`]: type
-      }).then(console.log(`${this.name}'s type is successfuly set to ${type}.`), console.log);
-    } else {
-      console.error('Unrecognized type.');
-    }
-  }
+  type: 'en-definitions '
 });
 ;// ./src/background/resources/wiktionary.js
 /* eslint-disable no-console */
@@ -205,17 +175,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   // ISO-639 language codes
   types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
   defaultType: 'en',
-  type: 'en',
-  setType(type) {
-    if (this.types.includes(type)) {
-      this.type = type;
-      browser.storage.sync.set({
-        [`${this.id}Type`]: type
-      }).then(console.log(`${this.name}'s type is successfuly set to ${type}.`), console.log);
-    } else {
-      console.error('Unrecognized type.');
-    }
-  }
+  type: 'en'
 });
 ;// ./src/background/resources/dictionary.js
 /* eslint-disable no-console */
@@ -373,9 +333,30 @@ const settings = {
     // },
     // youglish: {},
     // wikipedia: {},
+    setType(resID, type) {
+      const resIDs = Object.keys(this);
+      resIDs.splice(-2, 2); // Remove 'setType' and 'reset' from the array
+      if (resIDs.includes(resID)) {
+        const res = this[resID];
+        if (res.types !== undefined && res.types.includes(type)) {
+          if (resID === 'thefreedictionary') {
+            this.thefreedictionary.setType(type);
+          } else {
+            res.type = type;
+            browser.storage.sync.set({
+              [`${res.id}Type`]: type
+            }).then(console.log(`${res.name}'s type is successfuly set to ${type}.`), console.log);
+          }
+        } else {
+          console.error(`${res.name} doesn't have the type ${type}`);
+        }
+      } else {
+        console.error(`There's no resource with the ${resID} ID.`);
+      }
+    },
     async reset(resID) {
       const resIDs = Object.keys(this);
-      resIDs.pop(); // Remove 'reset' from the array
+      resIDs.splice(-2, 2); // Remove 'setType' and 'reset' from the array
       if (resID === undefined) {
         resIDs.forEach(id => this.reset(id));
         const results = await browser.storage.sync.get(null);
@@ -400,7 +381,6 @@ const settings = {
     }
   }
 };
-//
 function chooseResource(info) {
   const {
     resources
