@@ -138,6 +138,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
+
 browser.menus.create({
   id: 'dictionaries',
   title: 'Look up: %s',
@@ -311,6 +312,7 @@ const settings = {
     }
   }
 };
+//
 function chooseResource(info) {
   const {
     resources
