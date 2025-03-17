@@ -78,7 +78,7 @@ export const settings = {
             console.log,
           );
       } else {
-        console.error(`${res.name} doesn't have the type ${type}`);
+        console.error(`${res.name} doesn't have the type ${type}.`);
       }
     } else {
       console.error(`There's no resource with the ${resID} ID.`);

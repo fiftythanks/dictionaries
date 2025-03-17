@@ -99,5 +99,5 @@ export default {
     'ja-en',
   ],
   defaultType: 'en-definitions',
-  type: 'en-definitions ',
+  type: 'en-definitions',
 };

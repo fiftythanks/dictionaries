@@ -18,6 +18,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
+
 // eslint-disable-next-line import/no-cycle
 import { settings, resources } from './settings';
 import { createMenu, createItem, removeItem, toggleItem } from './contextMenu';
@@ -70,36 +71,26 @@ createMenu();
     resIDs.forEach((resID) => {
       const res = resources[resID];
       const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
-      // USE EXISTING METHODS
-      if (retrievedContextMenu != null) res.contextMenu = retrievedContextMenu;
-      if (
-        [
-          'cambridgeDictionary',
-          'vocabulary',
-          'merriamWebster',
-          'collins',
-          'wiktionary',
-          'thefreedictionary',
-        ].includes(resID)
-      ) {
-        const retrievedType = retrieved[`${resID}Type`];
-        if (retrievedType) res.type = retrievedType;
+
+      if (retrievedContextMenu != null) {
+        if (retrievedContextMenu === true) {
+          createItem(resID);
+        } else {
+          removeItem(resID);
+        }
       }
-      if (resID === 'thefreedictionary') {
-        const retrievedOption = retrieved[`${resID}Option`];
-        if (retrievedOption) res.option = retrievedOption;
-      }
+
+      const type = retrieved[`${resID}Type`];
+      if (res.types !== undefined && type !== null && res.type !== type)
+        settings.setType(resID, type);
+
+      const option = retrieved[`${resID}Option`];
+      if (res.options !== undefined && option !== null && res.option !== option)
+        res.setOption(option);
     });
   } catch (error) {
     console.log(error);
   }
-
-  // Create context menu items
-  resIDs.forEach((resID) => {
-    if (resources[resID].contextMenu === true) {
-      createItem(resID);
-    }
-  });
 })();
 
 // REMOVE ON RELEASE
