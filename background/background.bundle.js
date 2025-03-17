@@ -41,7 +41,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
       this.type = type;
       browser.storage.sync.set({
         [`${this.id}Type`]: type
-      }).then(console.log(`Cambridge Dictionary's type is successfuly set to ${type}.`), console.log);
+      }).then(console.log(`${this.name} type is successfuly set to ${type}.`), console.log);
     } else {
       console.error('Unrecognized type.');
     }
@@ -73,6 +73,46 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   contextMenu: true,
   name: 'Vocabulary',
   id: 'vocabulary'
+});
+;// ./src/background/resources/merriam.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const merriam = ({
+  defaultContextMenu: false,
+  contextMenu: false,
+  name: 'Merriam-Webster',
+  id: 'merriam-webster',
+  types: ['dictionary', 'thesaurus'],
+  defaultType: 'dictionary',
+  type: 'dictionary',
+  setType(type) {
+    if (this.types.includes(type)) {
+      this.type = type;
+      browser.storage.sync.set({
+        [`${this.id}Type`]: type
+      }).then(console.log(`${this.name} type is successfuly set to ${type}.`), console.log);
+    } else {
+      console.error('Unrecognized type.');
+    }
+  }
 });
 ;// ./src/background/background.js
 /* eslint-disable no-use-before-define */
@@ -109,26 +149,7 @@ const settings = {
   resources: {
     vocabulary: vocabulary,
     'cambridge-dictionary': cambridge,
-    'merriam-webster': {
-      contextMenu: false,
-      name: 'Merriam-Webster',
-      types: ['dictionary', 'thesaurus'],
-      type: 'dictionary',
-      setType(type) {
-        if (this.types.includes(type)) {
-          this.type = type;
-          browser.storage.sync.set({
-            'merriam-websterType': type
-          }).then(console.log('Type set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized type.');
-        }
-      },
-      reset() {
-        removeItem('merriam-webster');
-        this.setType('dictionary');
-      }
-    },
+    'merriam-webster': merriam,
     collins: {
       contextMenu: false,
       name: 'Collins',
@@ -266,14 +287,6 @@ const settings = {
     async reset(resID) {
       const resIDs = Object.keys(this);
       resIDs.pop(); // Remove 'reset' from the array
-      // ------------- ATTENTION --------------
-      // For some reason, if you type settings.resources.reset(), the command
-      // works, as I understand, but promises throw exceptions. Probably, I
-      // don't use asynchronous methods correctly. Fix this.
-      //
-      // And by the way, is it necessary that the reset() method is not a
-      // direct method of settings? It's uncomfortable
-      // ------------- ATTENTION --------------
       if (resID === undefined) {
         resIDs.forEach(id => this.reset(id));
         const results = await browser.storage.sync.get(null);
@@ -281,7 +294,7 @@ const settings = {
         console.log(results);
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
-        if (['cambridge-dictionary', 'vocabulary'].includes(resID)) {
+        if (['cambridge-dictionary', 'vocabulary', 'merriam-webster'].includes(resID)) {
           if (res.defaultType !== undefined) res.setType(res.defaultType);
           if (res.defaultContextMenu === true) {
             createItem(resID);
@@ -766,13 +779,14 @@ function createItem(resID) {
     contexts: ['all'],
     onclick: chooseResource
   }, () => {
-    if (browser.runtime.lastError) {
-      console.log(browser.runtime.lastError);
+    if (browser.runtime.lastError !== null) {
+      const error = browser.runtime.lastError;
+      if (error.message !== `ID already exists: ${resID}`) console.error(error);
     } else {
       res.contextMenu = true;
       browser.storage.sync.set({
         [`${resID}ContextMenu`]: true
-      }).then(console.log(`Item ${resID} successfuly created`), console.log);
+      }).then(console.log(`Item ${resID} successfuly created`), console.error);
     }
   });
 }
@@ -782,8 +796,13 @@ function removeItem(resID) {
     res.contextMenu = false;
     browser.storage.sync.set({
       [`${resID}ContextMenu`]: false
-    }).then(console.log(`Item ${resID} successfuly removed`), console.log);
-  }).catch(console.log);
+    }).then(console.log(`Item ${resID} successfuly removed`), console.error);
+  }).catch(error => {
+    if (error.message !== `Cannot find menu item with id ${resID}`) {
+      console.log(error.message);
+      console.error(error);
+    }
+  });
 }
 function toggleItem(resID) {
   const res = settings.resources[resID];
