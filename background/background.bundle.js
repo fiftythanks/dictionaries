@@ -745,19 +745,25 @@ function createItem(resID) {
     title: res.name,
     contexts: ['all'],
     onclick: chooseResource
+  }, () => {
+    if (browser.runtime.lastError) {
+      console.log(browser.runtime.lastError);
+    } else {
+      res.contextMenu = true;
+      browser.storage.sync.set({
+        [`${resID}ContextMenu`]: true
+      }).then(console.log(`Item ${resID} successfuly created`), console.log);
+    }
   });
-  res.contextMenu = true;
-  browser.storage.sync.set({
-    [`${resID}ContextMenu`]: true
-  }).then(console.log(`Item ${resID} successfuly created`), console.log);
 }
 function removeItem(resID) {
   const res = settings.resources[resID];
-  browser.menus.remove(resID);
-  res.contextMenu = false;
-  browser.storage.sync.set({
-    [`${resID}ContextMenu`]: false
-  }).then(console.log(`Item ${resID} successfuly removed`), console.log);
+  browser.menus.remove(resID).then(() => {
+    res.contextMenu = false;
+    browser.storage.sync.set({
+      [`${resID}ContextMenu`]: false
+    }).then(console.log(`Item ${resID} successfuly removed`), console.log);
+  }).catch(console.log);
 }
 function toggleItem(resID) {
   const res = settings.resources[resID];
