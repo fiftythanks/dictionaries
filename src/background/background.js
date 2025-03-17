@@ -147,7 +147,7 @@ const settings = {
     },
   },
 };
-
+//
 function chooseResource(info) {
   const { resources } = settings;
   const word = encodeURI(info.selectionText);
