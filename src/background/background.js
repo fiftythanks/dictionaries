@@ -20,78 +20,15 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 
 // eslint-disable-next-line import/no-cycle
-import { settings, resources } from './settings';
+import { settings } from './settings';
 import { createMenu, createItem, removeItem, toggleItem } from './contextMenu';
+import sync from './sync';
 
 createMenu();
 
-// Sync settings
-// Make sync an option, not a default <------------------------------------
-(async () => {
-  const resIDs = Object.keys(resources);
-
-  // If the promise is rejected, the program will jump to the catch block and the default settings won't change
-  try {
-    const retrieved = await browser.storage.sync.get({
-      // Cambridge Dictionary
-      cambridgeDictionaryContextMenu: null,
-      cambridgeDictionaryType: null,
-
-      // Vocabulary.com
-      vocabularyContextMenu: null,
-
-      // merriamWebster
-      merriamWebsterContextMenu: null,
-      merriamWebsterType: null,
-
-      // Collins
-      collinsContextMenu: null,
-      collinsType: null,
-
-      // Wiktionary
-      wiktionaryContextMenu: null,
-      wiktionaryType: null,
-
-      // Dictionary.com
-      dictionaryContextMenu: null,
-
-      // Thesaurus.com
-      thesaurusContextMenu: null,
-
-      // The Free Dictionary
-      thefreedictionaryContextMenu: null,
-      thefreedictionaryType: null,
-      thefreedictionaryOption: null,
-
-      // CUBE
-      // cubeContextMenu: null,
-
-      // YouGlish
-    });
-    resIDs.forEach((resID) => {
-      const res = resources[resID];
-      const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
-
-      if (retrievedContextMenu != null) {
-        if (retrievedContextMenu === true) {
-          createItem(resID);
-        } else {
-          removeItem(resID);
-        }
-      }
-
-      const type = retrieved[`${resID}Type`];
-      if (res.types !== undefined && type !== null && res.type !== type)
-        settings.setType(resID, type);
-
-      const option = retrieved[`${resID}Option`];
-      if (res.options !== undefined && option !== null && res.option !== option)
-        res.setOption(option);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-})();
+// CREATE A DEFAULT EXTENSION STORAGE 'SYNC' FUNCTION
+// Make sync an option, not a default.
+sync();
 
 // REMOVE ON RELEASE
 // -------------------------------------------------
