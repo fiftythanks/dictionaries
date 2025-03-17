@@ -252,14 +252,6 @@ const settings = {
     async reset(resID) {
       const resIDs = Object.keys(this);
       resIDs.pop(); // Remove 'reset' from the array
-      // ------------- ATTENTION --------------
-      // For some reason, if you type settings.resources.reset(), the command
-      // works, as I understand, but promises throw exceptions. Probably, I
-      // don't use asynchronous methods correctly. Fix this.
-      //
-      // And by the way, is it necessary that the reset() method is not a
-      // direct method of settings? It's uncomfortable
-      // ------------- ATTENTION --------------
       if (resID === undefined) {
         resIDs.forEach((id) => this.reset(id));
         const results = await browser.storage.sync.get(null);
@@ -752,13 +744,18 @@ function createItem(resID) {
       onclick: chooseResource,
     },
     () => {
-      if (browser.runtime.lastError) {
-        console.log(browser.runtime.lastError);
+      if (browser.runtime.lastError !== null) {
+        const error = browser.runtime.lastError;
+        if (error.message !== `ID already exists: ${resID}`)
+          console.error(error);
       } else {
         res.contextMenu = true;
         browser.storage.sync
           .set({ [`${resID}ContextMenu`]: true })
-          .then(console.log(`Item ${resID} successfuly created`), console.log);
+          .then(
+            console.log(`Item ${resID} successfuly created`),
+            console.error,
+          );
       }
     },
   );
@@ -773,9 +770,14 @@ function removeItem(resID) {
       res.contextMenu = false;
       browser.storage.sync
         .set({ [`${resID}ContextMenu`]: false })
-        .then(console.log(`Item ${resID} successfuly removed`), console.log);
+        .then(console.log(`Item ${resID} successfuly removed`), console.error);
     })
-    .catch(console.log);
+    .catch((error) => {
+      if (error.message !== `Cannot find menu item with id ${resID}`) {
+        console.log(error.message);
+        console.error(error);
+      }
+    });
 }
 
 function toggleItem(resID) {
