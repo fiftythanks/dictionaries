@@ -17,6 +17,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
+
 export default {
   defaultContextMenu: true,
   contextMenu: true,
@@ -87,7 +88,12 @@ export default {
       this.type = type;
       browser.storage.sync
         .set({ [`${this.id}Type`]: type })
-        .then(console.log('Type set successfuly.'), console.log);
+        .then(
+          console.log(
+            `Cambridge Dictionary's type is successfuly set to ${type}.`,
+          ),
+          console.log,
+        );
     } else {
       console.error('Unrecognized type.');
     }

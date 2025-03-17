@@ -20,6 +20,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 
 import cambridgeDictionary from './resources/cambridge';
+import vocabulary from './resources/vocabulary';
 
 browser.menus.create({
   id: 'dictionaries',
@@ -30,18 +31,8 @@ browser.menus.create({
 // Default settings
 const settings = {
   resources: {
+    vocabulary,
     'cambridge-dictionary': cambridgeDictionary,
-    vocabulary: {
-      contextMenu: true,
-      name: 'Vocabulary',
-      reset() {
-        this.contextMenu = true;
-        browser.storage.sync
-          .set({ vocabularyContextMenu: true })
-          .then(console.log('vocabulary is successfuly reset'))
-          .catch(console.log);
-      },
-    },
     'merriam-webster': {
       contextMenu: false,
       name: 'Merriam-Webster',
@@ -276,14 +267,14 @@ const settings = {
         console.log(results);
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
-        if (resID === 'cambridge-dictionary') {
+        if (['cambridge-dictionary', 'vocabulary'].includes(resID)) {
           if (res.defaultType !== undefined) res.setType(res.defaultType);
           if (res.defaultContextMenu === true) {
             createItem(resID);
           } else {
             removeItem(resID);
           }
-          console.log('cambridge-dictionary is successfuly reset to defaults.');
+          console.log(`${res.name} is successfuly reset to defaults.`);
         } else {
           res.reset();
         }
