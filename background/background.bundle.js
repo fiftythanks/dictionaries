@@ -316,12 +316,12 @@ const settings = {
   resources: {
     cambridgeDictionary: cambridge,
     vocabulary: vocabulary,
-    collins: collins,
     wiktionary: wiktionary,
+    merriamWebster: merriam,
+    collins: collins,
     dictionary: dictionary,
     thesaurus: thesaurus,
     thefreedictionary: thefreedictionary,
-    'merriam-webster': merriam,
     // Add CUBE, YouGlish and Wikipedia later
     // cube: {
     //   contextMenu: false,
@@ -389,9 +389,6 @@ const settings = {
   }
 };
 function chooseResource(info) {
-  const {
-    resources
-  } = settings;
   const word = encodeURI(info.selectionText);
   let url;
   switch (info.menuItemId) {
@@ -557,20 +554,20 @@ function chooseResource(info) {
     case 'vocabulary':
       url = `https://www.vocabulary.com/dictionary/${word}`;
       break;
-    case 'merriam-webster':
-      switch (resources['merriam-webster'].type) {
+    case 'merriamWebster':
+      switch (merriam.type) {
         case 'dictionary':
-          url = `https://www.merriam-webster.com/dictionary/${word}`;
+          url = `https://www.merriamWebster.com/dictionary/${word}`;
           break;
         case 'thesaurus':
-          url = `https://www.merriam-webster.com/thesaurus/${word}`;
+          url = `https://www.merriamWebster.com/thesaurus/${word}`;
           break;
         default:
-          url = `https://www.merriam-webster.com/dictionary/${word}`;
+          url = `https://www.merriamWebster.com/dictionary/${word}`;
       }
       break;
     case 'collins':
-      switch (resources.collins.type) {
+      switch (collins.type) {
         case 'en-definitions':
           url = `https://www.collinsdictionary.com/search/?dictCode=english&q=${word}`;
           break;
@@ -732,7 +729,7 @@ function chooseResource(info) {
       }
       break;
     case 'wiktionary':
-      switch (resources.wiktionary.type) {
+      switch (wiktionary.type) {
         case 'en':
           url = `https://en.wiktionary.org/w/index.php?search=${word}&title=Special:Search&wprov=acrw1_-1`;
           break;
@@ -845,6 +842,7 @@ function chooseResource(info) {
   });
 }
 function createItem(resID) {
+  // add a check for the existance of such a resource
   const res = settings.resources[resID];
   browser.menus.create({
     parentId: 'dictionaries',
@@ -865,6 +863,7 @@ function createItem(resID) {
   });
 }
 function removeItem(resID) {
+  // add a check for the existance of such a resource
   const res = settings.resources[resID];
   browser.menus.remove(resID).then(() => {
     res.contextMenu = false;
@@ -879,6 +878,7 @@ function removeItem(resID) {
   });
 }
 function toggleItem(resID) {
+  // add a check for the existance of such a resource
   const res = settings.resources[resID];
   if (res.contextMenu === true) {
     removeItem(resID);
@@ -892,22 +892,23 @@ function toggleItem(resID) {
 // Sync settings
 // Make sync an option, not a default <------------------------------------
 (async () => {
-  const resIDs = Object.keys(settings.resources);
   const {
     resources
   } = settings;
+  const resIDs = Object.keys(resources);
+  resIDs.splice(-2, 2); // Remove 'setType' and 'reset' from the array
 
   // If the promise is rejected, the program will jump to the catch block and the default settings won't change
   try {
     const retrieved = await browser.storage.sync.get({
       // Cambridge Dictionary
-      [`${cambridge.id}ContextMenu`]: null,
-      [`${cambridge.id}Type`]: null,
+      cambridgeDictionaryContextMenu: null,
+      cambridgeDictionaryType: null,
       // Vocabulary.com
       vocabularyContextMenu: null,
-      // Merriam-Webster
-      'merriam-websterContextMenu': null,
-      'merriam-websterType': null,
+      // merriamWebster
+      merriamWebsterContextMenu: null,
+      merriamWebsterType: null,
       // Collins
       collinsContextMenu: null,
       collinsType: null,
@@ -931,8 +932,9 @@ function toggleItem(resID) {
     resIDs.forEach(resID => {
       const res = resources[resID];
       const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
+      // USE EXISTING METHODS
       if (retrievedContextMenu != null) res.contextMenu = retrievedContextMenu;
-      if (['cambridgeDictionary', 'vocabulary', 'merriam-webster', 'collins', 'wiktionary', 'thefreedictionary'].includes(resID)) {
+      if (['cambridgeDictionary', 'vocabulary', 'merriamWebster', 'collins', 'wiktionary', 'thefreedictionary'].includes(resID)) {
         const retrievedType = retrieved[`${resID}Type`];
         if (retrievedType) res.type = retrievedType;
       }
