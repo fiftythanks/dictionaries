@@ -39,6 +39,7 @@ export default {
   options: ['word', 'startsWith', 'endsWith', 'text'],
   defaultOption: 'word',
   option: 'word',
+  // THERE NEEDS TO BE A BETTER WAY
   setOption(option) {
     if (this.options.includes(option)) {
       this.option = option;

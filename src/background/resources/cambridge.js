@@ -22,7 +22,7 @@ export default {
   defaultContextMenu: true,
   contextMenu: true,
   name: 'Cambridge Dictionary',
-  id: 'cambridge-dictionary',
+  id: 'cambridgeDictionary',
   types: [
     // Definitions
     'english',

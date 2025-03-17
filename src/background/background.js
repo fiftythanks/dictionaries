@@ -37,13 +37,13 @@ browser.menus.create({
 // Default settings
 const settings = {
   resources: {
+    cambridgeDictionary,
     vocabulary,
     collins,
     wiktionary,
     dictionary,
     thesaurus,
     thefreedictionary,
-    'cambridge-dictionary': cambridgeDictionary,
     'merriam-webster': merriamWebster,
     // Add CUBE, YouGlish and Wikipedia later
     // cube: {
@@ -105,7 +105,8 @@ const settings = {
         } else {
           removeItem(resID);
         }
-        if (resID === 'thefreedictionary') res.setOption('word');
+        // THERE NEEDS TO BE A BETTER WAY
+        if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
         console.log(`${res.name} is successfuly reset to defaults.`);
       } else {
         console.error('Unrecognized resource id.');
@@ -119,8 +120,8 @@ function chooseResource(info) {
   const word = encodeURI(info.selectionText);
   let url;
   switch (info.menuItemId) {
-    case 'cambridge-dictionary':
-      switch (resources['cambridge-dictionary'].type) {
+    case 'cambridgeDictionary':
+      switch (cambridgeDictionary.type) {
         case 'english':
           url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
           break;
@@ -638,8 +639,8 @@ function toggleItem(resID) {
   try {
     const retrieved = await browser.storage.sync.get({
       // Cambridge Dictionary
-      'cambridge-dictionaryContextMenu': null,
-      'cambridge-dictionaryType': null,
+      [`${cambridgeDictionary.id}ContextMenu`]: null,
+      [`${cambridgeDictionary.id}Type`]: null,
 
       // Vocabulary.com
       vocabularyContextMenu: null,
@@ -678,7 +679,7 @@ function toggleItem(resID) {
       if (retrievedContextMenu != null) res.contextMenu = retrievedContextMenu;
       if (
         [
-          'cambridge-dictionary',
+          'cambridgeDictionary',
           'vocabulary',
           'merriam-webster',
           'collins',
