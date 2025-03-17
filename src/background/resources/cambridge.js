@@ -83,17 +83,4 @@ export default {
   ],
   defaultType: 'english',
   type: 'english',
-  setType(type) {
-    if (this.types.includes(type)) {
-      this.type = type;
-      browser.storage.sync
-        .set({ [`${this.id}Type`]: type })
-        .then(
-          console.log(`${this.name}'s type is successfuly set to ${type}.`),
-          console.log,
-        );
-    } else {
-      console.error('Unrecognized type.');
-    }
-  },
 };
