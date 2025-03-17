@@ -41,7 +41,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
       this.type = type;
       browser.storage.sync.set({
         [`${this.id}Type`]: type
-      }).then(console.log(`${this.name} type is successfuly set to ${type}.`), console.log);
+      }).then(console.log(`${this.name}'s type is successfuly set to ${type}.`), console.log);
     } else {
       console.error('Unrecognized type.');
     }
@@ -108,7 +108,69 @@ If you have any questions or feedback, feel free to contact me via email at mikh
       this.type = type;
       browser.storage.sync.set({
         [`${this.id}Type`]: type
-      }).then(console.log(`${this.name} type is successfuly set to ${type}.`), console.log);
+      }).then(console.log(`${this.name}'s type is successfuly set to ${type}.`), console.log);
+    } else {
+      console.error('Unrecognized type.');
+    }
+  }
+});
+;// ./src/background/resources/collins.js
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const collins = ({
+  defaultContextMenu: false,
+  contextMenu: false,
+  name: 'Collins',
+  id: 'collins',
+  types: [
+  // English
+  'en-definitions', 'en-summary', 'en-synonyms', 'en-sentences', 'en-pronunciation', 'en-collocations', 'en-conjugations', 'en-grammar',
+  // American
+  'en-us-definitions', 'en-us-summary', 'en-us-synonyms', 'en-us-sentences', 'en-us-pronunciation', 'en-us-collocations', 'en-us-conjugations', 'en-us-grammar',
+  // French
+  'en-fr', 'fr-en', 'fr-grammar', 'fr-pronunciation', 'fr-conjugations', 'fr-sentences',
+  // German
+  'en-de', 'de-en', 'de-grammar', 'de-conjugations', 'de-sentences',
+  // Italian
+  'en-it', 'it-en', 'it-grammar', 'it-conjugations', 'it-sentences',
+  // Spanish
+  'en-es', 'es-en', 'es-grammar', 'es-pronunciation', 'es-conjugations', 'es-sentences',
+  // Portuguese
+  'en-pt', 'pt-en', 'pt-grammar', 'pt-conjugations',
+  // Hindi
+  'en-hi', 'hi-en',
+  // Chinese
+  'en-zh', 'zh-en', 'en-zh-trad', 'zh-trad-en',
+  // Korean
+  'en-ko', 'ko-en',
+  // Japanese
+  'en-ja', 'ja-en'],
+  defaultType: 'en-definitions',
+  type: 'en-definitions ',
+  setType(type) {
+    if (this.types.includes(type)) {
+      this.type = type;
+      browser.storage.sync.set({
+        [`${this.id}Type`]: type
+      }).then(console.log(`${this.name}'s type is successfuly set to ${type}.`), console.log);
     } else {
       console.error('Unrecognized type.');
     }
@@ -139,6 +201,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
+
 browser.menus.create({
   id: 'dictionaries',
   title: 'Look up: %s',
@@ -149,50 +212,9 @@ browser.menus.create({
 const settings = {
   resources: {
     vocabulary: vocabulary,
+    collins: collins,
     'cambridge-dictionary': cambridge,
     'merriam-webster': merriam,
-    collins: {
-      contextMenu: false,
-      name: 'Collins',
-      types: [
-      // English
-      'en-definitions', 'en-summary', 'en-synonyms', 'en-sentences', 'en-pronunciation', 'en-collocations', 'en-conjugations', 'en-grammar',
-      // American
-      'en-us-definitions', 'en-us-summary', 'en-us-synonyms', 'en-us-sentences', 'en-us-pronunciation', 'en-us-collocations', 'en-us-conjugations', 'en-us-grammar',
-      // French
-      'en-fr', 'fr-en', 'fr-grammar', 'fr-pronunciation', 'fr-conjugations', 'fr-sentences',
-      // German
-      'en-de', 'de-en', 'de-grammar', 'de-conjugations', 'de-sentences',
-      // Italian
-      'en-it', 'it-en', 'it-grammar', 'it-conjugations', 'it-sentences',
-      // Spanish
-      'en-es', 'es-en', 'es-grammar', 'es-pronunciation', 'es-conjugations', 'es-sentences',
-      // Portuguese
-      'en-pt', 'pt-en', 'pt-grammar', 'pt-conjugations',
-      // Hindi
-      'en-hi', 'hi-en',
-      // Chinese
-      'en-zh', 'zh-en', 'en-zh-trad', 'zh-trad-en',
-      // Korean
-      'en-ko', 'ko-en',
-      // Japanese
-      'en-ja', 'ja-en'],
-      type: 'en-definitions ',
-      setType(type) {
-        if (this.types.includes(type)) {
-          this.type = type;
-          browser.storage.sync.set({
-            collinsType: type
-          }).then(console.log('Type set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized type.');
-        }
-      },
-      reset() {
-        removeItem('collins');
-        this.setType('en-definitions');
-      }
-    },
     wiktionary: {
       contextMenu: true,
       name: 'Wiktionary',
@@ -295,7 +317,7 @@ const settings = {
         console.log(results);
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
-        if (['cambridge-dictionary', 'vocabulary', 'merriam-webster'].includes(resID)) {
+        if (['cambridge-dictionary', 'vocabulary', 'merriam-webster', 'collins'].includes(resID)) {
           if (res.defaultType !== undefined) res.setType(res.defaultType);
           if (res.defaultContextMenu === true) {
             createItem(resID);
