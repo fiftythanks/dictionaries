@@ -26,6 +26,7 @@ import collins from './resources/collins';
 import wiktionary from './resources/wiktionary';
 import dictionary from './resources/dictionary';
 import thesaurus from './resources/thesaurus';
+import thefreedictionary from './resources/thefreedictionary';
 
 browser.menus.create({
   id: 'dictionaries',
@@ -41,51 +42,9 @@ const settings = {
     wiktionary,
     dictionary,
     thesaurus,
+    thefreedictionary,
     'cambridge-dictionary': cambridgeDictionary,
     'merriam-webster': merriamWebster,
-    thefreedictionary: {
-      contextMenu: false,
-      name: 'The Free Dictionary',
-      types: [
-        'dictionary',
-        'thesaurus',
-        'medical',
-        'legal',
-        'financial',
-        'acronyms',
-        'idioms',
-        'encyclopedia',
-        'wikipedia',
-      ],
-      type: 'dictionary',
-      setType(type) {
-        if (this.types.includes(type)) {
-          this.type = type;
-          browser.storage.sync
-            .set({ thefreedictionaryType: type })
-            .then(console.log('Type set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized type.');
-        }
-      },
-      options: ['word', 'startsWith', 'endsWith', 'text'],
-      option: 'word',
-      setOption(option) {
-        if (this.options.includes(option)) {
-          this.option = option;
-          browser.storage.sync
-            .set({ thefreedictionaryOption: option })
-            .then(console.log('Option set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized option.');
-        }
-      },
-      reset() {
-        removeItem('thefreedictionary');
-        this.setType('dictionary');
-        this.setOption('word');
-      },
-    },
     // Add CUBE, YouGlish and Wikipedia later
     // cube: {
     //   contextMenu: false,
@@ -116,19 +75,13 @@ const settings = {
       if (resIDs.includes(resID)) {
         const res = this[resID];
         if (res.types !== undefined && res.types.includes(type)) {
-          if (resID === 'thefreedictionary') {
-            this.thefreedictionary.setType(type);
-          } else {
-            res.type = type;
-            browser.storage.sync
-              .set({ [`${res.id}Type`]: type })
-              .then(
-                console.log(
-                  `${res.name}'s type is successfuly set to ${type}.`,
-                ),
-                console.log,
-              );
-          }
+          res.type = type;
+          browser.storage.sync
+            .set({ [`${res.id}Type`]: type })
+            .then(
+              console.log(`${res.name}'s type is successfuly set to ${type}.`),
+              console.log,
+            );
         } else {
           console.error(`${res.name} doesn't have the type ${type}`);
         }
@@ -146,27 +99,14 @@ const settings = {
         console.log(results);
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
-        if (
-          [
-            'cambridge-dictionary',
-            'vocabulary',
-            'merriam-webster',
-            'collins',
-            'wiktionary',
-            'dictionary',
-            'thesaurus',
-          ].includes(resID)
-        ) {
-          if (res.defaultType !== undefined) res.setType(res.defaultType);
-          if (res.defaultContextMenu === true) {
-            createItem(resID);
-          } else {
-            removeItem(resID);
-          }
-          console.log(`${res.name} is successfuly reset to defaults.`);
+        if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
+        if (res.defaultContextMenu === true) {
+          createItem(resID);
         } else {
-          res.reset();
+          removeItem(resID);
         }
+        if (resID === 'thefreedictionary') res.setOption('word');
+        console.log(`${res.name} is successfuly reset to defaults.`);
       } else {
         console.error('Unrecognized resource id.');
       }
@@ -558,7 +498,6 @@ function chooseResource(info) {
       url = `https://www.thesaurus.com/browse/${word}`;
       break;
     case 'thefreedictionary': {
-      const { thefreedictionary } = resources;
       let option;
       switch (thefreedictionary.option) {
         case 'word':
