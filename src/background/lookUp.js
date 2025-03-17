@@ -19,7 +19,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 
 // eslint-disable-next-line import/no-cycle
-import resources from './background';
+import { resources } from './settings';
 
 export default function lookUp(info) {
   const word = encodeURI(info.selectionText);
