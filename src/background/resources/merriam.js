@@ -22,7 +22,7 @@ export default {
   defaultContextMenu: false,
   contextMenu: false,
   name: 'Merriam-Webster',
-  id: 'merriam-webster',
+  id: 'merriamWebster',
   types: ['dictionary', 'thesaurus'],
   defaultType: 'dictionary',
   type: 'dictionary',
