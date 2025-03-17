@@ -71,49 +71,49 @@ const settings = {
     // },
     // youglish: {},
     // wikipedia: {},
-    setType(resID, type) {
-      const resIDs = Object.keys(this);
-      resIDs.splice(-2, 2); // Remove 'setType' and 'reset' from the array
-      if (resIDs.includes(resID)) {
-        const res = this[resID];
-        if (res.types !== undefined && res.types.includes(type)) {
-          res.type = type;
-          browser.storage.sync
-            .set({ [`${res.id}Type`]: type })
-            .then(
-              console.log(`${res.name}'s type is successfuly set to ${type}.`),
-              console.log,
-            );
-        } else {
-          console.error(`${res.name} doesn't have the type ${type}`);
-        }
+  },
+  setType(resID, type) {
+    const { resources } = this;
+    const resIDs = Object.keys(resources);
+    if (resIDs.includes(resID)) {
+      const res = resources[resID];
+      if (res.types !== undefined && res.types.includes(type)) {
+        res.type = type;
+        browser.storage.sync
+          .set({ [`${res.id}Type`]: type })
+          .then(
+            console.log(`${res.name}'s type is successfuly set to ${type}.`),
+            console.log,
+          );
       } else {
-        console.error(`There's no resource with the ${resID} ID.`);
+        console.error(`${res.name} doesn't have the type ${type}`);
       }
-    },
-    async reset(resID) {
-      const resIDs = Object.keys(this);
-      resIDs.splice(-2, 2); // Remove 'setType' and 'reset' from the array
-      if (resID === undefined) {
-        resIDs.forEach((id) => this.reset(id));
-        const results = await browser.storage.sync.get(null);
-        console.log('Resources are reset.');
-        console.log(results);
-      } else if (resIDs.includes(resID)) {
-        const res = this[resID];
-        if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
-        if (res.defaultContextMenu === true) {
-          createItem(resID);
-        } else {
-          removeItem(resID);
-        }
-        // THERE NEEDS TO BE A BETTER WAY
-        if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
-        console.log(`${res.name} is successfuly reset to defaults.`);
+    } else {
+      console.error(`There's no resource with the ${resID} ID.`);
+    }
+  },
+  async reset(resID) {
+    const { resources } = this;
+    const resIDs = Object.keys(resources);
+    if (resID === undefined) {
+      resIDs.forEach((id) => this.reset(id));
+      const results = await browser.storage.sync.get(null);
+      console.log('Resources are reset.');
+      console.log(results);
+    } else if (resIDs.includes(resID)) {
+      const res = resources[resID];
+      if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
+      if (res.defaultContextMenu === true) {
+        createItem(resID);
       } else {
-        console.error('Unrecognized resource id.');
+        removeItem(resID);
       }
-    },
+      // THERE NEEDS TO BE A BETTER WAY
+      if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
+      console.log(`${res.name} is successfuly reset to defaults.`);
+    } else {
+      console.error('Unrecognized resource id.');
+    }
   },
 };
 export default settings.resources;
@@ -186,7 +186,6 @@ function toggleItem(resID) {
 (async () => {
   const { resources } = settings;
   const resIDs = Object.keys(resources);
-  resIDs.splice(-2, 2); // Remove 'setType' and 'reset' from the array
 
   // If the promise is rejected, the program will jump to the catch block and the default settings won't change
   try {
