@@ -27,7 +27,7 @@ import dictionary from './resources/dictionary';
 import thesaurus from './resources/thesaurus';
 import thefreedictionary from './resources/thefreedictionary';
 // eslint-disable-next-line import/no-cycle
-import { createItem, removeItem } from './background';
+import { createItem, removeItem } from './contextMenu';
 
 export const settings = {
   resources: {

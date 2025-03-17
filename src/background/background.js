@@ -20,76 +20,9 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 // eslint-disable-next-line import/no-cycle
 import { settings, resources } from './settings';
-import lookUp from './lookUp';
+import { createMenu, createItem, removeItem, toggleItem } from './contextMenu';
 
-browser.menus.create({
-  id: 'dictionaries',
-  title: 'Look up: %s',
-  contexts: ['selection'],
-});
-
-export function createItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
-
-  browser.menus.create(
-    {
-      parentId: 'dictionaries',
-      id: resID,
-      title: res.name,
-      contexts: ['all'],
-      onclick: lookUp,
-    },
-    () => {
-      if (browser.runtime.lastError !== null) {
-        const error = browser.runtime.lastError;
-        if (error.message !== `ID already exists: ${resID}`)
-          console.error(error);
-      } else {
-        res.contextMenu = true;
-        browser.storage.sync
-          .set({ [`${resID}ContextMenu`]: true })
-          .then(
-            console.log(`Item ${resID} successfuly created`),
-            console.error,
-          );
-      }
-    },
-  );
-}
-
-export function removeItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
-
-  browser.menus
-    .remove(resID)
-    .then(() => {
-      res.contextMenu = false;
-      browser.storage.sync
-        .set({ [`${resID}ContextMenu`]: false })
-        .then(console.log(`Item ${resID} successfuly removed`), console.error);
-    })
-    .catch((error) => {
-      if (error.message !== `Cannot find menu item with id ${resID}`) {
-        console.log(error.message);
-        console.error(error);
-      }
-    });
-}
-
-export function toggleItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
-
-  if (res.contextMenu === true) {
-    removeItem(resID);
-  } else if (res.contextMenu === false) {
-    createItem(resID);
-  } else {
-    console.error('Unpredicted behaviour in toggleResource().');
-  }
-}
+createMenu();
 
 // Sync settings
 // Make sync an option, not a default <------------------------------------
