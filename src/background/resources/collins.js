@@ -19,70 +19,87 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 
 export default {
-  defaultContextMenu: true,
-  contextMenu: true,
-  name: 'Cambridge Dictionary',
-  id: 'cambridge-dictionary',
+  defaultContextMenu: false,
+  contextMenu: false,
+  name: 'Collins',
+  id: 'collins',
   types: [
-    // Definitions
-    'english',
-    'learner',
-    'essential-american',
-    'essential-british',
+    // English
+    'en-definitions',
+    'en-summary',
+    'en-synonyms',
+    'en-sentences',
+    'en-pronunciation',
+    'en-collocations',
+    'en-conjugations',
+    'en-grammar',
 
-    // Translation (ISO-639 language codes)
-    'en-zh-simp',
-    'zh-simp-en',
-    'en-zh-trad',
-    'zh-trad-en',
-    'en-nl',
-    'nl-en',
+    // American
+    'en-us-definitions',
+    'en-us-summary',
+    'en-us-synonyms',
+    'en-us-sentences',
+    'en-us-pronunciation',
+    'en-us-collocations',
+    'en-us-conjugations',
+    'en-us-grammar',
+
+    // French
     'en-fr',
     'fr-en',
+    'fr-grammar',
+    'fr-pronunciation',
+    'fr-conjugations',
+    'fr-sentences',
+
+    // German
     'en-de',
     'de-en',
-    'en-id',
-    'id-en',
+    'de-grammar',
+    'de-conjugations',
+    'de-sentences',
+
+    // Italian
     'en-it',
     'it-en',
-    'en-no',
-    'no-en',
-    'en-pt',
-    'pt-en',
-    'en-sv',
-    'sv-en',
-    'en-bn',
-    'en-cz',
-    'en-gu',
-    'en-ko',
-    'en-mr',
-    'en-ta',
-    'en-th',
-    'en-uk',
-    'en-vi',
-    'en-ja',
-    'ja-en',
-    'en-pl',
-    'pl-en',
+    'it-grammar',
+    'it-conjugations',
+    'it-sentences',
+
+    // Spanish
     'en-es',
     'es-en',
-    'en-ar',
-    'en-ca',
-    'en-da',
-    'en-hi',
-    'en-ms',
-    'en-ru',
-    'en-te',
-    'en-tr',
-    'en-ur',
+    'es-grammar',
+    'es-pronunciation',
+    'es-conjugations',
+    'es-sentences',
 
-    // Other
-    'grammar',
-    'thesaurus',
-    'pronunciation',
+    // Portuguese
+    'en-pt',
+    'pt-en',
+    'pt-grammar',
+    'pt-conjugations',
+
+    // Hindi
+    'en-hi',
+    'hi-en',
+
+    // Chinese
+    'en-zh',
+    'zh-en',
+    'en-zh-trad',
+    'zh-trad-en',
+
+    // Korean
+    'en-ko',
+    'ko-en',
+
+    // Japanese
+    'en-ja',
+    'ja-en',
   ],
-  defaultType: 'english',
-  type: 'english',
+  defaultType: 'en-definitions',
+  type: 'en-definitions ',
   setType(type) {
     if (this.types.includes(type)) {
       this.type = type;

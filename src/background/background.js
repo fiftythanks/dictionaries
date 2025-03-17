@@ -22,6 +22,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 import cambridgeDictionary from './resources/cambridge';
 import vocabulary from './resources/vocabulary';
 import merriamWebster from './resources/merriam';
+import collins from './resources/collins';
 
 browser.menus.create({
   id: 'dictionaries',
@@ -33,102 +34,9 @@ browser.menus.create({
 const settings = {
   resources: {
     vocabulary,
+    collins,
     'cambridge-dictionary': cambridgeDictionary,
     'merriam-webster': merriamWebster,
-    collins: {
-      contextMenu: false,
-      name: 'Collins',
-      types: [
-        // English
-        'en-definitions',
-        'en-summary',
-        'en-synonyms',
-        'en-sentences',
-        'en-pronunciation',
-        'en-collocations',
-        'en-conjugations',
-        'en-grammar',
-
-        // American
-        'en-us-definitions',
-        'en-us-summary',
-        'en-us-synonyms',
-        'en-us-sentences',
-        'en-us-pronunciation',
-        'en-us-collocations',
-        'en-us-conjugations',
-        'en-us-grammar',
-
-        // French
-        'en-fr',
-        'fr-en',
-        'fr-grammar',
-        'fr-pronunciation',
-        'fr-conjugations',
-        'fr-sentences',
-
-        // German
-        'en-de',
-        'de-en',
-        'de-grammar',
-        'de-conjugations',
-        'de-sentences',
-
-        // Italian
-        'en-it',
-        'it-en',
-        'it-grammar',
-        'it-conjugations',
-        'it-sentences',
-
-        // Spanish
-        'en-es',
-        'es-en',
-        'es-grammar',
-        'es-pronunciation',
-        'es-conjugations',
-        'es-sentences',
-
-        // Portuguese
-        'en-pt',
-        'pt-en',
-        'pt-grammar',
-        'pt-conjugations',
-
-        // Hindi
-        'en-hi',
-        'hi-en',
-
-        // Chinese
-        'en-zh',
-        'zh-en',
-        'en-zh-trad',
-        'zh-trad-en',
-
-        // Korean
-        'en-ko',
-        'ko-en',
-
-        // Japanese
-        'en-ja',
-        'ja-en',
-      ],
-      type: 'en-definitions ',
-      setType(type) {
-        if (this.types.includes(type)) {
-          this.type = type;
-          browser.storage.sync
-            .set({ collinsType: type })
-            .then(console.log('Type set successfuly.'), console.log);
-        } else {
-          console.error('Unrecognized type.');
-        }
-      },
-      reset() {
-        removeItem('collins');
-        this.setType('en-definitions');
-      },
-    },
     wiktionary: {
       contextMenu: true,
       name: 'Wiktionary',
@@ -242,9 +150,12 @@ const settings = {
       } else if (resIDs.includes(resID)) {
         const res = this[resID];
         if (
-          ['cambridge-dictionary', 'vocabulary', 'merriam-webster'].includes(
-            resID,
-          )
+          [
+            'cambridge-dictionary',
+            'vocabulary',
+            'merriam-webster',
+            'collins',
+          ].includes(resID)
         ) {
           if (res.defaultType !== undefined) res.setType(res.defaultType);
           if (res.defaultContextMenu === true) {

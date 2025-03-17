@@ -32,7 +32,7 @@ export default {
       browser.storage.sync
         .set({ [`${this.id}Type`]: type })
         .then(
-          console.log(`${this.name} type is successfuly set to ${type}.`),
+          console.log(`${this.name}'s type is successfuly set to ${type}.`),
           console.log,
         );
     } else {
