@@ -30,6 +30,7 @@ export function createMenu() {
   });
 }
 
+// createItem() and removeItem() should check if an item already exists before acting.
 export function createItem(resID) {
   // add a check for the existance of such a resource
   const res = resources[resID];
@@ -60,6 +61,7 @@ export function createItem(resID) {
   );
 }
 
+// createItem() and removeItem() should check if an item already exists before acting.
 export function removeItem(resID) {
   // add a check for the existance of such a resource
   const res = resources[resID];
@@ -90,5 +92,15 @@ export function toggleItem(resID) {
     createItem(resID);
   } else {
     console.error('Unpredicted behaviour in toggleResource().');
+  }
+}
+
+// if shouldCreate === true, then an item will be created; otherwise, it will be removed. createItem() and removeItem() should check if an item already exists before acting.
+export function setItemState(id, shouldCreate) {
+  // add a check for the existance of such a resource in createItem() and removeItem()
+  if (shouldCreate) {
+    createItem(id);
+  } else {
+    removeItem(id);
   }
 }
