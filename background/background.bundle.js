@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 
-;// ./src/background/resources/cambridge.js
+;// ./src/background/resources/cambridge.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -37,7 +37,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   defaultType: 'english',
   type: 'english'
 });
-;// ./src/background/resources/vocabulary.js
+;// ./src/background/resources/vocabulary.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -64,7 +64,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   name: 'Vocabulary',
   id: 'vocabulary'
 });
-;// ./src/background/resources/merriam.js
+;// ./src/background/resources/merriam.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -94,7 +94,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   defaultType: 'dictionary',
   type: 'dictionary'
 });
-;// ./src/background/resources/collins.js
+;// ./src/background/resources/collins.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -146,7 +146,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   defaultType: 'en-definitions',
   type: 'en-definitions'
 });
-;// ./src/background/resources/wiktionary.js
+;// ./src/background/resources/wiktionary.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -177,7 +177,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   defaultType: 'en',
   type: 'en'
 });
-;// ./src/background/resources/dictionary.js
+;// ./src/background/resources/dictionary.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -204,7 +204,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   name: 'Dictionary.com',
   id: 'dictionary'
 });
-;// ./src/background/resources/thesaurus.js
+;// ./src/background/resources/thesaurus.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -231,7 +231,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   name: 'Thesaurus.com',
   id: 'thesaurus'
 });
-;// ./src/background/resources/thefreedictionary.js
+;// ./src/background/resources/thefreedictionary.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -275,7 +275,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
     }
   }
 });
-;// ./src/background/lookUp.js
+;// ./src/background/lookUp.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -751,7 +751,7 @@ function lookUp(info) {
     focused: false
   });
 }
-;// ./src/background/contextMenu.js
+;// ./src/background/contextMenu.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -829,7 +829,7 @@ function toggleItem(resID) {
     console.error('Unpredicted behaviour in toggleResource().');
   }
 }
-;// ./src/background/settings.js
+;// ./src/background/settings.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -943,7 +943,7 @@ const settings = {
 const {
   resources
 } = settings;
-;// ./src/background/sync.js
+;// ./src/background/sync.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
