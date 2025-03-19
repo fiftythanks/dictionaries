@@ -20,6 +20,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 import { settings, resources } from './settings';
 import { createItem, removeItem } from './contextMenu';
+// import { setToDefaults } from './setToDefaults';
 
 export default async function sync() {
   const resIDs = Object.keys(resources);

@@ -22,16 +22,28 @@ import { settings, resources } from './settings';
 import { setItemState } from './contextMenu';
 import throwWrongID from './error';
 
-export default function setToDefaults(id) {
+export default function setToDefaults(
+  id,
+  setDefaultContextMenu = true,
+  setDefaultType = true,
+  setDefaultOption = true,
+) {
   const resIDs = Object.keys(resources);
   if (id === undefined) {
-    resIDs.forEach((resID) => setToDefaults(resID));
+    resIDs.forEach((resID) =>
+      setToDefaults(
+        resID,
+        setDefaultContextMenu,
+        setDefaultType,
+        setDefaultOption,
+      ),
+    );
   } else if (resIDs.includes(id)) {
     const res = resources[id];
-    setItemState(id, res.defaultContextMenu);
-    if (Object.hasOwn(res, 'defaultType'))
+    if (setDefaultContextMenu) setItemState(id, res.defaultContextMenu);
+    if (Object.hasOwn(res, 'defaultType') && setDefaultType)
       settings.setType(id, res.defaultType);
-    if (Object.hasOwn(res, 'defaultOption'))
+    if (Object.hasOwn(res, 'defaultOption') && setDefaultOption)
       settings.setOption(id, res.defaultOption);
   } else {
     throwWrongID();
