@@ -1,7 +1,260 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/ensure chunk */
+/******/ 	(() => {
+/******/ 		__webpack_require__.f = {};
+/******/ 		// This file contains only the entry chunk.
+/******/ 		// The chunk loading function for additional chunks
+/******/ 		__webpack_require__.e = (chunkId) => {
+/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce((promises, key) => {
+/******/ 				__webpack_require__.f[key](chunkId, promises);
+/******/ 				return promises;
+/******/ 			}, []));
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/get javascript chunk filename */
+/******/ 	(() => {
+/******/ 		// This function allow to reference async chunks
+/******/ 		__webpack_require__.u = (chunkId) => {
+/******/ 			// return url for filenames based on template
+/******/ 			return "" + chunkId + ".js";
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/load script */
+/******/ 	(() => {
+/******/ 		var inProgress = {};
+/******/ 		var dataWebpackPrefix = "dictionaries:";
+/******/ 		// loadScript function to load a script via script tag
+/******/ 		__webpack_require__.l = (url, done, key, chunkId) => {
+/******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
+/******/ 			var script, needAttach;
+/******/ 			if(key !== undefined) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				for(var i = 0; i < scripts.length; i++) {
+/******/ 					var s = scripts[i];
+/******/ 					if(s.getAttribute("src") == url || s.getAttribute("data-webpack") == dataWebpackPrefix + key) { script = s; break; }
+/******/ 				}
+/******/ 			}
+/******/ 			if(!script) {
+/******/ 				needAttach = true;
+/******/ 				script = document.createElement('script');
+/******/ 		
+/******/ 				script.charset = 'utf-8';
+/******/ 				script.timeout = 120;
+/******/ 				if (__webpack_require__.nc) {
+/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 				}
+/******/ 				script.setAttribute("data-webpack", dataWebpackPrefix + key);
+/******/ 		
+/******/ 				script.src = url;
+/******/ 			}
+/******/ 			inProgress[url] = [done];
+/******/ 			var onScriptComplete = (prev, event) => {
+/******/ 				// avoid mem leaks in IE.
+/******/ 				script.onerror = script.onload = null;
+/******/ 				clearTimeout(timeout);
+/******/ 				var doneFns = inProgress[url];
+/******/ 				delete inProgress[url];
+/******/ 				script.parentNode && script.parentNode.removeChild(script);
+/******/ 				doneFns && doneFns.forEach((fn) => (fn(event)));
+/******/ 				if(prev) return prev(event);
+/******/ 			}
+/******/ 			var timeout = setTimeout(onScriptComplete.bind(null, undefined, { type: 'timeout', target: script }), 120000);
+/******/ 			script.onerror = onScriptComplete.bind(null, script.onerror);
+/******/ 			script.onload = onScriptComplete.bind(null, script.onload);
+/******/ 			needAttach && document.head.appendChild(script);
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript && document.currentScript.tagName.toUpperCase() === 'SCRIPT')
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl + "../";
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			471: 0
+/******/ 		};
+/******/ 		
+/******/ 		__webpack_require__.f.j = (chunkId, promises) => {
+/******/ 				// JSONP chunk loading for javascript
+/******/ 				var installedChunkData = __webpack_require__.o(installedChunks, chunkId) ? installedChunks[chunkId] : undefined;
+/******/ 				if(installedChunkData !== 0) { // 0 means "already installed".
+/******/ 		
+/******/ 					// a Promise means "currently loading".
+/******/ 					if(installedChunkData) {
+/******/ 						promises.push(installedChunkData[2]);
+/******/ 					} else {
+/******/ 						if(true) { // all chunks have JS
+/******/ 							// setup Promise in chunk cache
+/******/ 							var promise = new Promise((resolve, reject) => (installedChunkData = installedChunks[chunkId] = [resolve, reject]));
+/******/ 							promises.push(installedChunkData[2] = promise);
+/******/ 		
+/******/ 							// start chunk loading
+/******/ 							var url = __webpack_require__.p + __webpack_require__.u(chunkId);
+/******/ 							// create error before stack unwound to get useful stacktrace later
+/******/ 							var error = new Error();
+/******/ 							var loadingEnded = (event) => {
+/******/ 								if(__webpack_require__.o(installedChunks, chunkId)) {
+/******/ 									installedChunkData = installedChunks[chunkId];
+/******/ 									if(installedChunkData !== 0) installedChunks[chunkId] = undefined;
+/******/ 									if(installedChunkData) {
+/******/ 										var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+/******/ 										var realSrc = event && event.target && event.target.src;
+/******/ 										error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
+/******/ 										error.name = 'ChunkLoadError';
+/******/ 										error.type = errorType;
+/******/ 										error.request = realSrc;
+/******/ 										installedChunkData[1](error);
+/******/ 									}
+/******/ 								}
+/******/ 							};
+/******/ 							__webpack_require__.l(url, loadingEnded, "chunk-" + chunkId, chunkId);
+/******/ 						}
+/******/ 					}
+/******/ 				}
+/******/ 		};
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 		
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = self["webpackChunkdictionaries"] = self["webpackChunkdictionaries"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
 
-;// ./src/background/resources/cambridge.mjs
+;// ./src/background/resources/cambridgeDictionary.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -22,9 +275,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-/* harmony default export */ const cambridge = ({
+/* harmony default export */ const cambridgeDictionary = ({
   defaultContextMenu: true,
-  contextMenu: true,
   name: 'Cambridge Dictionary',
   id: 'cambridgeDictionary',
   types: [
@@ -34,65 +286,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   'en-zh-simp', 'zh-simp-en', 'en-zh-trad', 'zh-trad-en', 'en-nl', 'nl-en', 'en-fr', 'fr-en', 'en-de', 'de-en', 'en-id', 'id-en', 'en-it', 'it-en', 'en-no', 'no-en', 'en-pt', 'pt-en', 'en-sv', 'sv-en', 'en-bn', 'en-cz', 'en-gu', 'en-ko', 'en-mr', 'en-ta', 'en-th', 'en-uk', 'en-vi', 'en-ja', 'ja-en', 'en-pl', 'pl-en', 'en-es', 'es-en', 'en-ar', 'en-ca', 'en-da', 'en-hi', 'en-ms', 'en-ru', 'en-te', 'en-tr', 'en-ur',
   // Other
   'grammar', 'thesaurus', 'pronunciation'],
-  defaultType: 'english',
-  type: 'english'
-});
-;// ./src/background/resources/vocabulary.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const vocabulary = ({
-  defaultContextMenu: true,
-  contextMenu: true,
-  name: 'Vocabulary',
-  id: 'vocabulary'
-});
-;// ./src/background/resources/merriam.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const merriam = ({
-  defaultContextMenu: false,
-  contextMenu: false,
-  name: 'Merriam-Webster',
-  id: 'merriamWebster',
-  types: ['dictionary', 'thesaurus'],
-  defaultType: 'dictionary',
-  type: 'dictionary'
+  defaultType: 'english'
 });
 ;// ./src/background/resources/collins.mjs
 /* eslint-disable no-console */
@@ -117,7 +311,6 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 /* harmony default export */ const collins = ({
   defaultContextMenu: false,
-  contextMenu: false,
   name: 'Collins',
   id: 'collins',
   types: [
@@ -143,39 +336,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   'en-ko', 'ko-en',
   // Japanese
   'en-ja', 'ja-en'],
-  defaultType: 'en-definitions',
-  type: 'en-definitions'
-});
-;// ./src/background/resources/wiktionary.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const wiktionary = ({
-  defaultContextMenu: true,
-  contextMenu: true,
-  name: 'Wiktionary',
-  id: 'wiktionary',
-  // ISO-639 language codes
-  types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
-  defaultType: 'en',
-  type: 'en'
+  defaultType: 'en-definitions'
 });
 ;// ./src/background/resources/dictionary.mjs
 /* eslint-disable no-console */
@@ -200,11 +361,10 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 /* harmony default export */ const dictionary = ({
   defaultContextMenu: false,
-  contextMenu: false,
   name: 'Dictionary.com',
   id: 'dictionary'
 });
-;// ./src/background/resources/thesaurus.mjs
+;// ./src/background/resources/merriamWebster.mjs
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -225,11 +385,12 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-/* harmony default export */ const thesaurus = ({
+/* harmony default export */ const merriamWebster = ({
   defaultContextMenu: false,
-  contextMenu: false,
-  name: 'Thesaurus.com',
-  id: 'thesaurus'
+  name: 'Merriam-Webster',
+  id: 'merriamWebster',
+  types: ['dictionary', 'thesaurus'],
+  defaultType: 'dictionary'
 });
 ;// ./src/background/resources/thefreedictionary.mjs
 /* eslint-disable no-console */
@@ -254,27 +415,187 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 /* harmony default export */ const thefreedictionary = ({
   defaultContextMenu: false,
-  contextMenu: false,
   name: 'The Free Dictionary',
   id: 'thefreedictionary',
   types: ['dictionary', 'thesaurus', 'medical', 'legal', 'financial', 'acronyms', 'idioms', 'encyclopedia', 'wikipedia'],
   defaultType: 'dictionary',
-  type: 'dictionary',
   options: ['word', 'startsWith', 'endsWith', 'text'],
-  defaultOption: 'word',
-  option: 'word',
-  // THERE NEEDS TO BE A BETTER WAY
-  setOption(option) {
-    if (this.options.includes(option)) {
-      this.option = option;
-      browser.storage.sync.set({
-        thefreedictionaryOption: option
-      }).then(console.log('Option set successfuly.'), console.log);
-    } else {
-      console.error('Unrecognized option.');
-    }
-  }
+  defaultOption: 'word'
 });
+;// ./src/background/resources/thesaurus.mjs
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const thesaurus = ({
+  defaultContextMenu: false,
+  name: 'Thesaurus.com',
+  id: 'thesaurus'
+});
+;// ./src/background/resources/vocabulary.mjs
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const vocabulary = ({
+  defaultContextMenu: true,
+  name: 'Vocabulary',
+  id: 'vocabulary'
+});
+;// ./src/background/resources/wiktionary.mjs
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const wiktionary = ({
+  defaultContextMenu: true,
+  name: 'Wiktionary',
+  id: 'wiktionary',
+  // ISO-639 language codes
+  types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
+  defaultType: 'en'
+});
+;// ./src/background/capitalize.mjs
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+function capitalize(word) {
+  return word.replace(word.at(0), word.at(0).toUpperCase());
+}
+;// ./src/background/resService.mjs
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+
+
+
+
+
+
+
+
+
+const resources = {
+  cambridgeDictionary: cambridgeDictionary,
+  collins: collins,
+  dictionary: dictionary,
+  merriamWebster: merriamWebster,
+  thefreedictionary: thefreedictionary,
+  thesaurus: thesaurus,
+  vocabulary: vocabulary,
+  wiktionary: wiktionary
+};
+const resIDs = ['cambridgeDictionary', 'collins', 'dictionary', 'merriamWebster', 'thefreedictionary', 'thesaurus', 'vocabulary', 'wiktionary'];
+
+// returns a resource object if there is a resource corresponding to the ID and undefined if there's no such a resource
+function getResource(id) {
+  return resources[id];
+}
+function hasParameter(id, par) {
+  const res = getResource(id);
+  if (res === undefined) {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+  }
+  const result = Object.hasOwn(res, `default${capitalize(par)}`);
+  return result;
+}
+function getParameters(id) {
+  const res = getResource(id);
+  if (res === undefined) {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+  }
+
+  // used in getFromStorage.mjs
+  const parameters = ['contextMenu'];
+  const pars = ['type', 'option'];
+  pars.forEach(par => {
+    if (hasParameter(id, par)) parameters.push(par);
+  });
+  return parameters;
+}
+
 ;// ./src/background/lookUp.mjs
 /* eslint-disable no-console */
 /*
@@ -296,14 +617,15 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-// eslint-disable-next-line import/no-cycle
 
 function lookUp(info) {
   const word = encodeURI(info.selectionText);
   let url;
-  switch (info.menuItemId) {
+  const id = info.menuItemId;
+  const res = getResource(id);
+  switch (id) {
     case 'cambridgeDictionary':
-      switch (resources.cambridgeDictionary.type) {
+      switch (res.type) {
         case 'english':
           url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
           break;
@@ -465,7 +787,7 @@ function lookUp(info) {
       url = `https://www.vocabulary.com/dictionary/${word}`;
       break;
     case 'merriamWebster':
-      switch (resources.merriamWebster.type) {
+      switch (res.type) {
         case 'dictionary':
           url = `https://www.merriamWebster.com/dictionary/${word}`;
           break;
@@ -477,7 +799,7 @@ function lookUp(info) {
       }
       break;
     case 'collins':
-      switch (resources.collins.type) {
+      switch (res.type) {
         case 'en-definitions':
           url = `https://www.collinsdictionary.com/search/?dictCode=english&q=${word}`;
           break;
@@ -639,7 +961,7 @@ function lookUp(info) {
       }
       break;
     case 'wiktionary':
-      switch (resources.wiktionary.type) {
+      switch (res.type) {
         case 'en':
           url = `https://en.wiktionary.org/w/index.php?search=${word}&title=Special:Search&wprov=acrw1_-1`;
           break;
@@ -683,7 +1005,7 @@ function lookUp(info) {
     case 'thefreedictionary':
       {
         let option;
-        switch (resources.thefreedictionary.option) {
+        switch (res.option) {
           case 'word':
             option = 0;
             break;
@@ -699,7 +1021,7 @@ function lookUp(info) {
           default:
             option = 0;
         }
-        switch (resources.thefreedictionary.type) {
+        switch (res.type) {
           case 'dictionary':
             url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
             break;
@@ -733,7 +1055,9 @@ function lookUp(info) {
         break;
       }
     // case 'cube':
-    // case 'youglish':
+    // case 'youglish'
+    // case 'urban'
+    // case 'wikipedia
     default:
       url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
   }
@@ -772,7 +1096,6 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-// eslint-disable-next-line import/no-cycle
 
 
 function createMenu() {
@@ -783,64 +1106,92 @@ function createMenu() {
   });
 }
 
-// createItem() and removeItem() should check if an item already exists before acting.
-function createItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
+// Returns true if successful
+function createItem(id) {
+  const res = getResource(id);
+  if (res === undefined) {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+  }
   browser.menus.create({
+    id,
     parentId: 'dictionaries',
-    id: resID,
     title: res.name,
     contexts: ['all'],
     onclick: lookUp
   }, () => {
-    if (browser.runtime.lastError !== null) {
-      const error = browser.runtime.lastError;
-      if (error.message !== `ID already exists: ${resID}`) console.error(error);
+    const error = browser.runtime.lastError;
+    if (error !== null && error.message !== `ID already exists: ${id}`) {
+      throw error;
     } else {
-      res.contextMenu = true;
-      browser.storage.sync.set({
-        [`${resID}ContextMenu`]: true
-      }).then(console.log(`Item ${resID} successfuly created`), console.error);
+      return true;
     }
   });
 }
 
-// createItem() and removeItem() should check if an item already exists before acting.
-function removeItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
-  browser.menus.remove(resID).then(() => {
-    res.contextMenu = false;
-    browser.storage.sync.set({
-      [`${resID}ContextMenu`]: false
-    }).then(console.log(`Item ${resID} successfuly removed`), console.error);
-  }).catch(error => {
-    if (error.message !== `Cannot find menu item with id ${resID}`) {
-      console.log(error.message);
-      console.error(error);
-    }
-  });
-}
-function toggleItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
-  if (res.contextMenu === true) {
-    removeItem(resID);
-  } else if (res.contextMenu === false) {
-    createItem(resID);
-  } else {
-    console.error('Unpredicted behaviour in toggleResource().');
+// Returns false if successful
+function removeItem(id) {
+  const res = getResource(id);
+  if (res === undefined) {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
   }
+  browser.menus.remove(id).then(() => false).catch(error => {
+    if (error.message !== `Cannot find menu item with id ${id}`) {
+      throw error;
+    } else {
+      return false;
+    }
+  });
 }
-
-// if shouldCreate === true, then an item will be created; otherwise, it will be removed. createItem() and removeItem() should check if an item already exists before acting.
-function setItemState(id, shouldCreate) {
-  // add a check for the existance of such a resource in createItem() and removeItem()
-  if (shouldCreate) {
+async function toggleItem(id) {
+  const res = getResource(id);
+  if (res === undefined) {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+  }
+  if (res.contextMenu === true) {
+    removeItem(id);
+  } else if (res.contextMenu === false) {
     createItem(id);
   } else {
-    removeItem(id);
+    throw new Error('Unpredicted behaviour in toggleResource().');
+  }
+}
+;// ./src/background/store.mjs
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+
+
+async function store(id, parameter, value, isSyncOn) {
+  const res = getResource(id);
+  if (hasParameter(id, parameter)) {
+    res[parameter] = value;
+    browser.storage.local.set({
+      [`${id}${capitalize(parameter)}`]: value
+    });
+    if (isSyncOn) {
+      browser.storage.sync.set({
+        [`${id}${capitalize(parameter)}`]: value
+      });
+    }
+  } else {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongParameter(res.name, parameter));
   }
 }
 ;// ./src/background/settings.mjs
@@ -867,96 +1218,189 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
-
-
-
-
-
-// eslint-disable-next-line import/no-cycle
-
-const settings = {
-  resources: {
-    cambridgeDictionary: cambridge,
-    vocabulary: vocabulary,
-    wiktionary: wiktionary,
-    merriamWebster: merriam,
-    collins: collins,
-    dictionary: dictionary,
-    thesaurus: thesaurus,
-    thefreedictionary: thefreedictionary // change setOption
-    // Add CUBE, YouGlish and Wikipedia later
-    // cube: {
-    //   contextMenu: false,
-    //   name: 'CUBE',
-    //   types: ['spell', 'sound'],
-    //   type: 'spell',
-    //   setType(type) {
-    //     if (this.types.includes(type)) {
-    //       this.type = type;
-    //       browser.storage.sync
-    //         .set({ cubeType: type })
-    //         .then(console.log('Type set successfuly.'), console.log);
-    //     } else {
-    //       console.error('Unrecognized type.');
-    //     }
-    //   },
-    //   options: {},
-    //   reset() {
-    //     removeItem('cube');
-    //     this.setType('spell');
-    //   },
-    // },
-    // youglish: {},
-    // wikipedia: {},
-  },
-  setType(resID, type) {
-    const {
-      resources
-    } = this;
-    const resIDs = Object.keys(resources);
-    if (resIDs.includes(resID)) {
-      const res = resources[resID];
-      if (res.types !== undefined && res.types.includes(type)) {
-        res.type = type;
-        browser.storage.sync.set({
-          [`${res.id}Type`]: type
-        }).then(console.log(`${res.name}'s type is successfuly set to ${type}.`), console.log);
-      } else {
-        console.error(`${res.name} doesn't have the type ${type}.`);
-      }
-    } else {
-      console.error(`There's no resource with the ${resID} ID.`);
+/* harmony default export */ const settings = ({
+  syncOn: false,
+  set sync(boolValue) {
+    if (this.syncOn !== boolValue) {
+      this.syncOn = boolValue;
+      browser.storage.local.set({
+        sync: boolValue
+      });
     }
   },
-  async reset(resID) {
-    const {
-      resources
-    } = this;
-    const resIDs = Object.keys(resources);
-    if (resID === undefined) {
-      resIDs.forEach(id => this.reset(id));
-      const results = await browser.storage.sync.get(null);
-      console.log('Resources are reset.');
-      console.log(results);
-    } else if (resIDs.includes(resID)) {
-      const res = resources[resID];
-      if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
-      if (res.defaultContextMenu === true) {
-        createItem(resID);
-      } else {
-        removeItem(resID);
-      }
-      // THERE NEEDS TO BE A BETTER WAY
-      if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
-      console.log(`${res.name} is successfuly reset to defaults.`);
+  get sync() {
+    return this.syncOn;
+  },
+  toggleSync() {
+    if (this.sync === false) {
+      this.sync = true;
     } else {
-      console.error('Unrecognized resource id.');
+      this.sync = false;
+    }
+  },
+  // REFACTOR FOR CORRECT USE OF STORAGES
+  setType(id, type) {
+    const res = getResource(id);
+    if (res !== undefined) {
+      if (Object.hasOwn(res, 'types') && res.types.includes(type)) {
+        store(id, 'type', type, this.sync);
+      } else {
+        __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongType(res.name, type));
+      }
+    } else {
+      __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+    }
+  },
+  // temporary solution
+  setOption(id, option) {
+    const res = getResource(id);
+    if (res !== undefined) {
+      if (Object.hasOwn(res, 'options') && res.options.includes(option)) {
+        store(id, 'option', option, this.sync);
+      } else {
+        __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongOption(res.name, option));
+      }
+    } else {
+      __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+    }
+  },
+  addToContextMenu(id) {
+    createItem(id);
+    store(id, 'contextMenu', true, this.sync);
+  },
+  removeFromContextMenu(id) {
+    removeItem(id);
+    store(id, 'contextMenu', false, this.sync);
+  },
+  toggleContextMenu(id) {
+    const wasCreated = toggleItem(id);
+    store(id, 'contextMenu', wasCreated, this.sync);
+  },
+  setContextMenu(id, shouldAdd) {
+    if (shouldAdd) {
+      this.addToContextMenu(id);
+    } else {
+      this.removeFromContextMenu(id);
+    }
+  },
+  // ADD STORAGE USE
+  async setToDefaults(id, setDefaultContextMenu = true, setDefaultType = true, setDefaultOption = true) {
+    if (id === undefined) {
+      const {
+        syncOn
+      } = await browser.storage.local.get({
+        sync: false
+      });
+      if (syncOn) this.sync = true;
+      resIDs.forEach(resID => this.setToDefaults(resID, true, true, true));
+    } else {
+      const res = getResource(id);
+      if (res !== undefined) {
+        if (setDefaultContextMenu) {
+          this.setContextMenu(id, res.defaultContextMenu);
+        }
+        if (Object.hasOwn(res, 'defaultType') && setDefaultType) {
+          this.setType(id, res.defaultType);
+        }
+        if (Object.hasOwn(res, 'defaultOption') && setDefaultOption) {
+          this.setOption(id, res.defaultOption);
+        }
+      } else {
+        __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+      }
     }
   }
-};
-const {
-  resources
-} = settings;
+});
+;// ./src/background/getFromStorage.mjs
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+
+
+function createRequestInternals(id) {
+  const internals = {};
+  if (id === undefined) {
+    resIDs.forEach(resID => {
+      const pars = getParameters(resID);
+      pars.forEach(par => {
+        internals[`${resID}${capitalize(par)}`] = null;
+      });
+    });
+  } else {
+    const pars = getParameters(id);
+    pars.forEach(par => {
+      internals[`${id}${par}`] = null;
+    });
+  }
+  return internals;
+}
+
+// Returns promise
+function getFromStorage(storage, id) {
+  const requestInternals = createRequestInternals(id);
+  let request;
+  if (storage === 'extension') {
+    request = browser.storage.local.get;
+  }
+  if (storage === 'sync') {
+    request = browser.storage.sync.get;
+  }
+  return request(requestInternals);
+}
+;// ./src/background/syncLocal.mjs
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+
+
+
+
+async function syncLocal() {
+  const retrieved = await getFromStorage('extension');
+  resIDs.forEach(id => {
+    const pars = getParameters(id);
+    pars.forEach(par => {
+      const retrievedPar = retrieved[`${id}${capitalize(par)}`];
+      if (retrievedPar !== null) {
+        settings[`set${capitalize(par)}`](id, retrievedPar);
+      }
+    });
+  });
+}
 ;// ./src/background/sync.mjs
 /* eslint-disable no-console */
 /*
@@ -980,58 +1424,21 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
+
+
+
+// It should check the local storage as well, not only the resource object itself
 async function sync() {
-  const resIDs = Object.keys(resources);
-
-  // If the promise is rejected, the program will jump to the catch block and the default settings won't change
-  try {
-    const retrieved = await browser.storage.sync.get({
-      // Cambridge Dictionary
-      cambridgeDictionaryContextMenu: null,
-      cambridgeDictionaryType: null,
-      // Vocabulary.com
-      vocabularyContextMenu: null,
-      // merriamWebster
-      merriamWebsterContextMenu: null,
-      merriamWebsterType: null,
-      // Collins
-      collinsContextMenu: null,
-      collinsType: null,
-      // Wiktionary
-      wiktionaryContextMenu: null,
-      wiktionaryType: null,
-      // Dictionary.com
-      dictionaryContextMenu: null,
-      // Thesaurus.com
-      thesaurusContextMenu: null,
-      // The Free Dictionary
-      thefreedictionaryContextMenu: null,
-      thefreedictionaryType: null,
-      thefreedictionaryOption: null
-
-      // CUBE
-      // cubeContextMenu: null,
-
-      // YouGlish
-    });
-    resIDs.forEach(resID => {
-      const res = resources[resID];
-      const retrievedContextMenu = retrieved[`${resID}ContextMenu`];
-      if (retrievedContextMenu != null) {
-        if (retrievedContextMenu === true) {
-          createItem(resID);
-        } else {
-          removeItem(resID);
-        }
+  const retrieved = await getFromStorage('sync');
+  resIDs.forEach(id => {
+    const pars = getParameters(id);
+    pars.forEach(par => {
+      const retrievedPar = retrieved[`${id}${capitalize(par)}`];
+      if (retrievedPar !== null) {
+        settings[`set${capitalize(par)}`](id, retrievedPar);
       }
-      const type = retrieved[`${resID}Type`];
-      if (res.types !== undefined && type !== null && res.type !== type) settings.setType(resID, type);
-      const option = retrieved[`${resID}Option`];
-      if (res.options !== undefined && option !== null && res.option !== option) res.setOption(option);
     });
-  } catch (error) {
-    console.log(error);
-  }
+  });
 }
 ;// ./src/background/background.js
 /* eslint-disable no-use-before-define */
@@ -1055,21 +1462,19 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-// eslint-disable-next-line import/no-cycle
+
 
 
 
 createMenu();
+settings.setToDefaults();
+syncLocal();
 
-// CREATE A DEFAULT EXTENSION STORAGE 'SYNC' FUNCTION
-// Make sync an option, not a default.
-sync();
+// Add a check for whether local and sync storages don't differ. If they do, the extension should ask the user to decide if they want to overwrite their local data or their sync data
+if (settings.sync === true) sync();
 
 // REMOVE ON RELEASE
 // -------------------------------------------------
-window.createItem = createItem;
-window.removeItem = removeItem;
-window.toggleItem = toggleItem;
 window.settings = settings;
 // -------------------------------------------------
 /******/ })()
