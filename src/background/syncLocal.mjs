@@ -18,30 +18,20 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-function throwWrongID(id) {
-  throw new Error(`There's no resource with the ${id} ID.`);
-}
+import getFromStorage from './getFromStorage';
+import { resIDs, getParameters } from './resService';
+import settings from './settings';
+import capitalize from './capitalize';
 
-function throwWrongType(name, type) {
-  throw new Error(`${name} doesn't have a type ${type}.`);
+export default async function syncLocal() {
+  const retrieved = await getFromStorage('extension');
+  resIDs.forEach((id) => {
+    const pars = getParameters(id);
+    pars.forEach((par) => {
+      const retrievedPar = retrieved[`${id}${capitalize(par)}`];
+      if (retrievedPar !== null) {
+        settings[`set${capitalize(par)}`](id, retrievedPar);
+      }
+    });
+  });
 }
-
-function throwWrongOption(name, option) {
-  throw new Error(`${name} doesn't have an option ${option}.`);
-}
-
-function throwWrongParameter(name, par) {
-  throw new Error(`${name} doesn't have a parameter ${par}.`);
-}
-
-function throwWrongStorage(storageType) {
-  throw new Error(`There's no such storage type as ${storageType}`);
-}
-
-export {
-  throwWrongID,
-  throwWrongType,
-  throwWrongOption,
-  throwWrongParameter,
-  throwWrongStorage,
-};

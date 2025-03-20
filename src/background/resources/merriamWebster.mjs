@@ -20,10 +20,8 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 export default {
   defaultContextMenu: false,
-  contextMenu: false,
   name: 'Merriam-Webster',
   id: 'merriamWebster',
   types: ['dictionary', 'thesaurus'],
   defaultType: 'dictionary',
-  type: 'dictionary',
 };

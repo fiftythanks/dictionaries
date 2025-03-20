@@ -8,7 +8,8 @@
     "build": "webpack",
     "d": "git checkout production 2>/dev/null || git checkout -b production && git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Production commit' && git subtree push --prefix dist origin production && git checkout main",
     "p": "git add . && git commit && git push origin main",
-    "pd": "npm run p && npm run d"
+    "pd": "npm run p && npm run d",
+    "circ-dep-check": "dpdm --no-warning --no-tree **/*.{js,mjs}"
   },
   "keywords": [],
   "author": "Mikhail Sholokhov",
@@ -21,6 +22,7 @@
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
+    "dpdm": "^3.14.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.0.2",

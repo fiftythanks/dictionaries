@@ -19,21 +19,20 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-// eslint-disable-next-line import/no-cycle
-import { settings } from './settings';
-import { createMenu, createItem, removeItem, toggleItem } from './contextMenu';
+import { createMenu } from './contextMenu';
+import settings from './settings';
+import syncLocal from './syncLocal';
 import sync from './sync';
 
 createMenu();
 
-// CREATE A DEFAULT EXTENSION STORAGE 'SYNC' FUNCTION
-// Make sync an option, not a default.
-sync();
+settings.setToDefaults();
+syncLocal();
+
+// Add a check for whether local and sync storages don't differ. If they do, the extension should ask the user to decide if they want to overwrite their local data or their sync data
+if (settings.sync === true) sync();
 
 // REMOVE ON RELEASE
 // -------------------------------------------------
-window.createItem = createItem;
-window.removeItem = removeItem;
-window.toggleItem = toggleItem;
 window.settings = settings;
 // -------------------------------------------------

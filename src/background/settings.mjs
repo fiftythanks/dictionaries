@@ -18,95 +18,106 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-import cambridgeDictionary from './resources/cambridge';
-import vocabulary from './resources/vocabulary';
-import merriamWebster from './resources/merriam';
-import collins from './resources/collins';
-import wiktionary from './resources/wiktionary';
-import dictionary from './resources/dictionary';
-import thesaurus from './resources/thesaurus';
-import thefreedictionary from './resources/thefreedictionary';
-// eslint-disable-next-line import/no-cycle
-import { createItem, removeItem } from './contextMenu';
+import { resIDs, getResource } from './resService';
+import { createItem, removeItem, toggleItem } from './contextMenu';
+import store from './store';
 
-export const settings = {
-  resources: {
-    cambridgeDictionary,
-    vocabulary,
-    wiktionary,
-    merriamWebster,
-    collins,
-    dictionary,
-    thesaurus,
-    thefreedictionary, // change setOption
-    // Add CUBE, YouGlish and Wikipedia later
-    // cube: {
-    //   contextMenu: false,
-    //   name: 'CUBE',
-    //   types: ['spell', 'sound'],
-    //   type: 'spell',
-    //   setType(type) {
-    //     if (this.types.includes(type)) {
-    //       this.type = type;
-    //       browser.storage.sync
-    //         .set({ cubeType: type })
-    //         .then(console.log('Type set successfuly.'), console.log);
-    //     } else {
-    //       console.error('Unrecognized type.');
-    //     }
-    //   },
-    //   options: {},
-    //   reset() {
-    //     removeItem('cube');
-    //     this.setType('spell');
-    //   },
-    // },
-    // youglish: {},
-    // wikipedia: {},
-  },
-  setType(resID, type) {
-    const { resources } = this;
-    const resIDs = Object.keys(resources);
-    if (resIDs.includes(resID)) {
-      const res = resources[resID];
-      if (res.types !== undefined && res.types.includes(type)) {
-        res.type = type;
-        browser.storage.sync
-          .set({ [`${res.id}Type`]: type })
-          .then(
-            console.log(`${res.name}'s type is successfuly set to ${type}.`),
-            console.log,
-          );
-      } else {
-        console.error(`${res.name} doesn't have the type ${type}.`);
-      }
-    } else {
-      console.error(`There's no resource with the ${resID} ID.`);
+export default {
+  syncOn: false,
+  set sync(boolValue) {
+    if (this.syncOn !== boolValue) {
+      this.syncOn = boolValue;
+      browser.storage.local.set({ sync: boolValue });
     }
   },
-  async reset(resID) {
-    const { resources } = this;
-    const resIDs = Object.keys(resources);
-    if (resID === undefined) {
-      resIDs.forEach((id) => this.reset(id));
-      const results = await browser.storage.sync.get(null);
-      console.log('Resources are reset.');
-      console.log(results);
-    } else if (resIDs.includes(resID)) {
-      const res = resources[resID];
-      if (res.defaultType !== undefined) this.setType(resID, res.defaultType);
-      if (res.defaultContextMenu === true) {
-        createItem(resID);
-      } else {
-        removeItem(resID);
-      }
-      // THERE NEEDS TO BE A BETTER WAY
-      if (resID === 'thefreedictionary') res.setOption(res.defaultOption);
-      console.log(`${res.name} is successfuly reset to defaults.`);
+  get sync() {
+    return this.syncOn;
+  },
+  toggleSync() {
+    if (this.sync === false) {
+      this.sync = true;
     } else {
-      console.error('Unrecognized resource id.');
+      this.sync = false;
+    }
+  },
+
+  // REFACTOR FOR CORRECT USE OF STORAGES
+  setType(id, type) {
+    const res = getResource(id);
+    if (res !== undefined) {
+      if (Object.hasOwn(res, 'types') && res.types.includes(type)) {
+        store(id, 'type', type, this.sync);
+      } else {
+        import('./error').then((module) =>
+          module.throwWrongType(res.name, type),
+        );
+      }
+    } else {
+      import('./error').then((module) => module.throwWrongID(id));
+    }
+  },
+
+  // temporary solution
+  setOption(id, option) {
+    const res = getResource(id);
+    if (res !== undefined) {
+      if (Object.hasOwn(res, 'options') && res.options.includes(option)) {
+        store(id, 'option', option, this.sync);
+      } else {
+        import('./error').then((module) =>
+          module.throwWrongOption(res.name, option),
+        );
+      }
+    } else {
+      import('./error').then((module) => module.throwWrongID(id));
+    }
+  },
+  addToContextMenu(id) {
+    createItem(id);
+    store(id, 'contextMenu', true, this.sync);
+  },
+  removeFromContextMenu(id) {
+    removeItem(id);
+    store(id, 'contextMenu', false, this.sync);
+  },
+  toggleContextMenu(id) {
+    const wasCreated = toggleItem(id);
+    store(id, 'contextMenu', wasCreated, this.sync);
+  },
+  setContextMenu(id, shouldAdd) {
+    if (shouldAdd) {
+      this.addToContextMenu(id);
+    } else {
+      this.removeFromContextMenu(id);
+    }
+  },
+
+  // ADD STORAGE USE
+  async setToDefaults(
+    id,
+    setDefaultContextMenu = true,
+    setDefaultType = true,
+    setDefaultOption = true,
+  ) {
+    if (id === undefined) {
+      const { syncOn } = await browser.storage.local.get({ sync: false });
+      if (syncOn) this.sync = true;
+      resIDs.forEach((resID) => this.setToDefaults(resID, true, true, true));
+    } else {
+      const res = getResource(id);
+      if (res !== undefined) {
+        if (setDefaultContextMenu) {
+          this.setContextMenu(id, res.defaultContextMenu);
+        }
+        if (Object.hasOwn(res, 'defaultType') && setDefaultType) {
+          this.setType(id, res.defaultType);
+        }
+        if (Object.hasOwn(res, 'defaultOption') && setDefaultOption) {
+          this.setOption(id, res.defaultOption);
+        }
+      } else {
+        import('./error').then((module) => module.throwWrongID(id));
+      }
     }
   },
 };
-
-export const { resources } = settings;

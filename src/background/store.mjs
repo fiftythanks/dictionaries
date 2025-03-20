@@ -18,34 +18,20 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-import { settings, resources } from './settings';
-import { setItemState } from './contextMenu';
-import throwWrongID from './error';
+import { hasParameter, getResource } from './resService';
+import capitalize from './capitalize';
 
-export default function setToDefaults(
-  id,
-  setDefaultContextMenu = true,
-  setDefaultType = true,
-  setDefaultOption = true,
-) {
-  const resIDs = Object.keys(resources);
-  if (id === undefined) {
-    resIDs.forEach((resID) =>
-      setToDefaults(
-        resID,
-        setDefaultContextMenu,
-        setDefaultType,
-        setDefaultOption,
-      ),
-    );
-  } else if (resIDs.includes(id)) {
-    const res = resources[id];
-    if (setDefaultContextMenu) setItemState(id, res.defaultContextMenu);
-    if (Object.hasOwn(res, 'defaultType') && setDefaultType)
-      settings.setType(id, res.defaultType);
-    if (Object.hasOwn(res, 'defaultOption') && setDefaultOption)
-      settings.setOption(id, res.defaultOption);
+export default async function store(id, parameter, value, isSyncOn) {
+  const res = getResource(id);
+  if (hasParameter(id, parameter)) {
+    res[parameter] = value;
+    browser.storage.local.set({ [`${id}${capitalize(parameter)}`]: value });
+    if (isSyncOn) {
+      browser.storage.sync.set({ [`${id}${capitalize(parameter)}`]: value });
+    }
   } else {
-    throwWrongID();
+    import('./error').then((module) =>
+      module.throwWrongParameter(res.name, parameter),
+    );
   }
 }

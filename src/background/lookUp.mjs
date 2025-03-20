@@ -18,15 +18,16 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-// eslint-disable-next-line import/no-cycle
-import { resources } from './settings';
+import { getResource } from './resService';
 
 export default function lookUp(info) {
   const word = encodeURI(info.selectionText);
   let url;
-  switch (info.menuItemId) {
+  const id = info.menuItemId;
+  const res = getResource(id);
+  switch (id) {
     case 'cambridgeDictionary':
-      switch (resources.cambridgeDictionary.type) {
+      switch (res.type) {
         case 'english':
           url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
           break;
@@ -188,7 +189,7 @@ export default function lookUp(info) {
       url = `https://www.vocabulary.com/dictionary/${word}`;
       break;
     case 'merriamWebster':
-      switch (resources.merriamWebster.type) {
+      switch (res.type) {
         case 'dictionary':
           url = `https://www.merriamWebster.com/dictionary/${word}`;
           break;
@@ -200,7 +201,7 @@ export default function lookUp(info) {
       }
       break;
     case 'collins':
-      switch (resources.collins.type) {
+      switch (res.type) {
         case 'en-definitions':
           url = `https://www.collinsdictionary.com/search/?dictCode=english&q=${word}`;
           break;
@@ -362,7 +363,7 @@ export default function lookUp(info) {
       }
       break;
     case 'wiktionary':
-      switch (resources.wiktionary.type) {
+      switch (res.type) {
         case 'en':
           url = `https://en.wiktionary.org/w/index.php?search=${word}&title=Special:Search&wprov=acrw1_-1`;
           break;
@@ -405,7 +406,7 @@ export default function lookUp(info) {
       break;
     case 'thefreedictionary': {
       let option;
-      switch (resources.thefreedictionary.option) {
+      switch (res.option) {
         case 'word':
           option = 0;
           break;
@@ -421,7 +422,7 @@ export default function lookUp(info) {
         default:
           option = 0;
       }
-      switch (resources.thefreedictionary.type) {
+      switch (res.type) {
         case 'dictionary':
           url = `https://www.thefreedictionary.com/_/search.aspx?tab=1&SearchBy=0&Word=${word}&TFDBy=${option}`;
           break;
@@ -455,7 +456,9 @@ export default function lookUp(info) {
       break;
     }
     // case 'cube':
-    // case 'youglish':
+    // case 'youglish'
+    // case 'urban'
+    // case 'wikipedia
     default:
       url = `https://dictionary.cambridge.org/search/english/direct/?q=${word}`;
   }

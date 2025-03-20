@@ -20,7 +20,6 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 export default {
   defaultContextMenu: false,
-  contextMenu: false,
   name: 'The Free Dictionary',
   id: 'thefreedictionary',
   types: [
@@ -35,19 +34,6 @@ export default {
     'wikipedia',
   ],
   defaultType: 'dictionary',
-  type: 'dictionary',
   options: ['word', 'startsWith', 'endsWith', 'text'],
   defaultOption: 'word',
-  option: 'word',
-  // THERE NEEDS TO BE A BETTER WAY
-  setOption(option) {
-    if (this.options.includes(option)) {
-      this.option = option;
-      browser.storage.sync
-        .set({ thefreedictionaryOption: option })
-        .then(console.log('Option set successfuly.'), console.log);
-    } else {
-      console.error('Unrecognized option.');
-    }
-  },
 };

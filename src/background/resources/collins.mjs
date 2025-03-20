@@ -20,7 +20,6 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 export default {
   defaultContextMenu: false,
-  contextMenu: false,
   name: 'Collins',
   id: 'collins',
   types: [
@@ -99,5 +98,4 @@ export default {
     'ja-en',
   ],
   defaultType: 'en-definitions',
-  type: 'en-definitions',
 };

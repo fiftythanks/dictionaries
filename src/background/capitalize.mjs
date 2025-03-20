@@ -18,30 +18,6 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-function throwWrongID(id) {
-  throw new Error(`There's no resource with the ${id} ID.`);
+export default function capitalize(word) {
+  return word.replace(word.at(0), word.at(0).toUpperCase());
 }
-
-function throwWrongType(name, type) {
-  throw new Error(`${name} doesn't have a type ${type}.`);
-}
-
-function throwWrongOption(name, option) {
-  throw new Error(`${name} doesn't have an option ${option}.`);
-}
-
-function throwWrongParameter(name, par) {
-  throw new Error(`${name} doesn't have a parameter ${par}.`);
-}
-
-function throwWrongStorage(storageType) {
-  throw new Error(`There's no such storage type as ${storageType}`);
-}
-
-export {
-  throwWrongID,
-  throwWrongType,
-  throwWrongOption,
-  throwWrongParameter,
-  throwWrongStorage,
-};

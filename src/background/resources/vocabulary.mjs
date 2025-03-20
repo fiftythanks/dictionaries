@@ -20,7 +20,6 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 export default {
   defaultContextMenu: true,
-  contextMenu: true,
   name: 'Vocabulary',
   id: 'vocabulary',
 };

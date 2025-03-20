@@ -20,11 +20,9 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 export default {
   defaultContextMenu: true,
-  contextMenu: true,
   name: 'Wiktionary',
   id: 'wiktionary',
   // ISO-639 language codes
   types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
   defaultType: 'en',
-  type: 'en',
 };

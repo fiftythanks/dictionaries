@@ -18,8 +18,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-// eslint-disable-next-line import/no-cycle
-import { resources } from './settings';
+import { getResource } from './resService';
 import lookUp from './lookUp';
 
 export function createMenu() {
@@ -30,77 +29,65 @@ export function createMenu() {
   });
 }
 
-// createItem() and removeItem() should check if an item already exists before acting.
-export function createItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
+// Returns true if successful
+export function createItem(id) {
+  const res = getResource(id);
+
+  if (res === undefined) {
+    import('./error').then((module) => module.throwWrongID(id));
+  }
 
   browser.menus.create(
     {
+      id,
       parentId: 'dictionaries',
-      id: resID,
       title: res.name,
       contexts: ['all'],
       onclick: lookUp,
     },
     () => {
-      if (browser.runtime.lastError !== null) {
-        const error = browser.runtime.lastError;
-        if (error.message !== `ID already exists: ${resID}`)
-          console.error(error);
+      const error = browser.runtime.lastError;
+      if (error !== null && error.message !== `ID already exists: ${id}`) {
+        throw error;
       } else {
-        res.contextMenu = true;
-        browser.storage.sync
-          .set({ [`${resID}ContextMenu`]: true })
-          .then(
-            console.log(`Item ${resID} successfuly created`),
-            console.error,
-          );
+        return true;
       }
     },
   );
 }
 
-// createItem() and removeItem() should check if an item already exists before acting.
-export function removeItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
+// Returns false if successful
+export function removeItem(id) {
+  const res = getResource(id);
+
+  if (res === undefined) {
+    import('./error').then((module) => module.throwWrongID(id));
+  }
 
   browser.menus
-    .remove(resID)
-    .then(() => {
-      res.contextMenu = false;
-      browser.storage.sync
-        .set({ [`${resID}ContextMenu`]: false })
-        .then(console.log(`Item ${resID} successfuly removed`), console.error);
-    })
+    .remove(id)
+    .then(() => false)
     .catch((error) => {
-      if (error.message !== `Cannot find menu item with id ${resID}`) {
-        console.log(error.message);
-        console.error(error);
+      if (error.message !== `Cannot find menu item with id ${id}`) {
+        throw error;
+      } else {
+        return false;
       }
     });
 }
 
-export function toggleItem(resID) {
-  // add a check for the existance of such a resource
-  const res = resources[resID];
+export async function toggleItem(id) {
+  const res = getResource(id);
+
+  if (res === undefined) {
+    import('./error').then((module) => module.throwWrongID(id));
+  }
 
   if (res.contextMenu === true) {
-    removeItem(resID);
+    removeItem(id);
   } else if (res.contextMenu === false) {
-    createItem(resID);
-  } else {
-    console.error('Unpredicted behaviour in toggleResource().');
-  }
-}
-
-// if shouldCreate === true, then an item will be created; otherwise, it will be removed. createItem() and removeItem() should check if an item already exists before acting.
-export function setItemState(id, shouldCreate) {
-  // add a check for the existance of such a resource in createItem() and removeItem()
-  if (shouldCreate) {
     createItem(id);
   } else {
-    removeItem(id);
+    throw new Error('Unpredicted behaviour in toggleResource().');
   }
 }
