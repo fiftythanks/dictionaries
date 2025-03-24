@@ -1,258 +1,18 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/ensure chunk */
-/******/ 	(() => {
-/******/ 		__webpack_require__.f = {};
-/******/ 		// This file contains only the entry chunk.
-/******/ 		// The chunk loading function for additional chunks
-/******/ 		__webpack_require__.e = (chunkId) => {
-/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce((promises, key) => {
-/******/ 				__webpack_require__.f[key](chunkId, promises);
-/******/ 				return promises;
-/******/ 			}, []));
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/get javascript chunk filename */
-/******/ 	(() => {
-/******/ 		// This function allow to reference async chunks
-/******/ 		__webpack_require__.u = (chunkId) => {
-/******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + ".js";
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/load script */
-/******/ 	(() => {
-/******/ 		var inProgress = {};
-/******/ 		var dataWebpackPrefix = "dictionaries:";
-/******/ 		// loadScript function to load a script via script tag
-/******/ 		__webpack_require__.l = (url, done, key, chunkId) => {
-/******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
-/******/ 			var script, needAttach;
-/******/ 			if(key !== undefined) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				for(var i = 0; i < scripts.length; i++) {
-/******/ 					var s = scripts[i];
-/******/ 					if(s.getAttribute("src") == url || s.getAttribute("data-webpack") == dataWebpackPrefix + key) { script = s; break; }
-/******/ 				}
-/******/ 			}
-/******/ 			if(!script) {
-/******/ 				needAttach = true;
-/******/ 				script = document.createElement('script');
-/******/ 		
-/******/ 				script.charset = 'utf-8';
-/******/ 				script.timeout = 120;
-/******/ 				if (__webpack_require__.nc) {
-/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
-/******/ 				}
-/******/ 				script.setAttribute("data-webpack", dataWebpackPrefix + key);
-/******/ 		
-/******/ 				script.src = url;
-/******/ 			}
-/******/ 			inProgress[url] = [done];
-/******/ 			var onScriptComplete = (prev, event) => {
-/******/ 				// avoid mem leaks in IE.
-/******/ 				script.onerror = script.onload = null;
-/******/ 				clearTimeout(timeout);
-/******/ 				var doneFns = inProgress[url];
-/******/ 				delete inProgress[url];
-/******/ 				script.parentNode && script.parentNode.removeChild(script);
-/******/ 				doneFns && doneFns.forEach((fn) => (fn(event)));
-/******/ 				if(prev) return prev(event);
-/******/ 			}
-/******/ 			var timeout = setTimeout(onScriptComplete.bind(null, undefined, { type: 'timeout', target: script }), 120000);
-/******/ 			script.onerror = onScriptComplete.bind(null, script.onerror);
-/******/ 			script.onload = onScriptComplete.bind(null, script.onload);
-/******/ 			needAttach && document.head.appendChild(script);
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/publicPath */
-/******/ 	(() => {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript && document.currentScript.tagName.toUpperCase() === 'SCRIPT')
-/******/ 				scriptUrl = document.currentScript.src;
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) {
-/******/ 					var i = scripts.length - 1;
-/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
-/******/ 				}
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl + "../";
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			471: 0
-/******/ 		};
-/******/ 		
-/******/ 		__webpack_require__.f.j = (chunkId, promises) => {
-/******/ 				// JSONP chunk loading for javascript
-/******/ 				var installedChunkData = __webpack_require__.o(installedChunks, chunkId) ? installedChunks[chunkId] : undefined;
-/******/ 				if(installedChunkData !== 0) { // 0 means "already installed".
-/******/ 		
-/******/ 					// a Promise means "currently loading".
-/******/ 					if(installedChunkData) {
-/******/ 						promises.push(installedChunkData[2]);
-/******/ 					} else {
-/******/ 						if(true) { // all chunks have JS
-/******/ 							// setup Promise in chunk cache
-/******/ 							var promise = new Promise((resolve, reject) => (installedChunkData = installedChunks[chunkId] = [resolve, reject]));
-/******/ 							promises.push(installedChunkData[2] = promise);
-/******/ 		
-/******/ 							// start chunk loading
-/******/ 							var url = __webpack_require__.p + __webpack_require__.u(chunkId);
-/******/ 							// create error before stack unwound to get useful stacktrace later
-/******/ 							var error = new Error();
-/******/ 							var loadingEnded = (event) => {
-/******/ 								if(__webpack_require__.o(installedChunks, chunkId)) {
-/******/ 									installedChunkData = installedChunks[chunkId];
-/******/ 									if(installedChunkData !== 0) installedChunks[chunkId] = undefined;
-/******/ 									if(installedChunkData) {
-/******/ 										var errorType = event && (event.type === 'load' ? 'missing' : event.type);
-/******/ 										var realSrc = event && event.target && event.target.src;
-/******/ 										error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
-/******/ 										error.name = 'ChunkLoadError';
-/******/ 										error.type = errorType;
-/******/ 										error.request = realSrc;
-/******/ 										installedChunkData[1](error);
-/******/ 									}
-/******/ 								}
-/******/ 							};
-/******/ 							__webpack_require__.l(url, loadingEnded, "chunk-" + chunkId, chunkId);
-/******/ 						}
-/******/ 					}
-/******/ 				}
-/******/ 		};
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		// no on chunks loaded
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 		
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkdictionaries"] = self["webpackChunkdictionaries"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 208:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  bQ: () => (/* binding */ getParameters),
+  hZ: () => (/* binding */ getResource),
+  Yk: () => (/* binding */ hasParameter),
+  vd: () => (/* binding */ resIDs)
+});
 
 ;// ./src/background/resources/cambridgeDictionary.mjs
 /* eslint-disable no-console */
@@ -503,30 +263,8 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
   defaultType: 'en'
 });
-;// ./src/background/capitalize.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-function capitalize(word) {
-  return word.replace(word.at(0), word.at(0).toUpperCase());
-}
+// EXTERNAL MODULE: ./src/background/capitalize.mjs
+var capitalize = __webpack_require__(375);
 ;// ./src/background/resService.mjs
 /* eslint-disable no-console */
 /*
@@ -578,24 +316,77 @@ function hasParameter(id, par) {
   if (res === undefined) {
     __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
   }
-  const result = Object.hasOwn(res, `default${capitalize(par)}`);
+  const result = Object.hasOwn(res, `default${(0,capitalize/* default */.A)(par)}`);
   return result;
 }
-function getParameters(id) {
+function getParameters(id, parameter) {
   const res = getResource(id);
   if (res === undefined) {
     __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
   }
-
-  // used in getFromStorage.mjs
-  const parameters = ['contextMenu'];
-  const pars = ['type', 'option'];
-  pars.forEach(par => {
-    if (hasParameter(id, par)) parameters.push(par);
+  if (parameter === undefined) {
+    const parameters = ['contextMenu'];
+    const pars = ['type', 'option'];
+    pars.forEach(par => {
+      if (hasParameter(id, par)) parameters.push(par);
+    });
+    return parameters;
+  }
+  if (!hasParameter(id, parameter)) __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => {
+    module.throwWrongParameter(resources[id].name, parameter);
   });
-  return parameters;
+  return res[parameter];
 }
 
+
+/***/ }),
+
+/***/ 375:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (/* binding */ capitalize)
+/* harmony export */ });
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+function capitalize(word) {
+  return word.replace(word.at(0), word.at(0).toUpperCase());
+}
+
+/***/ }),
+
+/***/ 525:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  wE: () => (/* binding */ createItem),
+  ES: () => (/* binding */ createMenu),
+  Ai: () => (/* binding */ removeItem),
+  g6: () => (/* binding */ toggleItem)
+});
+
+// EXTERNAL MODULE: ./src/background/resService.mjs + 8 modules
+var resService = __webpack_require__(208);
 ;// ./src/background/lookUp.mjs
 /* eslint-disable no-console */
 /*
@@ -622,7 +413,7 @@ function lookUp(info) {
   const word = encodeURI(info.selectionText);
   let url;
   const id = info.menuItemId;
-  const res = getResource(id);
+  const res = (0,resService/* getResource */.hZ)(id);
   switch (id) {
     case 'cambridgeDictionary':
       switch (res.type) {
@@ -1108,7 +899,7 @@ function createMenu() {
 
 // Returns true if successful
 function createItem(id) {
-  const res = getResource(id);
+  const res = (0,resService/* getResource */.hZ)(id);
   if (res === undefined) {
     __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
   }
@@ -1126,11 +917,13 @@ function createItem(id) {
       return true;
     }
   });
+  res.contextMenu = true;
+  return true;
 }
 
 // Returns false if successful
 function removeItem(id) {
-  const res = getResource(id);
+  const res = (0,resService/* getResource */.hZ)(id);
   if (res === undefined) {
     __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
   }
@@ -1141,9 +934,11 @@ function removeItem(id) {
       return false;
     }
   });
+  res.contextMenu = false;
+  return false;
 }
 async function toggleItem(id) {
-  const res = getResource(id);
+  const res = (0,resService/* getResource */.hZ)(id);
   if (res === undefined) {
     __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
   }
@@ -1152,9 +947,27 @@ async function toggleItem(id) {
   } else if (res.contextMenu === false) {
     createItem(id);
   } else {
-    throw new Error('Unpredicted behaviour in toggleResource().');
+    throw new Error('Unpredicted behavior in toggleResource().');
   }
 }
+
+/***/ }),
+
+/***/ 594:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ settings)
+});
+
+// EXTERNAL MODULE: ./src/background/resService.mjs + 8 modules
+var resService = __webpack_require__(208);
+// EXTERNAL MODULE: ./src/background/contextMenu.mjs + 1 modules
+var contextMenu = __webpack_require__(525);
+// EXTERNAL MODULE: ./src/background/capitalize.mjs
+var capitalize = __webpack_require__(375);
 ;// ./src/background/store.mjs
 /* eslint-disable no-console */
 /*
@@ -1179,19 +992,28 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 async function store(id, parameter, value, isSyncOn) {
-  const res = getResource(id);
-  if (hasParameter(id, parameter)) {
-    res[parameter] = value;
+  const res = (0,resService/* getResource */.hZ)(id);
+  if ((0,resService/* hasParameter */.Yk)(id, parameter)) {
     browser.storage.local.set({
-      [`${id}${capitalize(parameter)}`]: value
+      [`${id}${(0,capitalize/* default */.A)(parameter)}`]: value
     });
     if (isSyncOn) {
       browser.storage.sync.set({
-        [`${id}${capitalize(parameter)}`]: value
+        [`${id}${(0,capitalize/* default */.A)(parameter)}`]: value
       });
     }
   } else {
     __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongParameter(res.name, parameter));
+  }
+}
+async function storeSync(boolValue) {
+  browser.storage.local.set({
+    sync: boolValue
+  });
+  if (boolValue === true) {
+    // eslint-disable-next-line import/no-cycle
+    const storage = await Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 780));
+    await storage.sync();
   }
 }
 ;// ./src/background/settings.mjs
@@ -1217,15 +1039,15 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
+// Dependency cycle via ./store:23 is not a problem.
+// eslint-disable-next-line import/no-cycle
 
 /* harmony default export */ const settings = ({
   syncOn: false,
   set sync(boolValue) {
     if (this.syncOn !== boolValue) {
       this.syncOn = boolValue;
-      browser.storage.local.set({
-        sync: boolValue
-      });
+      storeSync(boolValue);
     }
   },
   get sync() {
@@ -1239,11 +1061,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
     }
   },
   // REFACTOR FOR CORRECT USE OF STORAGES
-  setType(id, type) {
-    const res = getResource(id);
+  setType(shouldStore, id, type) {
+    const res = (0,resService/* getResource */.hZ)(id);
     if (res !== undefined) {
       if (Object.hasOwn(res, 'types') && res.types.includes(type)) {
-        store(id, 'type', type, this.sync);
+        res.type = type;
+        if (shouldStore === true) store(id, 'type', type, this.sync);
       } else {
         __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongType(res.name, type));
       }
@@ -1252,11 +1075,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
     }
   },
   // temporary solution
-  setOption(id, option) {
-    const res = getResource(id);
+  setOption(shouldStore, id, option) {
+    const res = (0,resService/* getResource */.hZ)(id);
     if (res !== undefined) {
       if (Object.hasOwn(res, 'options') && res.options.includes(option)) {
-        store(id, 'option', option, this.sync);
+        res.option = option;
+        if (shouldStore === true) store(id, 'option', option, this.sync);
       } else {
         __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongOption(res.name, option));
       }
@@ -1264,27 +1088,27 @@ If you have any questions or feedback, feel free to contact me via email at mikh
       __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
     }
   },
-  addToContextMenu(id) {
-    createItem(id);
-    store(id, 'contextMenu', true, this.sync);
+  addToContextMenu(shouldStore, id) {
+    (0,contextMenu/* createItem */.wE)(id);
+    if (shouldStore === true) store(id, 'contextMenu', true, this.sync);
   },
-  removeFromContextMenu(id) {
-    removeItem(id);
-    store(id, 'contextMenu', false, this.sync);
+  removeFromContextMenu(shouldStore, id) {
+    (0,contextMenu/* removeItem */.Ai)(id);
+    if (shouldStore === true) store(id, 'contextMenu', false, this.sync);
   },
-  toggleContextMenu(id) {
-    const wasCreated = toggleItem(id);
-    store(id, 'contextMenu', wasCreated, this.sync);
+  toggleContextMenu(shouldStore, id) {
+    const wasCreated = (0,contextMenu/* toggleItem */.g6)(id);
+    if (shouldStore === true) store(id, 'contextMenu', wasCreated, this.sync);
   },
-  setContextMenu(id, shouldAdd) {
+  setContextMenu(shouldStore, id, shouldAdd) {
     if (shouldAdd) {
-      this.addToContextMenu(id);
+      this.addToContextMenu(shouldStore, id);
     } else {
-      this.removeFromContextMenu(id);
+      this.removeFromContextMenu(shouldStore, id);
     }
   },
   // ADD STORAGE USE
-  async setToDefaults(id, setDefaultContextMenu = true, setDefaultType = true, setDefaultOption = true) {
+  async setToDefaults(shouldStore, id, setDefaultContextMenu = true, setDefaultType = true, setDefaultOption = true) {
     if (id === undefined) {
       const {
         syncOn
@@ -1292,18 +1116,18 @@ If you have any questions or feedback, feel free to contact me via email at mikh
         sync: false
       });
       if (syncOn) this.sync = true;
-      resIDs.forEach(resID => this.setToDefaults(resID, true, true, true));
+      resService/* resIDs */.vd.forEach(resID => this.setToDefaults(shouldStore, resID, true, true, true));
     } else {
-      const res = getResource(id);
+      const res = (0,resService/* getResource */.hZ)(id);
       if (res !== undefined) {
         if (setDefaultContextMenu) {
-          this.setContextMenu(id, res.defaultContextMenu);
+          this.setContextMenu(shouldStore, id, res.defaultContextMenu);
         }
         if (Object.hasOwn(res, 'defaultType') && setDefaultType) {
-          this.setType(id, res.defaultType);
+          this.setType(shouldStore, id, res.defaultType);
         }
         if (Object.hasOwn(res, 'defaultOption') && setDefaultOption) {
-          this.setOption(id, res.defaultOption);
+          this.setOption(shouldStore, id, res.defaultOption);
         }
       } else {
         __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
@@ -1311,8 +1135,25 @@ If you have any questions or feedback, feel free to contact me via email at mikh
     }
   }
 });
-;// ./src/background/getFromStorage.mjs
-/* eslint-disable no-console */
+
+/***/ }),
+
+/***/ 780:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ getFromStorage),
+/* harmony export */   initialize: () => (/* binding */ initialize),
+/* harmony export */   pullLocal: () => (/* binding */ pullLocal),
+/* harmony export */   pullRemote: () => (/* binding */ pullRemote),
+/* harmony export */   pushLocal: () => (/* binding */ pushLocal),
+/* harmony export */   pushLocalRes: () => (/* binding */ pushLocalRes),
+/* harmony export */   sync: () => (/* binding */ sync)
+/* harmony export */ });
+/* harmony import */ var _resService_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(208);
+/* harmony import */ var _capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(375);
+/* harmony import */ var _settings_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(594);
 /*
 Copyright (C) 2025 Mikhail Sholokhov
 
@@ -1334,113 +1175,481 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
-function createRequestInternals(id) {
+// Dependency cycle via ./store:23 is not a problem.
+// eslint-disable-next-line import/no-cycle
+
+function createRequestInternals(id, parameter) {
   const internals = {};
   if (id === undefined) {
-    resIDs.forEach(resID => {
-      const pars = getParameters(resID);
+    _resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .resIDs */ .vd.forEach(resID => {
+      const pars = (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getParameters */ .bQ)(resID);
       pars.forEach(par => {
-        internals[`${resID}${capitalize(par)}`] = null;
+        internals[`${resID}${(0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(par)}`] = null;
       });
     });
-  } else {
-    const pars = getParameters(id);
+  } else if (parameter === undefined) {
+    const pars = (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getParameters */ .bQ)(id);
     pars.forEach(par => {
-      internals[`${id}${par}`] = null;
+      internals[`${id}${(0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(par)}`] = null;
     });
+  } else {
+    internals[`${id}${(0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)((0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getParameters */ .bQ)(id, parameter))}`] = null;
   }
   return internals;
 }
 
 // Returns promise
-function getFromStorage(storage, id) {
-  const requestInternals = createRequestInternals(id);
+function getFromStorage(storage, id, parameter) {
+  const requestInternals = createRequestInternals(id, parameter);
   let request;
-  if (storage === 'extension') {
+  if (storage === 'local') {
     request = browser.storage.local.get;
   }
-  if (storage === 'sync') {
+  if (storage === 'remote') {
     request = browser.storage.sync.get;
   }
   return request(requestInternals);
 }
-;// ./src/background/syncLocal.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-
-
-
-
-async function syncLocal() {
-  const retrieved = await getFromStorage('extension');
-  resIDs.forEach(id => {
-    const pars = getParameters(id);
+// If an object is passed, that object will be dealt with as if it was the local storage object.
+async function pullLocal(obj) {
+  let retrieved;
+  if (obj === undefined || typeof obj !== 'object') {
+    retrieved = await getFromStorage('local');
+  } else {
+    retrieved = obj;
+  }
+  _resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .resIDs */ .vd.forEach(id => {
+    const pars = (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getParameters */ .bQ)(id);
     pars.forEach(par => {
-      const retrievedPar = retrieved[`${id}${capitalize(par)}`];
+      const capitalizedPar = (0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(par);
+      const retrievedPar = retrieved[`${id}${capitalizedPar}`];
       if (retrievedPar !== null) {
-        settings[`set${capitalize(par)}`](id, retrievedPar);
+        _settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A[`set${capitalizedPar}`](false, id, retrievedPar);
+      } else {
+        _settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A[`set${capitalizedPar}`](true, id, (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getResource */ .hZ)(id)[`default${capitalizedPar}`]);
       }
     });
   });
 }
-;// ./src/background/sync.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+// If an object is passed, that object will be dealt with as if it was the local storage object.
+async function pushLocal(obj) {
+  let retrieved;
+  if (obj === undefined || typeof obj !== 'object') {
+    retrieved = await getFromStorage('local');
+  } else {
+    retrieved = obj;
+  }
+  _resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .resIDs */ .vd.forEach(id => {
+    const pars = (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getParameters */ .bQ)(id);
+    pars.forEach(par => {
+      const capitalizedPar = (0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(par);
+      const retrievedPar = retrieved[`${id}${capitalizedPar}`];
+      if (retrievedPar !== null) {
+        browser.storage.sync.set({
+          [`${id}${capitalizedPar}`]: retrievedPar
+        });
+      } else {
+        _settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A[`set${capitalizedPar}`](true, id, (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getResource */ .hZ)(id)[`default${capitalizedPar}`]);
+      }
+    });
+  });
+}
+async function pushLocalRes(id, parameter) {
+  if (_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .resIDs */ .vd.includes(id)) {
+    if (parameter !== undefined) {
+      const retrieved = await getFromStorage('local', id, parameter);
+      const capitalizedPar = (0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(parameter);
+      const retrievedPar = retrieved[`${id}${capitalizedPar}`];
+      if (retrievedPar !== null) {
+        browser.storage.sync.set({
+          [`${id}${capitalizedPar}`]: retrievedPar
+        });
+      } else {
+        _settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A[`set${capitalizedPar}`](true, id, (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getResource */ .hZ)(id)[`default${capitalizedPar}`]);
+      }
+    } else {
+      const retrieved = await getFromStorage('local', id);
+      const pars = (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getParameters */ .bQ)(id);
+      pars.forEach(par => {
+        const capitalizedPar = (0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(par);
+        const retrievedPar = retrieved[`${id}${capitalizedPar}`];
+        if (retrievedPar !== null) {
+          browser.storage.sync.set({
+            [`${id}${capitalizedPar}`]: retrievedPar
+          });
+        } else {
+          _settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A[`set${capitalizedPar}`](true, id, (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getResource */ .hZ)(id)[`default${capitalizedPar}`]);
+        }
+      });
+    }
+  } else {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+  }
+}
+async function pullRemote(obj) {
+  let remote;
+  if (remote === undefined || typeof obj !== 'object') {
+    remote = await getFromStorage('remote');
+  } else {
+    remote = obj;
+  }
+  _resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .resIDs */ .vd.forEach(id => {
+    const pars = (0,_resService_mjs__WEBPACK_IMPORTED_MODULE_0__/* .getParameters */ .bQ)(id);
+    pars.forEach(par => {
+      const capitalizedPar = (0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)(par);
+      const retrievedPar = remote[`${id}${capitalizedPar}`];
+      if (retrievedPar !== null) {
+        browser.storage.local.set({
+          [`${id}${capitalizedPar}`]: retrievedPar
+        });
+      } else {
+        pushLocalRes(id, par);
+      }
+    });
+  });
+}
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
+async function initialize() {
+  const initLocal = await browser.storage.local.get(null);
+  const wasEmpty = isEmpty(initLocal);
+  if (wasEmpty) {
+    // 'true' means that setting changes will be pushed to the local storage immediately
+    _settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A.setToDefaults(true);
+  } else {
+    if (initLocal.sync !== null) {
+      _settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A.syncOn = initLocal.sync;
+    } else {
+      browser.storage.local.set({
+        sync: false
+      });
+    }
+    pullLocal(initLocal);
+  }
+  function areDifferent(obj1, obj2) {
+    // Takes an object, returns an array.
+    function sort(obj) {
+      return Object.entries(obj).sort();
+    }
+    const [arr1, arr2] = [sort(obj1), sort(obj2)];
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  }
+  if (_settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A.sync === true) {
+    const remote = await browser.storage.sync.get(null);
+    if (isEmpty(remote) || !areDifferent(initLocal, remote)) {
+      pushLocal();
+    } else {
+      const local = await browser.storage.local.get(null);
+      if (wasEmpty) {
+        pullRemote(remote);
+        pullLocal();
+      } else if (areDifferent(local, remote)) {
+        /* For now, it's a native popup. Then, the user will be asked to choose in the UI instead. 
+        
+        (Or won't he/she? What would happen if the user closed the UI before choosing an option? The native popup version doesn't have such vulnerability. But native pop-ups are a bad practice.) */
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-
-
-
-
-
-// It should check the local storage as well, not only the resource object itself
+        // Give a choice of not overwriting anything and just turning off sync in the future
+        if (
+        // eslint-disable-next-line no-alert
+        window.confirm("Differences between local and remote data are found. Do you wish to overwrite local data? If you don't, remote data will be overwritten.")) {
+          pullRemote(remote);
+        } else {
+          pushLocal(local);
+        }
+      }
+    }
+  }
+}
 async function sync() {
-  const retrieved = await getFromStorage('sync');
-  resIDs.forEach(id => {
-    const pars = getParameters(id);
-    pars.forEach(par => {
-      const retrievedPar = retrieved[`${id}${capitalize(par)}`];
-      if (retrievedPar !== null) {
-        settings[`set${capitalize(par)}`](id, retrievedPar);
-      }
-    });
-  });
+  function areDifferent(obj1, obj2) {
+    // Takes an object, returns an array.
+    function sort(obj) {
+      return Object.entries(obj).sort();
+    }
+    const [arr1, arr2] = [sort(obj1), sort(obj2)];
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  }
+  const local = await browser.storage.local.get(null);
+  const remote = await browser.storage.sync.get(null);
+  if (isEmpty(remote)) {
+    pushLocal(local);
+  } else if (areDifferent(local, remote)) {
+    /* For now, it's a native popup. Then, the user will be asked to choose in the UI instead. 
+    
+    (Or won't he/she? What would happen if the user closed the UI before choosing an option? The native popup version doesn't have such vulnerability. But native pop-ups are a bad practice.) */
+
+    // Give a choice of not overwriting anything and just turning off sync in the future
+    if (
+    // eslint-disable-next-line no-alert
+    window.confirm("Differences between local and remote data are found. Do you wish to overwrite local data? If you don't, remote data will be overwritten.")) {
+      pullRemote(remote);
+    } else {
+      pushLocal(local);
+    }
+  }
 }
-;// ./src/background/background.js
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/ensure chunk */
+/******/ 	(() => {
+/******/ 		__webpack_require__.f = {};
+/******/ 		// This file contains only the entry chunk.
+/******/ 		// The chunk loading function for additional chunks
+/******/ 		__webpack_require__.e = (chunkId) => {
+/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce((promises, key) => {
+/******/ 				__webpack_require__.f[key](chunkId, promises);
+/******/ 				return promises;
+/******/ 			}, []));
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/get javascript chunk filename */
+/******/ 	(() => {
+/******/ 		// This function allow to reference async chunks
+/******/ 		__webpack_require__.u = (chunkId) => {
+/******/ 			// return url for filenames based on template
+/******/ 			return "" + chunkId + ".js";
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/load script */
+/******/ 	(() => {
+/******/ 		var inProgress = {};
+/******/ 		var dataWebpackPrefix = "dictionaries:";
+/******/ 		// loadScript function to load a script via script tag
+/******/ 		__webpack_require__.l = (url, done, key, chunkId) => {
+/******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
+/******/ 			var script, needAttach;
+/******/ 			if(key !== undefined) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				for(var i = 0; i < scripts.length; i++) {
+/******/ 					var s = scripts[i];
+/******/ 					if(s.getAttribute("src") == url || s.getAttribute("data-webpack") == dataWebpackPrefix + key) { script = s; break; }
+/******/ 				}
+/******/ 			}
+/******/ 			if(!script) {
+/******/ 				needAttach = true;
+/******/ 				script = document.createElement('script');
+/******/ 		
+/******/ 				script.charset = 'utf-8';
+/******/ 				script.timeout = 120;
+/******/ 				if (__webpack_require__.nc) {
+/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 				}
+/******/ 				script.setAttribute("data-webpack", dataWebpackPrefix + key);
+/******/ 		
+/******/ 				script.src = url;
+/******/ 			}
+/******/ 			inProgress[url] = [done];
+/******/ 			var onScriptComplete = (prev, event) => {
+/******/ 				// avoid mem leaks in IE.
+/******/ 				script.onerror = script.onload = null;
+/******/ 				clearTimeout(timeout);
+/******/ 				var doneFns = inProgress[url];
+/******/ 				delete inProgress[url];
+/******/ 				script.parentNode && script.parentNode.removeChild(script);
+/******/ 				doneFns && doneFns.forEach((fn) => (fn(event)));
+/******/ 				if(prev) return prev(event);
+/******/ 			}
+/******/ 			var timeout = setTimeout(onScriptComplete.bind(null, undefined, { type: 'timeout', target: script }), 120000);
+/******/ 			script.onerror = onScriptComplete.bind(null, script.onerror);
+/******/ 			script.onload = onScriptComplete.bind(null, script.onload);
+/******/ 			needAttach && document.head.appendChild(script);
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript && document.currentScript.tagName.toUpperCase() === 'SCRIPT')
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl + "../";
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			471: 0
+/******/ 		};
+/******/ 		
+/******/ 		__webpack_require__.f.j = (chunkId, promises) => {
+/******/ 				// JSONP chunk loading for javascript
+/******/ 				var installedChunkData = __webpack_require__.o(installedChunks, chunkId) ? installedChunks[chunkId] : undefined;
+/******/ 				if(installedChunkData !== 0) { // 0 means "already installed".
+/******/ 		
+/******/ 					// a Promise means "currently loading".
+/******/ 					if(installedChunkData) {
+/******/ 						promises.push(installedChunkData[2]);
+/******/ 					} else {
+/******/ 						if(true) { // all chunks have JS
+/******/ 							// setup Promise in chunk cache
+/******/ 							var promise = new Promise((resolve, reject) => (installedChunkData = installedChunks[chunkId] = [resolve, reject]));
+/******/ 							promises.push(installedChunkData[2] = promise);
+/******/ 		
+/******/ 							// start chunk loading
+/******/ 							var url = __webpack_require__.p + __webpack_require__.u(chunkId);
+/******/ 							// create error before stack unwound to get useful stacktrace later
+/******/ 							var error = new Error();
+/******/ 							var loadingEnded = (event) => {
+/******/ 								if(__webpack_require__.o(installedChunks, chunkId)) {
+/******/ 									installedChunkData = installedChunks[chunkId];
+/******/ 									if(installedChunkData !== 0) installedChunks[chunkId] = undefined;
+/******/ 									if(installedChunkData) {
+/******/ 										var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+/******/ 										var realSrc = event && event.target && event.target.src;
+/******/ 										error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
+/******/ 										error.name = 'ChunkLoadError';
+/******/ 										error.type = errorType;
+/******/ 										error.request = realSrc;
+/******/ 										installedChunkData[1](error);
+/******/ 									}
+/******/ 								}
+/******/ 							};
+/******/ 							__webpack_require__.l(url, loadingEnded, "chunk-" + chunkId, chunkId);
+/******/ 						}
+/******/ 					}
+/******/ 				}
+/******/ 		};
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 		
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = self["webpackChunkdictionaries"] = self["webpackChunkdictionaries"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+/* harmony import */ var _contextMenu_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(525);
+/* harmony import */ var _settings_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(594);
+/* harmony import */ var _storage_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(780);
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 /*
@@ -1465,17 +1674,14 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 
 
-
-createMenu();
-settings.setToDefaults();
-syncLocal();
-
-// Add a check for whether local and sync storages don't differ. If they do, the extension should ask the user to decide if they want to overwrite their local data or their sync data
-if (settings.sync === true) sync();
+(0,_contextMenu_mjs__WEBPACK_IMPORTED_MODULE_0__/* .createMenu */ .ES)();
+(0,_storage_mjs__WEBPACK_IMPORTED_MODULE_2__.initialize)().then(result => {
+  if (result === true) console.log('Successfully initialized.');
+});
 
 // REMOVE ON RELEASE
 // -------------------------------------------------
-window.settings = settings;
+window.settings = _settings_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A;
 // -------------------------------------------------
 /******/ })()
 ;
