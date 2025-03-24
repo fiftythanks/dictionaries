@@ -66,21 +66,29 @@ function hasParameter(id, par) {
   return result;
 }
 
-function getParameters(id) {
+function getParameters(id, parameter) {
   const res = getResource(id);
 
   if (res === undefined) {
     import('./error').then((module) => module.throwWrongID(id));
   }
 
-  // used in getFromStorage.mjs
-  const parameters = ['contextMenu'];
-  const pars = ['type', 'option'];
-  pars.forEach((par) => {
-    if (hasParameter(id, par)) parameters.push(par);
-  });
+  if (parameter === undefined) {
+    const parameters = ['contextMenu'];
+    const pars = ['type', 'option'];
+    pars.forEach((par) => {
+      if (hasParameter(id, par)) parameters.push(par);
+    });
 
-  return parameters;
+    return parameters;
+  }
+
+  if (!hasParameter(id, parameter))
+    import('./error').then((module) => {
+      module.throwWrongParameter(resources[id].name, parameter);
+    });
+
+  return res[parameter];
 }
 
 export { resIDs, getResource, hasParameter, getParameters };

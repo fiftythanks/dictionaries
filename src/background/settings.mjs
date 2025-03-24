@@ -20,14 +20,16 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 import { resIDs, getResource } from './resService';
 import { createItem, removeItem, toggleItem } from './contextMenu';
-import store from './store';
+// Dependency cycle via ./store:23 is not a problem.
+// eslint-disable-next-line import/no-cycle
+import { store, storeSync } from './store';
 
 export default {
   syncOn: false,
   set sync(boolValue) {
     if (this.syncOn !== boolValue) {
       this.syncOn = boolValue;
-      browser.storage.local.set({ sync: boolValue });
+      storeSync(boolValue);
     }
   },
   get sync() {
@@ -42,11 +44,12 @@ export default {
   },
 
   // REFACTOR FOR CORRECT USE OF STORAGES
-  setType(id, type) {
+  setType(shouldStore, id, type) {
     const res = getResource(id);
     if (res !== undefined) {
       if (Object.hasOwn(res, 'types') && res.types.includes(type)) {
-        store(id, 'type', type, this.sync);
+        res.type = type;
+        if (shouldStore === true) store(id, 'type', type, this.sync);
       } else {
         import('./error').then((module) =>
           module.throwWrongType(res.name, type),
@@ -58,11 +61,12 @@ export default {
   },
 
   // temporary solution
-  setOption(id, option) {
+  setOption(shouldStore, id, option) {
     const res = getResource(id);
     if (res !== undefined) {
       if (Object.hasOwn(res, 'options') && res.options.includes(option)) {
-        store(id, 'option', option, this.sync);
+        res.option = option;
+        if (shouldStore === true) store(id, 'option', option, this.sync);
       } else {
         import('./error').then((module) =>
           module.throwWrongOption(res.name, option),
@@ -72,28 +76,29 @@ export default {
       import('./error').then((module) => module.throwWrongID(id));
     }
   },
-  addToContextMenu(id) {
+  addToContextMenu(shouldStore, id) {
     createItem(id);
-    store(id, 'contextMenu', true, this.sync);
+    if (shouldStore === true) store(id, 'contextMenu', true, this.sync);
   },
-  removeFromContextMenu(id) {
+  removeFromContextMenu(shouldStore, id) {
     removeItem(id);
-    store(id, 'contextMenu', false, this.sync);
+    if (shouldStore === true) store(id, 'contextMenu', false, this.sync);
   },
-  toggleContextMenu(id) {
+  toggleContextMenu(shouldStore, id) {
     const wasCreated = toggleItem(id);
-    store(id, 'contextMenu', wasCreated, this.sync);
+    if (shouldStore === true) store(id, 'contextMenu', wasCreated, this.sync);
   },
-  setContextMenu(id, shouldAdd) {
+  setContextMenu(shouldStore, id, shouldAdd) {
     if (shouldAdd) {
-      this.addToContextMenu(id);
+      this.addToContextMenu(shouldStore, id);
     } else {
-      this.removeFromContextMenu(id);
+      this.removeFromContextMenu(shouldStore, id);
     }
   },
 
   // ADD STORAGE USE
   async setToDefaults(
+    shouldStore,
     id,
     setDefaultContextMenu = true,
     setDefaultType = true,
@@ -102,18 +107,20 @@ export default {
     if (id === undefined) {
       const { syncOn } = await browser.storage.local.get({ sync: false });
       if (syncOn) this.sync = true;
-      resIDs.forEach((resID) => this.setToDefaults(resID, true, true, true));
+      resIDs.forEach((resID) =>
+        this.setToDefaults(shouldStore, resID, true, true, true),
+      );
     } else {
       const res = getResource(id);
       if (res !== undefined) {
         if (setDefaultContextMenu) {
-          this.setContextMenu(id, res.defaultContextMenu);
+          this.setContextMenu(shouldStore, id, res.defaultContextMenu);
         }
         if (Object.hasOwn(res, 'defaultType') && setDefaultType) {
-          this.setType(id, res.defaultType);
+          this.setType(shouldStore, id, res.defaultType);
         }
         if (Object.hasOwn(res, 'defaultOption') && setDefaultOption) {
-          this.setOption(id, res.defaultOption);
+          this.setOption(shouldStore, id, res.defaultOption);
         }
       } else {
         import('./error').then((module) => module.throwWrongID(id));

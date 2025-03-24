@@ -21,7 +21,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 import { resIDs, getParameters } from './resService';
 import capitalize from './capitalize';
 
-function createRequestInternals(id) {
+function createRequestInternals(id, parameter) {
   const internals = {};
   if (id === undefined) {
     resIDs.forEach((resID) => {
@@ -30,25 +30,27 @@ function createRequestInternals(id) {
         internals[`${resID}${capitalize(par)}`] = null;
       });
     });
-  } else {
+  } else if (parameter === undefined) {
     const pars = getParameters(id);
     pars.forEach((par) => {
-      internals[`${id}${par}`] = null;
+      internals[`${id}${capitalize(par)}`] = null;
     });
+  } else {
+    internals[`${id}${capitalize(getParameters(id, parameter))}`] = null;
   }
   return internals;
 }
 
 // Returns promise
-export default function getFromStorage(storage, id) {
-  const requestInternals = createRequestInternals(id);
-  let request;
+export default function getFromStorage(storage, id, parameter) {
+  const requestInternals = createRequestInternals(id, parameter);
 
-  if (storage === 'extension') {
+  let request;
+  if (storage === 'local') {
     request = browser.storage.local.get;
   }
 
-  if (storage === 'sync') {
+  if (storage === 'remote') {
     request = browser.storage.sync.get;
   }
 

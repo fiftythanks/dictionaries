@@ -25,9 +25,15 @@ import capitalize from './capitalize';
 
 // It should check the local storage as well, not only the resource object itself
 export default async function sync() {
+  // takes data from local storage
   const retrieved = await getFromStorage('sync');
+  // compares local and sync
+  // local !== sync => prompt(local or sync?)
+  // user: local => sync.clear(), sync = local
+  // OR user: sync => local.clear(), local = sync
   resIDs.forEach((id) => {
     const pars = getParameters(id);
+
     pars.forEach((par) => {
       const retrievedPar = retrieved[`${id}${capitalize(par)}`];
       if (retrievedPar !== null) {

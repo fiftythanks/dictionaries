@@ -19,7 +19,7 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 
 import getFromStorage from './getFromStorage';
-import { resIDs, getParameters } from './resService';
+import { resIDs, getResource, getParameters } from './resService';
 import settings from './settings';
 import capitalize from './capitalize';
 
@@ -28,9 +28,15 @@ export default async function syncLocal() {
   resIDs.forEach((id) => {
     const pars = getParameters(id);
     pars.forEach((par) => {
-      const retrievedPar = retrieved[`${id}${capitalize(par)}`];
+      const capitalizedPar = capitalize(par);
+      const retrievedPar = retrieved[`${id}${capitalizedPar}`];
       if (retrievedPar !== null) {
-        settings[`set${capitalize(par)}`](id, retrievedPar);
+        settings[`set${capitalizedPar}`](id, retrievedPar);
+      } else {
+        settings[`set${capitalizedPar}`](
+          id,
+          getResource(id)[`default${capitalizedPar}`],
+        );
       }
     });
   });

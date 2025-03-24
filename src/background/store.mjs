@@ -21,10 +21,10 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 import { hasParameter, getResource } from './resService';
 import capitalize from './capitalize';
 
-export default async function store(id, parameter, value, isSyncOn) {
+export async function store(id, parameter, value, isSyncOn) {
   const res = getResource(id);
+
   if (hasParameter(id, parameter)) {
-    res[parameter] = value;
     browser.storage.local.set({ [`${id}${capitalize(parameter)}`]: value });
     if (isSyncOn) {
       browser.storage.sync.set({ [`${id}${capitalize(parameter)}`]: value });
@@ -33,5 +33,14 @@ export default async function store(id, parameter, value, isSyncOn) {
     import('./error').then((module) =>
       module.throwWrongParameter(res.name, parameter),
     );
+  }
+}
+
+export async function storeSync(boolValue) {
+  browser.storage.local.set({ sync: boolValue });
+  if (boolValue === true) {
+    // eslint-disable-next-line import/no-cycle
+    const storage = await import('./storage');
+    await storage.sync();
   }
 }

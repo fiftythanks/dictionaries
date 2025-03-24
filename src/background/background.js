@@ -21,16 +21,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 import { createMenu } from './contextMenu';
 import settings from './settings';
-import syncLocal from './syncLocal';
-import sync from './sync';
+import { initialize } from './storage';
 
 createMenu();
-
-settings.setToDefaults();
-syncLocal();
-
-// Add a check for whether local and sync storages don't differ. If they do, the extension should ask the user to decide if they want to overwrite their local data or their sync data
-if (settings.sync === true) sync();
+initialize().then((result) => {
+  if (result === true) console.log('Successfully initialized.');
+});
 
 // REMOVE ON RELEASE
 // -------------------------------------------------

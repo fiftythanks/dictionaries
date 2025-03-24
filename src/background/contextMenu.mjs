@@ -54,6 +54,9 @@ export function createItem(id) {
       }
     },
   );
+
+  res.contextMenu = true;
+  return true;
 }
 
 // Returns false if successful
@@ -74,6 +77,9 @@ export function removeItem(id) {
         return false;
       }
     });
+
+  res.contextMenu = false;
+  return false;
 }
 
 export async function toggleItem(id) {
@@ -88,6 +94,6 @@ export async function toggleItem(id) {
   } else if (res.contextMenu === false) {
     createItem(id);
   } else {
-    throw new Error('Unpredicted behaviour in toggleResource().');
+    throw new Error('Unpredicted behavior in toggleResource().');
   }
 }
