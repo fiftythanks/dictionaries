@@ -234,6 +234,7 @@ export async function initialize() {
       }
     }
   }
+  return true;
 }
 
 export async function sync() {
