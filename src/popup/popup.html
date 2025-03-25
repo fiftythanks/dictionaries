@@ -1,16 +1,115 @@
 <!-- Copyright (C) 2025 Mikhail Sholokhov
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-  If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you! -->
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you! -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <header>
+      <img src="./icons/icon.svg" alt="Dictionaries logo" class="logo" />
+      <p>Dictionaries</p>
+      <!-- Maybe make it a checkbox that will control the visibility of settings without JavaScript -->
+      <button type="button" id="settings-btn">
+        <img src="./icons/settings.svg" alt="Settings" />
+      </button>
+    </header>
+    <div class="resources">
+      <div class="item-wrapper">
+        <input type="radio" name="resource" id="cambridge-dictionary" />
+        <label for="cambridge-dictionary" class="resource">
+          <div class="summary">
+            <!-- Insert resource icon -->
+            <p>Cambridge Dictionary</p>
+          </div>
+          <div class="details">Test</div>
+        </label>
+      </div>
+      <div class="item-wrapper">
+        <input type="radio" name="resource" id="collins" />
+        <label for="collins" class="resource">
+          <div class="summary">
+            <!-- Insert resource icon -->
+            <p>Collins</p>
+          </div>
+          <div class="details">Test</div>
+        </label>
+      </div>
+      <div class="item-wrapper">
+        <input type="radio" name="resource" id="dictionary" />
+        <label for="dictionary" class="resource">
+          <div class="summary">
+            <!-- Insert resource icon -->
+            <p>Dictionary.com</p>
+          </div>
+          <div class="details">Test</div>
+        </label>
+      </div>
+      <div class="item-wrapper">
+        <input type="radio" name="resource" id="merriam-webster" />
+        <label for="merriam-webster" class="resource">
+          <div class="summary">
+            <!-- Insert resource icon -->
+            <p>Merriam-Webster</p>
+          </div>
+          <div class="details">Test</div>
+        </label>
+      </div>
+      <div class="item-wrapper">
+        <input type="radio" name="resource" id="thefreedictionary" />
+        <label for="thefreedictionary" class="resource">
+          <div class="summary">
+            <!-- Insert resource icon -->
+            <p>The Free Dictionary</p>
+          </div>
+          <div class="details">Test</div>
+        </label>
+      </div>
+      <div class="item-wrapper">
+        <input type="radio" name="resource" id="thesaurus" />
+        <label for="thesaurus" class="resource">
+          <div class="summary">
+            <!-- Insert resource icon -->
+            <p>Thesaurus.com</p>
+          </div>
+          <div class="details">Test</div>
+        </label>
+      </div>
+      <div class="item-wrapper">
+        <input type="radio" name="resource" id="vocabulary" />
+        <label for="vocabulary" class="resource">
+          <div class="summary">
+            <!-- Insert resource icon -->
+            <p>Vocabulary.com</p>
+          </div>
+          <div class="details">Test</div>
+        </label>
+      </div>
+      <div class="item-wrapper">
+        <input type="radio" name="resource" id="wiktionary" />
+        <label for="wiktionary" class="resource">
+          <div class="summary">
+            <!-- Insert resource icon -->
+            <p>Wiktionary</p>
+          </div>
+          <div class="details">Test</div>
+        </label>
+      </div>
+    </div>
+  </body>
+</html>

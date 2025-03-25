@@ -16,3 +16,124 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you! 
 */
+
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  interpolate-size: allow-keywords;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* My styles  */
+
+html,
+body {
+  width: 250px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  button:hover {
+    cursor: pointer;
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  background-color: #023e8a;
+  color: white;
+  height: 40px;
+}
+
+.logo {
+  width: 30px;
+}
+
+#settings-btn {
+  background: none;
+  border: none;
+  width: 30px;
+  margin-left: auto;
+}
+
+.item-wrapper > input[type='radio'] {
+  display: none;
+}
+
+.details {
+  display: none;
+}
+
+input[type='radio']:checked + label > .details {
+  display: block;
+}
+
+.summary {
+  display: flex;
+  user-select: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
