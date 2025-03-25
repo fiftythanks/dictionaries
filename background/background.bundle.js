@@ -1362,6 +1362,7 @@ async function initialize() {
       }
     }
   }
+  return true;
 }
 async function sync() {
   function areDifferent(obj1, obj2) {
