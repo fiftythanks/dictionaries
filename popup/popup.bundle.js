@@ -161,7 +161,128 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you! 
 */
-`, "",{"version":3,"sources":["webpack://./src/popup/style.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;;;CAiBC","sourcesContent":["/* \nCopyright (C) 2025 Mikhail Sholokhov\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program. If not, see <https://www.gnu.org/licenses/>.\n\nIf you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you! \n*/\n"],"sourceRoot":""}]);
+
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  interpolate-size: allow-keywords;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* My styles  */
+
+html,
+body {
+  width: 250px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  button:hover {
+    cursor: pointer;
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  background-color: #023e8a;
+  color: white;
+  height: 40px;
+}
+
+.logo {
+  width: 30px;
+}
+
+#settings-btn {
+  background: none;
+  border: none;
+  width: 30px;
+  margin-left: auto;
+}
+
+.item-wrapper > input[type='radio'] {
+  display: none;
+}
+
+.details {
+  display: none;
+}
+
+input[type='radio']:checked + label > .details {
+  display: block;
+}
+
+.summary {
+  display: flex;
+  user-select: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+`, "",{"version":3,"sources":["webpack://./src/popup/style.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;;;CAiBC;;AAED;;;CAGC;;AAED;;;EAGE,sBAAsB;AACxB;;AAEA;EACE,SAAS;AACX;;AAEA;EACE,gCAAgC;AAClC;;AAEA;EACE,gBAAgB;EAChB,mCAAmC;AACrC;;AAEA;;;;;EAKE,cAAc;EACd,eAAe;AACjB;;AAEA;;;;EAIE,aAAa;AACf;;AAEA;;;;;;;EAOE,yBAAyB;AAC3B;;AAEA;EACE,iBAAiB;AACnB;AACA;;;;;;EAME,kBAAkB;AACpB;;AAEA;;EAEE,kBAAkB;AACpB;;AAEA,eAAe;;AAEf;;EAEE,YAAY;AACd;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB;IACE,eAAe;EACjB;AACF;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,yBAAyB;EACzB,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,gBAAgB;EAChB,YAAY;EACZ,WAAW;EACX,iBAAiB;AACnB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,aAAa;EACb,iBAAiB;EACjB;IACE,eAAe;EACjB;AACF","sourcesContent":["/* \nCopyright (C) 2025 Mikhail Sholokhov\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program. If not, see <https://www.gnu.org/licenses/>.\n\nIf you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you! \n*/\n\n/*\n  Josh's Custom CSS Reset\n  https://www.joshwcomeau.com/css/custom-css-reset/\n*/\n\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\n* {\n  margin: 0;\n}\n\nhtml {\n  interpolate-size: allow-keywords;\n}\n\nbody {\n  line-height: 1.5;\n  -webkit-font-smoothing: antialiased;\n}\n\nimg,\npicture,\nvideo,\ncanvas,\nsvg {\n  display: block;\n  max-width: 100%;\n}\n\ninput,\nbutton,\ntextarea,\nselect {\n  font: inherit;\n}\n\np,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  overflow-wrap: break-word;\n}\n\np {\n  text-wrap: pretty;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  text-wrap: balance;\n}\n\n#root,\n#__next {\n  isolation: isolate;\n}\n\n/* My styles  */\n\nhtml,\nbody {\n  width: 250px;\n}\n\nbody {\n  display: flex;\n  flex-direction: column;\n  button:hover {\n    cursor: pointer;\n  }\n}\n\nheader {\n  display: flex;\n  align-items: center;\n  background-color: #023e8a;\n  color: white;\n  height: 40px;\n}\n\n.logo {\n  width: 30px;\n}\n\n#settings-btn {\n  background: none;\n  border: none;\n  width: 30px;\n  margin-left: auto;\n}\n\n.item-wrapper > input[type='radio'] {\n  display: none;\n}\n\n.details {\n  display: none;\n}\n\ninput[type='radio']:checked + label > .details {\n  display: block;\n}\n\n.summary {\n  display: flex;\n  user-select: none;\n  &:hover {\n    cursor: pointer;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -516,6 +637,8 @@ var update = injectStylesIntoStyleTag_default()(style/* default */.A, options);
        /* harmony default export */ const popup_style = (style/* default */.A && style/* default */.A.locals ? style/* default */.A.locals : undefined);
 
 ;// ./src/popup/popup.js
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
 
@@ -536,6 +659,36 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 
 
+const cambridgeDictionary = document.querySelector('#cambridge-dictionary');
+const collins = document.querySelector('#collins');
+const dictionary = document.querySelector('#dictionary');
+const merriamWebster = document.querySelector('#merriam-webster');
+const thefreedictionary = document.querySelector('#thefreedictionary');
+const thesaurus = document.querySelector('#thesaurus');
+const vocabulary = document.querySelector('#vocabulary');
+const wiktionary = document.querySelector('#wiktionary');
+const resources = [cambridgeDictionary, collins, dictionary, merriamWebster, thefreedictionary, thesaurus, vocabulary, wiktionary];
+resources.forEach((res, i) => {
+  res.addEventListener('change', function check() {
+    res.removeEventListener('change', check);
+    const summary = document.querySelector(`label[for="${res.id}"] > .summary`);
+    summary.onclick = e => {
+      e.preventDefault();
+      summary.onclick = null;
+      document.onclick = null;
+      res.checked = false;
+      res.addEventListener('change', check);
+    };
+    const otherRes = resources.toSpliced(i, 1);
+    document.onclick = e => {
+      if (otherRes.includes(e.target)) {
+        summary.onclick = null;
+        document.onclick = null;
+        res.addEventListener('change', check);
+      }
+    };
+  });
+});
 /******/ })()
 ;
 //# sourceMappingURL=popup.bundle.js.map

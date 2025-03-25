@@ -14,13 +14,13 @@
     "scripts": ["./background/background.bundle.js"]
   },
 
-  "browser-action": {
-    "default-title": "Dictionaries",
-    "default-icon": {
+  "browser_action": {
+    "default_title": "Dictionaries",
+    "default_icon": {
       "16": "./static/icon.svg",
       "32": "./static/icon.svg"
     },
-    "default-popup": "./popup/popup.html"
+    "default_popup": "./popup/popup.html"
   },
 
   "permissions": ["menus", "activeTab", "storage"],
