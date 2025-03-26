@@ -1761,6 +1761,8 @@ const popup_resources = [popup_cambridgeDictionary, popup_collins, popup_diction
 popup_resources.forEach((res, i) => {
   res.addEventListener('change', function check() {
     res.removeEventListener('change', check);
+    const searchBar = document.querySelector(`label[for="${res.id}"] .search > input`);
+    searchBar.focus();
     const summary = document.querySelector(`label[for="${res.id}"] > .summary`);
     summary.onclick = e => {
       e.preventDefault();
@@ -1786,6 +1788,11 @@ popup_resources.forEach((res, i) => {
 popup_resources.forEach(res => {
   const searchBar = document.querySelector(`label[for="${res.id}"] .search > input`);
   const searchBtn = document.querySelector(`label[for="${res.id}"] .search > button`);
+  searchBar.addEventListener('keyup', e => {
+    if (e.key === 'Enter' && searchBar.value !== '') {
+      lookUp(searchBar.value, res.id);
+    }
+  });
   searchBtn.addEventListener('click', () => {
     if (searchBar.value !== '') {
       lookUp(searchBar.value, res.id);
