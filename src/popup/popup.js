@@ -46,6 +46,10 @@ const resources = [
 resources.forEach((res, i) => {
   res.addEventListener('change', function check() {
     res.removeEventListener('change', check);
+    const searchBar = document.querySelector(
+      `label[for="${res.id}"] .search > input`,
+    );
+    searchBar.focus();
     const summary = document.querySelector(`label[for="${res.id}"] > .summary`);
     summary.onclick = (e) => {
       e.preventDefault();
@@ -77,6 +81,11 @@ resources.forEach((res) => {
   const searchBtn = document.querySelector(
     `label[for="${res.id}"] .search > button`,
   );
+  searchBar.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter' && searchBar.value !== '') {
+      lookUp(searchBar.value, res.id);
+    }
+  });
   searchBtn.addEventListener('click', () => {
     if (searchBar.value !== '') {
       lookUp(searchBar.value, res.id);
