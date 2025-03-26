@@ -19,25 +19,41 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
-      <img src="./icons/icon.svg" alt="Dictionaries logo" class="logo" />
+      <!-- <img src="./icons/icon.svg" alt="Dictionaries logo" class="logo" /> -->
       <p>Dictionaries</p>
       <!-- Maybe make it a checkbox that will control the visibility of settings without JavaScript -->
       <button type="button" id="settings-btn">
-        <img src="./icons/settings.svg" alt="Settings" />
+        <img
+          src="./icons/settings.svg"
+          alt="Settings"
+          width="30px"
+          height="30px"
+        />
       </button>
     </header>
     <div class="resources">
       <div class="item-wrapper">
-        <input type="radio" name="resource" id="cambridge-dictionary" />
-        <label for="cambridge-dictionary" class="resource">
+        <input type="radio" name="resource" id="cambridgeDictionary" />
+        <label for="cambridgeDictionary" class="resource">
           <div class="summary">
             <!-- Insert resource icon -->
             <p>Cambridge Dictionary</p>
           </div>
-          <div class="details">Test</div>
+          <div class="details">
+            <div class="search">
+              <input type="search" />
+              <button type="button">Search</button>
+            </div>
+          </div>
         </label>
       </div>
       <div class="item-wrapper">
@@ -47,7 +63,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
             <!-- Insert resource icon -->
             <p>Collins</p>
           </div>
-          <div class="details">Test</div>
+          <div class="details">
+            <div class="search">
+              <input type="search" />
+              <button type="button">Search</button>
+            </div>
+          </div>
         </label>
       </div>
       <div class="item-wrapper">
@@ -57,17 +78,27 @@ If you have any questions or feedback, feel free to contact me via email at mikh
             <!-- Insert resource icon -->
             <p>Dictionary.com</p>
           </div>
-          <div class="details">Test</div>
+          <div class="details">
+            <div class="search">
+              <input type="search" />
+              <button type="button">Search</button>
+            </div>
+          </div>
         </label>
       </div>
       <div class="item-wrapper">
-        <input type="radio" name="resource" id="merriam-webster" />
-        <label for="merriam-webster" class="resource">
+        <input type="radio" name="resource" id="merriamWebster" />
+        <label for="merriamWebster" class="resource">
           <div class="summary">
             <!-- Insert resource icon -->
             <p>Merriam-Webster</p>
           </div>
-          <div class="details">Test</div>
+          <div class="details">
+            <div class="search">
+              <input type="search" />
+              <button type="button">Search</button>
+            </div>
+          </div>
         </label>
       </div>
       <div class="item-wrapper">
@@ -77,7 +108,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
             <!-- Insert resource icon -->
             <p>The Free Dictionary</p>
           </div>
-          <div class="details">Test</div>
+          <div class="details">
+            <div class="search">
+              <input type="search" />
+              <button type="button">Search</button>
+            </div>
+          </div>
         </label>
       </div>
       <div class="item-wrapper">
@@ -87,7 +123,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
             <!-- Insert resource icon -->
             <p>Thesaurus.com</p>
           </div>
-          <div class="details">Test</div>
+          <div class="details">
+            <div class="search">
+              <input type="search" />
+              <button type="button">Search</button>
+            </div>
+          </div>
         </label>
       </div>
       <div class="item-wrapper">
@@ -97,7 +138,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
             <!-- Insert resource icon -->
             <p>Vocabulary.com</p>
           </div>
-          <div class="details">Test</div>
+          <div class="details">
+            <div class="search">
+              <input type="search" />
+              <button type="button">Search</button>
+            </div>
+          </div>
         </label>
       </div>
       <div class="item-wrapper">
@@ -107,7 +153,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
             <!-- Insert resource icon -->
             <p>Wiktionary</p>
           </div>
-          <div class="details">Test</div>
+          <div class="details">
+            <div class="search">
+              <input type="search" />
+              <button type="button">Search</button>
+            </div>
+          </div>
         </label>
       </div>
     </div>

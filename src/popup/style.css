@@ -86,9 +86,17 @@ h6 {
 
 /* My styles  */
 
+@font-face {
+  font-family: 'Tulia Bold';
+  src: url('./fonts/tulia-bold.woff');
+}
+
 html,
 body {
   width: 250px;
+  border: none;
+  background-color: white;
+  overflow: hidden;
 }
 
 body {
@@ -105,6 +113,7 @@ header {
   background-color: #023e8a;
   color: white;
   height: 40px;
+  padding: 5px;
 }
 
 .logo {
@@ -122,18 +131,45 @@ header {
   display: none;
 }
 
+.item-wrapper:not(:last-child) > .resource {
+  display: block;
+  border-bottom: 1px solid black;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  height: 40px;
+  padding: 5px;
+  font-size: 1.2rem;
+  &:hover {
+    cursor: pointer;
+  }
+  label[for='cambridge-dictionary'] > & {
+    color: white;
+    background-color: #1b224c;
+    font-family: 'League Spartan', sans-serif;
+  }
+  label[for='collins'] > & {
+    font-family: 'Tulia Bold';
+  }
+}
+
 .details {
   display: none;
+  padding: 10px;
+  width: 100%;
 }
 
 input[type='radio']:checked + label > .details {
   display: block;
 }
 
-.summary {
+.search {
   display: flex;
-  user-select: none;
-  &:hover {
-    cursor: pointer;
+  gap: 5px;
+  & > input {
+    min-width: 0;
   }
 }

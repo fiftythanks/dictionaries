@@ -20,11 +20,12 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 */
 
 import './style.css';
+import lookUp from './lookup';
 
-const cambridgeDictionary = document.querySelector('#cambridge-dictionary');
+const cambridgeDictionary = document.querySelector('#cambridgeDictionary');
 const collins = document.querySelector('#collins');
 const dictionary = document.querySelector('#dictionary');
-const merriamWebster = document.querySelector('#merriam-webster');
+const merriamWebster = document.querySelector('#merriamWebster');
 const thefreedictionary = document.querySelector('#thefreedictionary');
 const thesaurus = document.querySelector('#thesaurus');
 const vocabulary = document.querySelector('#vocabulary');
@@ -41,6 +42,7 @@ const resources = [
   wiktionary,
 ];
 
+// Show/hide a resource
 resources.forEach((res, i) => {
   res.addEventListener('change', function check() {
     res.removeEventListener('change', check);
@@ -50,6 +52,11 @@ resources.forEach((res, i) => {
       summary.onclick = null;
       document.onclick = null;
       res.checked = false;
+
+      // Force browser to repaint the popup to fix a resize glitch
+      document.body.style.transform = 'scale(1.00000001)';
+      document.body.style.transform = '';
+
       res.addEventListener('change', check);
     };
     const otherRes = resources.toSpliced(i, 1);
@@ -60,5 +67,19 @@ resources.forEach((res, i) => {
         res.addEventListener('change', check);
       }
     };
+  });
+});
+
+resources.forEach((res) => {
+  const searchBar = document.querySelector(
+    `label[for="${res.id}"] .search > input`,
+  );
+  const searchBtn = document.querySelector(
+    `label[for="${res.id}"] .search > button`,
+  );
+  searchBtn.addEventListener('click', () => {
+    if (searchBar.value !== '') {
+      lookUp(searchBar.value, res.id);
+    }
   });
 });
