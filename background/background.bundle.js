@@ -2,19 +2,12 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 208:
+/***/ 59:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  bQ: () => (/* binding */ getParameters),
-  hZ: () => (/* binding */ getResource),
-  Yk: () => (/* binding */ hasParameter),
-  vd: () => (/* binding */ resIDs)
-});
-
-;// ./src/background/resources/cambridgeDictionary.mjs
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* eslint-disable no-console */
 /*
 Copyright (C) 2025 Mikhail Sholokhov
@@ -35,7 +28,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
 */
 
-/* harmony default export */ const cambridgeDictionary = ({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   defaultContextMenu: true,
   name: 'Cambridge Dictionary',
   id: 'cambridgeDictionary',
@@ -48,296 +41,6 @@ If you have any questions or feedback, feel free to contact me via email at mikh
   'grammar', 'thesaurus', 'pronunciation'],
   defaultType: 'english'
 });
-;// ./src/background/resources/collins.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const collins = ({
-  defaultContextMenu: false,
-  name: 'Collins',
-  id: 'collins',
-  types: [
-  // English
-  'en-definitions', 'en-summary', 'en-synonyms', 'en-sentences', 'en-pronunciation', 'en-collocations', 'en-conjugations', 'en-grammar',
-  // American
-  'en-us-definitions', 'en-us-summary', 'en-us-synonyms', 'en-us-sentences', 'en-us-pronunciation', 'en-us-collocations', 'en-us-conjugations', 'en-us-grammar',
-  // French
-  'en-fr', 'fr-en', 'fr-grammar', 'fr-pronunciation', 'fr-conjugations', 'fr-sentences',
-  // German
-  'en-de', 'de-en', 'de-grammar', 'de-conjugations', 'de-sentences',
-  // Italian
-  'en-it', 'it-en', 'it-grammar', 'it-conjugations', 'it-sentences',
-  // Spanish
-  'en-es', 'es-en', 'es-grammar', 'es-pronunciation', 'es-conjugations', 'es-sentences',
-  // Portuguese
-  'en-pt', 'pt-en', 'pt-grammar', 'pt-conjugations',
-  // Hindi
-  'en-hi', 'hi-en',
-  // Chinese
-  'en-zh', 'zh-en', 'en-zh-trad', 'zh-trad-en',
-  // Korean
-  'en-ko', 'ko-en',
-  // Japanese
-  'en-ja', 'ja-en'],
-  defaultType: 'en-definitions'
-});
-;// ./src/background/resources/dictionary.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const dictionary = ({
-  defaultContextMenu: false,
-  name: 'Dictionary.com',
-  id: 'dictionary'
-});
-;// ./src/background/resources/merriamWebster.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const merriamWebster = ({
-  defaultContextMenu: false,
-  name: 'Merriam-Webster',
-  id: 'merriamWebster',
-  types: ['dictionary', 'thesaurus'],
-  defaultType: 'dictionary'
-});
-;// ./src/background/resources/thefreedictionary.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const thefreedictionary = ({
-  defaultContextMenu: false,
-  name: 'The Free Dictionary',
-  id: 'thefreedictionary',
-  types: ['dictionary', 'thesaurus', 'medical', 'legal', 'financial', 'acronyms', 'idioms', 'encyclopedia', 'wikipedia'],
-  defaultType: 'dictionary',
-  options: ['word', 'startsWith', 'endsWith', 'text'],
-  defaultOption: 'word'
-});
-;// ./src/background/resources/thesaurus.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const thesaurus = ({
-  defaultContextMenu: false,
-  name: 'Thesaurus.com',
-  id: 'thesaurus'
-});
-;// ./src/background/resources/vocabulary.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const vocabulary = ({
-  defaultContextMenu: true,
-  name: 'Vocabulary',
-  id: 'vocabulary'
-});
-;// ./src/background/resources/wiktionary.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-/* harmony default export */ const wiktionary = ({
-  defaultContextMenu: true,
-  name: 'Wiktionary',
-  id: 'wiktionary',
-  // ISO-639 language codes
-  types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
-  defaultType: 'en'
-});
-// EXTERNAL MODULE: ./src/background/capitalize.mjs
-var capitalize = __webpack_require__(375);
-;// ./src/background/resService.mjs
-/* eslint-disable no-console */
-/*
-Copyright (C) 2025 Mikhail Sholokhov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
-*/
-
-
-
-
-
-
-
-
-
-
-const resources = {
-  cambridgeDictionary: cambridgeDictionary,
-  collins: collins,
-  dictionary: dictionary,
-  merriamWebster: merriamWebster,
-  thefreedictionary: thefreedictionary,
-  thesaurus: thesaurus,
-  vocabulary: vocabulary,
-  wiktionary: wiktionary
-};
-const resIDs = ['cambridgeDictionary', 'collins', 'dictionary', 'merriamWebster', 'thefreedictionary', 'thesaurus', 'vocabulary', 'wiktionary'];
-
-// returns a resource object if there is a resource corresponding to the ID and undefined if there's no such a resource
-function getResource(id) {
-  return resources[id];
-}
-function hasParameter(id, par) {
-  const res = getResource(id);
-  if (res === undefined) {
-    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
-  }
-  const result = Object.hasOwn(res, `default${(0,capitalize/* default */.A)(par)}`);
-  return result;
-}
-function getParameters(id, parameter) {
-  const res = getResource(id);
-  if (res === undefined) {
-    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
-  }
-  if (parameter === undefined) {
-    const parameters = ['contextMenu'];
-    const pars = ['type', 'option'];
-    pars.forEach(par => {
-      if (hasParameter(id, par)) parameters.push(par);
-    });
-    return parameters;
-  }
-  if (!hasParameter(id, parameter)) __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => {
-    module.throwWrongParameter(resources[id].name, parameter);
-  });
-  return res[parameter];
-}
-
 
 /***/ }),
 
@@ -373,6 +76,76 @@ function capitalize(word) {
 
 /***/ }),
 
+/***/ 406:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  defaultContextMenu: false,
+  name: 'Merriam-Webster',
+  id: 'merriamWebster',
+  types: ['dictionary', 'thesaurus'],
+  defaultType: 'dictionary'
+});
+
+/***/ }),
+
+/***/ 457:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  defaultContextMenu: false,
+  name: 'Thesaurus.com',
+  id: 'thesaurus'
+});
+
+/***/ }),
+
 /***/ 525:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -385,8 +158,8 @@ __webpack_require__.d(__webpack_exports__, {
   g6: () => (/* binding */ toggleItem)
 });
 
-// EXTERNAL MODULE: ./src/background/resService.mjs + 8 modules
-var resService = __webpack_require__(208);
+// EXTERNAL MODULE: ./src/background/resService.mjs
+var resService = __webpack_require__(718);
 ;// ./src/background/lookUp.mjs
 /* eslint-disable no-console */
 /*
@@ -953,6 +726,40 @@ async function toggleItem(id) {
 
 /***/ }),
 
+/***/ 539:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  defaultContextMenu: true,
+  name: 'Vocabulary',
+  id: 'vocabulary'
+});
+
+/***/ }),
+
 /***/ 594:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -962,8 +769,8 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ settings)
 });
 
-// EXTERNAL MODULE: ./src/background/resService.mjs + 8 modules
-var resService = __webpack_require__(208);
+// EXTERNAL MODULE: ./src/background/resService.mjs
+var resService = __webpack_require__(718);
 // EXTERNAL MODULE: ./src/background/contextMenu.mjs + 1 modules
 var contextMenu = __webpack_require__(525);
 // EXTERNAL MODULE: ./src/background/capitalize.mjs
@@ -1138,6 +945,99 @@ If you have any questions or feedback, feel free to contact me via email at mikh
 
 /***/ }),
 
+/***/ 718:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Yk: () => (/* binding */ hasParameter),
+/* harmony export */   bQ: () => (/* binding */ getParameters),
+/* harmony export */   hZ: () => (/* binding */ getResource),
+/* harmony export */   vd: () => (/* binding */ resIDs)
+/* harmony export */ });
+/* harmony import */ var _resources_cambridgeDictionary_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59);
+/* harmony import */ var _resources_collins_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(879);
+/* harmony import */ var _resources_dictionary_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(971);
+/* harmony import */ var _resources_merriamWebster_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(406);
+/* harmony import */ var _resources_thefreedictionary_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(994);
+/* harmony import */ var _resources_thesaurus_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(457);
+/* harmony import */ var _resources_vocabulary_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(539);
+/* harmony import */ var _resources_wiktionary_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(990);
+/* harmony import */ var _capitalize_mjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(375);
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+
+
+
+
+
+
+
+
+
+const resources = {
+  cambridgeDictionary: _resources_cambridgeDictionary_mjs__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A,
+  collins: _resources_collins_mjs__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A,
+  dictionary: _resources_dictionary_mjs__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A,
+  merriamWebster: _resources_merriamWebster_mjs__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .A,
+  thefreedictionary: _resources_thefreedictionary_mjs__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .A,
+  thesaurus: _resources_thesaurus_mjs__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .A,
+  vocabulary: _resources_vocabulary_mjs__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .A,
+  wiktionary: _resources_wiktionary_mjs__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .A
+};
+const resIDs = ['cambridgeDictionary', 'collins', 'dictionary', 'merriamWebster', 'thefreedictionary', 'thesaurus', 'vocabulary', 'wiktionary'];
+
+// returns a resource object if there is a resource corresponding to the ID and undefined if there's no such a resource
+function getResource(id) {
+  return resources[id];
+}
+function hasParameter(id, par) {
+  const res = getResource(id);
+  if (res === undefined) {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+  }
+  const result = Object.hasOwn(res, `default${(0,_capitalize_mjs__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .A)(par)}`);
+  return result;
+}
+function getParameters(id, parameter) {
+  const res = getResource(id);
+  if (res === undefined) {
+    __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => module.throwWrongID(id));
+  }
+  if (parameter === undefined) {
+    const parameters = ['contextMenu'];
+    const pars = ['type', 'option'];
+    pars.forEach(par => {
+      if (hasParameter(id, par)) parameters.push(par);
+    });
+    return parameters;
+  }
+  if (!hasParameter(id, parameter)) __webpack_require__.e(/* import() */ 477).then(__webpack_require__.bind(__webpack_require__, 477)).then(module => {
+    module.throwWrongParameter(resources[id].name, parameter);
+  });
+  return res[parameter];
+}
+
+
+/***/ }),
+
 /***/ 780:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -1151,7 +1051,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pushLocalRes: () => (/* binding */ pushLocalRes),
 /* harmony export */   sync: () => (/* binding */ sync)
 /* harmony export */ });
-/* harmony import */ var _resService_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(208);
+/* harmony import */ var _resService_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(718);
 /* harmony import */ var _capitalize_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(375);
 /* harmony import */ var _settings_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(594);
 /*
@@ -1392,6 +1292,173 @@ async function sync() {
     }
   }
 }
+
+/***/ }),
+
+/***/ 879:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  defaultContextMenu: false,
+  name: 'Collins',
+  id: 'collins',
+  types: [
+  // English
+  'en-definitions', 'en-summary', 'en-synonyms', 'en-sentences', 'en-pronunciation', 'en-collocations', 'en-conjugations', 'en-grammar',
+  // American
+  'en-us-definitions', 'en-us-summary', 'en-us-synonyms', 'en-us-sentences', 'en-us-pronunciation', 'en-us-collocations', 'en-us-conjugations', 'en-us-grammar',
+  // French
+  'en-fr', 'fr-en', 'fr-grammar', 'fr-pronunciation', 'fr-conjugations', 'fr-sentences',
+  // German
+  'en-de', 'de-en', 'de-grammar', 'de-conjugations', 'de-sentences',
+  // Italian
+  'en-it', 'it-en', 'it-grammar', 'it-conjugations', 'it-sentences',
+  // Spanish
+  'en-es', 'es-en', 'es-grammar', 'es-pronunciation', 'es-conjugations', 'es-sentences',
+  // Portuguese
+  'en-pt', 'pt-en', 'pt-grammar', 'pt-conjugations',
+  // Hindi
+  'en-hi', 'hi-en',
+  // Chinese
+  'en-zh', 'zh-en', 'en-zh-trad', 'zh-trad-en',
+  // Korean
+  'en-ko', 'ko-en',
+  // Japanese
+  'en-ja', 'ja-en'],
+  defaultType: 'en-definitions'
+});
+
+/***/ }),
+
+/***/ 971:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  defaultContextMenu: false,
+  name: 'Dictionary.com',
+  id: 'dictionary'
+});
+
+/***/ }),
+
+/***/ 990:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  defaultContextMenu: true,
+  name: 'Wiktionary',
+  id: 'wiktionary',
+  // ISO-639 language codes
+  types: ['en', 'fr', 'de', 'pl', 'ja', 'sv', 'es', 'zh', 'el', 'ru'],
+  defaultType: 'en'
+});
+
+/***/ }),
+
+/***/ 994:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* eslint-disable no-console */
+/*
+Copyright (C) 2025 Mikhail Sholokhov
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+If you have any questions or feedback, feel free to contact me via email at mikhail.sholokhov@tutamail.com or reach out in Telegram: https://t.me/mikhail_sholokhov. I'm happy to hear from you!
+*/
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  defaultContextMenu: false,
+  name: 'The Free Dictionary',
+  id: 'thefreedictionary',
+  types: ['dictionary', 'thesaurus', 'medical', 'legal', 'financial', 'acronyms', 'idioms', 'encyclopedia', 'wikipedia'],
+  defaultType: 'dictionary',
+  options: ['word', 'startsWith', 'endsWith', 'text'],
+  defaultOption: 'word'
+});
 
 /***/ })
 
